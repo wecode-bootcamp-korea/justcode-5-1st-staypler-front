@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap'); //Abel font-weight: 400
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap'); //Lato font-weight: 400, 700
+@import url('https://use.typekit.net/bsd7apx.css'); //Droid-sans font-weight: 400, 700
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans KR', 'Abel', 'Lato', 'droid-sans', sans-serif;
+}
