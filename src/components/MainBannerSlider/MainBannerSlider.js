@@ -4,25 +4,44 @@ import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
 function MainBannerSlider() {
   const [data, setData] = useState([]);
-  const dataLength = data.length;
+  const dataLength = data.length - 2;
+  let cardContainerRef = useRef();
 
   useEffect(() => {
     fetch('http://localhost:3000/data/MainBannerSliderData.json')
       .then(res => res.json())
       .then(fetchdata => {
-        setData(fetchdata);
+        setData([fetchdata[fetchdata.length - 1], ...fetchdata, fetchdata[0]]);
       });
   }, []);
 
-  let cardContainerRef = useRef();
+  useEffect(() => {
+    cardContainerRef.current.style.scrollBehavior = 'auto';
+    cardContainerRef.current.scrollLeft = 1800;
+  }, [cardContainerRef.current]);
+
   const sliderLeft = () => {
+    infinity();
     cardContainerRef.current.style.scrollBehavior = 'smooth';
     cardContainerRef.current.scrollLeft -= 1800;
   };
 
   const sliderRight = () => {
+    infinity();
     cardContainerRef.current.style.scrollBehavior = 'smooth';
     cardContainerRef.current.scrollLeft += 1800;
+  };
+
+  const infinity = () => {
+    if (cardContainerRef.current.scrollLeft === 0) {
+      cardContainerRef.current.style.scrollBehavior = 'auto';
+      cardContainerRef.current.scrollLeft = 1800 * dataLength;
+    }
+
+    if (cardContainerRef.current.scrollLeft === 1800 * (dataLength + 1)) {
+      cardContainerRef.current.style.scrollBehavior = 'auto';
+      cardContainerRef.current.scrollLeft = 1800;
+    }
   };
 
   const carouselRef = useRef();
@@ -44,6 +63,7 @@ function MainBannerSlider() {
     });
 
     carouselRef?.current.addEventListener('mousemove', e => {
+      // infinity();
       if (!isPressedDown) return;
       e.preventDefault();
       cardContainerRef.current.style.scrollBehavior = 'smooth';
