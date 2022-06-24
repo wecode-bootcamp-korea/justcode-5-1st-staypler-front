@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { MdArrowBackIos, MdArrowForwardIos, MdMaximize } from 'react-icons/md';
-
 import css from './MainBannerSlider.module.scss';
+import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
 function MainBannerSlider() {
   const [data, setData] = useState([]);
@@ -15,24 +14,54 @@ function MainBannerSlider() {
       });
   }, []);
 
-  let cardContainerReft = useRef();
+  let cardContainerRef = useRef();
   const sliderLeft = () => {
-    cardContainerReft.current.style.scrollBehavior = 'smooth';
-    cardContainerReft.current.scrollLeft -= 1800;
+    cardContainerRef.current.style.scrollBehavior = 'smooth';
+    cardContainerRef.current.scrollLeft -= 1800;
   };
 
   const sliderRight = () => {
-    cardContainerReft.current.style.scrollBehavior = 'smooth';
-    cardContainerReft.current.scrollLeft += 1800;
+    cardContainerRef.current.style.scrollBehavior = 'smooth';
+    cardContainerRef.current.scrollLeft += 1800;
   };
+
+  const carouselRef = useRef();
+  let isPressedDown = false;
+  let cursorXspace;
+
+  useEffect(() => {
+    window.addEventListener('mouseup', () => {
+      isPressedDown = false;
+    });
+
+    carouselRef?.current.addEventListener('mousedown', e => {
+      isPressedDown = true;
+      cursorXspace = e.offsetX - cardContainerRef.current.offsetLeft;
+    });
+
+    carouselRef?.current.addEventListener('mouseup', () => {
+      isPressedDown = false;
+    });
+
+    carouselRef?.current.addEventListener('mousemove', e => {
+      if (!isPressedDown) return;
+      e.preventDefault();
+      cardContainerRef.current.style.scrollBehavior = 'smooth';
+      if (cursorXspace - e.offsetX > 350) {
+        cardContainerRef.current.scrollLeft += 1800;
+      } else if (cursorXspace - e.offsetX < -350) {
+        cardContainerRef.current.scrollLeft -= 1800;
+      }
+    });
+  }, [carouselRef]);
 
   return (
     <div className={css.component}>
-      <div className={css.carousel}>
-        <div className={css.cardContainer} ref={cardContainerReft}>
+      <div className={css.carousel} ref={carouselRef}>
+        <ul className={css.cardContainer} ref={cardContainerRef}>
           {data.map((a, i) => {
             return (
-              <div className={css.card} key={i}>
+              <li className={css.card} key={i}>
                 <div
                   className={css.roomImg}
                   style={{
@@ -68,10 +97,10 @@ function MainBannerSlider() {
                     />
                   </div>
                 </div>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
         <div className={css.btnGroup}></div>
       </div>
     </div>
