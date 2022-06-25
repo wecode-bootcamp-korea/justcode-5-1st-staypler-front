@@ -18,7 +18,6 @@ function Signup() {
     rePassword: '',
     phoneNum: '',
   });
-  const { email, name, password, rePassword, phoneNum } = inputValue;
 
   const handleInput = event => {
     const { name, value } = event.target;
@@ -27,6 +26,13 @@ function Signup() {
       [name]: value,
     });
   };
+  const [desc, setDesc] = useState({
+    email: '',
+    name: '',
+    password: '',
+    rePassword: '',
+    phoneNum: '',
+  });
 
   const [emailValid, setEmailValid] = useState(false);
   const [nameValid, setNameValid] = useState(false);
@@ -34,116 +40,110 @@ function Signup() {
   const [rePasswordValid, setRePasswordValid] = useState(false);
   const [phoneNumValid, setPhoneNumValid] = useState(false);
 
-  const [nameDesc, setNameDesc] = useState('');
-  const [emailDesc, setEmailDesc] = useState('');
-  const [passwordDesc, setPasswordDesc] = useState('');
-  const [rePasswordDesc, setRePasswordDesc] = useState('');
-  const [phoneNumDesc, setPhoneNumDesc] = useState('');
-
-  const [allCheck, setAllCheck] = useState(false);
-  const [serviceCheck, setServiceCheck] = useState(false);
-  const [useCheck, setUseCheck] = useState(false);
-  const [ageCheck, setAgeCheck] = useState(false);
-  const [membershipCheck, setMembershipCheck] = useState(false);
-  const [marketingCheck, setMarketingCheck] = useState(false);
-
+  const [check, setCheck] = useState({
+    allBtn: false,
+    serviceBtn: false,
+    useBtn: false,
+    ageBtn: false,
+    membershipBtn: false,
+    marketingBtn: false,
+  });
   const allBtnEvent = () => {
-    if (allCheck === false) {
-      setAllCheck(true);
-      setServiceCheck(true);
-      setAgeCheck(true);
-      setUseCheck(true);
-      setMarketingCheck(true);
-      setMembershipCheck(true);
+    if (check.allBtn === false) {
+      setCheck({
+        allBtn: true,
+        serviceBtn: true,
+        useBtn: true,
+        ageBtn: true,
+        membershipBtn: true,
+        marketingBtn: true,
+      });
     } else {
-      setAllCheck(false);
-      setServiceCheck(false);
-      setAgeCheck(false);
-      setUseCheck(false);
-      setMarketingCheck(false);
-      setMembershipCheck(false);
+      setCheck({
+        allBtn: false,
+        serviceBtn: false,
+        useBtn: false,
+        ageBtn: false,
+        membershipBtn: false,
+        marketingBtn: false,
+      });
     }
   };
+  const btnEvent = e => {
+    const { name } = e.target;
+    setCheck({ ...check, [name]: !check[name] });
+  };
 
-  const serviceBtnEvent = () => {
-    setServiceCheck(!serviceCheck);
-  };
-  const useBtnEvent = () => {
-    setUseCheck(!useCheck);
-  };
-  const ageBtnEvent = () => {
-    setAgeCheck(!ageCheck);
-  };
-  const membershipBtnEvent = () => {
-    setMembershipCheck(!membershipCheck);
-  };
-  const marketingBtnEvent = () => {
-    setMarketingCheck(!marketingCheck);
-  };
   useEffect(() => {
     if (
-      ageCheck === true &&
-      useCheck === true &&
-      membershipCheck === true &&
-      marketingCheck === true &&
-      serviceCheck === true
+      check.allBtn === true &&
+      check.useBtn === true &&
+      check.membershipBtn === true &&
+      check.marketingBtn === true &&
+      check.serviceBtn === true
     ) {
-      setAllCheck(true);
+      setCheck({ ...check, allBtn: true });
     } else {
-      setAllCheck(false);
+      setCheck({ ...check, allBtn: false });
     }
-  }, [ageCheck, useCheck, serviceCheck, membershipCheck, marketingCheck]);
+  }, [check]);
 
   const emailValidation = () => {
-    if (regEmail.test(email)) {
+    if (regEmail.test(inputValue.email)) {
       setEmailValid(true);
-      setEmailDesc('');
+      setDesc({ ...desc, [desc.email]: '' });
     } else {
       setEmailValid(false);
-      setEmailDesc('잘못된 양식입니다.');
+      setDesc({ ...desc, email: '잘못된양식입니다.' });
     }
   };
   const nameValidation = () => {
-    if (1 < name.length && name.length < 10) {
+    if (1 < inputValue.name.length && inputValue.name.length < 10) {
       setNameValid(true);
-      setNameDesc('');
+      setDesc({ ...desc, name: '' });
     } else {
       setNameValid(false);
-      setNameDesc('1자이상 10자이하로 입력해주세요.');
+      setDesc({ ...desc, name: '1자이상 10자이하로 입력해주세요.' });
     }
   };
 
   const passwordValidation = () => {
     if (
-      8 < password.length &&
-      password.length < 20 &&
-      regNumber.test(password) &&
-      regString.test(password) &&
-      regSpecialCharacter.test(password)
+      8 < inputValue.password.length &&
+      inputValue.password.length < 20 &&
+      regNumber.test(inputValue.password) &&
+      regString.test(inputValue.password) &&
+      regSpecialCharacter.test(inputValue.password)
     ) {
       setPasswordValid(true);
-      setPasswordDesc('');
+      setDesc({ ...desc, [desc.password]: '' });
     } else {
       setPasswordValid(false);
-      setPasswordDesc('8자이상 20자이하, 숫자, 문자, 특수문자를 포함해주세요.');
+      setDesc({
+        ...desc,
+        password: '8자이상 20자이하, 숫자, 문자, 특수문자를 포함해주세요.',
+      });
     }
   };
   const rePasswordValidation = () => {
-    if (rePassword === password) {
+    if (inputValue.rePassword === inputValue.password) {
       setRePasswordValid(true);
-      setRePasswordDesc('');
+      setDesc({ ...desc, repassword: '' });
     } else {
       setRePasswordValid(false);
-      setRePasswordDesc('입력하신 비밀번호가 같지않습니다.');
+      setDesc({ ...desc, repassword: '입력하신 비밀번호가 같지않습니다.' });
     }
   };
   const phoneNumValidation = () => {
-    if (regPhoneNum.test(phoneNum)) {
+    if (regPhoneNum.test(inputValue.phoneNum)) {
       setPhoneNumValid(true);
-      setPhoneNumDesc('');
+      setDesc({ ...desc, phoneNum: '' });
     } else {
       setPhoneNumValid(false);
-      setPhoneNumDesc('잘못된양식입니다! -포함해서 입력해주세요');
+      setDesc({
+        ...desc,
+        phoneNum: '잘못된양식입니다! -포함해서 입력해주세요',
+      });
     }
   };
   return (
@@ -164,7 +164,7 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={emailValidation}
               />
-              <div className={css.description}>{emailDesc}</div>
+              <div className={css.description}>{desc.email}</div>
             </div>
             <div className={css.inputbox}>
               <div className={css.title}>이름</div>
@@ -175,7 +175,7 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={nameValidation}
               />
-              <div className={css.description}>{nameDesc}</div>
+              <div className={css.description}>{desc.name}</div>
             </div>
             <div className={css.inputbox}>
               <div className={css.title}>비밀번호</div>
@@ -186,7 +186,7 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={passwordValidation}
               />
-              <div className={css.description}>{passwordDesc}</div>
+              <div className={css.description}>{desc.password}</div>
               <input
                 type="password"
                 name="rePassword"
@@ -194,7 +194,7 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={rePasswordValidation}
               />
-              <div className={css.description}>{rePasswordDesc}</div>
+              <div className={css.description}>{desc.rePassword}</div>
             </div>
             <div className={css.inputbox}>
               <div className={css.title}>휴대전화</div>
@@ -205,13 +205,14 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={phoneNumValidation}
               />
-              <div className={css.description}>{phoneNumDesc}</div>
+              <div className={css.description}>{desc.phoneNum}</div>
             </div>
             <div className={css.lowerbodywrapper}>
               <div className={css.agreeall}>
                 <input
                   type="checkbox"
-                  checked={allCheck}
+                  name="allBtn"
+                  checked={check.allBtn}
                   className={css.checkbox}
                   onChange={allBtnEvent}
                 />
@@ -221,9 +222,10 @@ function Signup() {
                 <div className={css.agree}>
                   <input
                     type="checkbox"
+                    name="serviceBtn"
                     className={css.checkbox}
-                    checked={serviceCheck}
-                    onChange={serviceBtnEvent}
+                    checked={check.serviceBtn}
+                    onChange={btnEvent}
                   />
                   <span>서비스 이용약관 동의(필수)</span>
                 </div>
@@ -233,9 +235,10 @@ function Signup() {
                 <div className={css.agree}>
                   <input
                     type="checkbox"
-                    checked={useCheck}
+                    name="useBtn"
+                    checked={check.useBtn}
                     className={css.checkbox}
-                    onChange={useBtnEvent}
+                    onChange={btnEvent}
                   />
                   <span>개인정보 처리방침 동의(필수)</span>
                 </div>
@@ -245,9 +248,10 @@ function Signup() {
                 <div className={css.agree}>
                   <input
                     type="checkbox"
-                    checked={ageCheck}
+                    name="ageBtn"
+                    checked={check.ageBtn}
                     className={css.checkbox}
-                    onChange={ageBtnEvent}
+                    onChange={btnEvent}
                   />
                   <span>만 14세 이상 확인(필수)</span>
                 </div>
@@ -257,9 +261,10 @@ function Signup() {
                 <div className={css.agree}>
                   <input
                     type="checkbox"
-                    checked={membershipCheck}
+                    name="membershipBtn"
+                    checked={check.membershipBtn}
                     className={css.checkbox}
-                    onChange={membershipBtnEvent}
+                    onChange={btnEvent}
                   />
                   <span>평생회원제 동의(선택)</span>
                 </div>
@@ -269,9 +274,10 @@ function Signup() {
                 <div className={css.agree}>
                   <input
                     type="checkbox"
+                    name="marketingBtn"
                     className={css.checkbox}
-                    checked={marketingCheck}
-                    onChange={marketingBtnEvent}
+                    checked={check.marketingBtn}
+                    onChange={btnEvent}
                   />
                   <span>마케팅 정보 수신 동의(선택)</span>
                 </div>
