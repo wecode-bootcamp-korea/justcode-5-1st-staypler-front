@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import css from './MainPromationSlider.module.scss';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
 function MainPromationSlider() {
   const [data, setData] = useState([]);
   const dataLength = data.length - 2;
-  console.log(data);
+  let cardContainerRef = useRef();
+
   useEffect(() => {
     fetch('http://localhost:3000/data/MainPromationSlider.json')
       .then(res => res.json())
@@ -14,10 +15,70 @@ function MainPromationSlider() {
       });
   }, []);
 
+  useEffect(() => {
+    cardContainerRef.current.style.scrollBehavior = 'auto';
+    cardContainerRef.current.scrollLeft = 1330;
+  }, [cardContainerRef.current]);
+
+  const sliderLeft = () => {
+    infinity();
+    cardContainerRef.current.style.scrollBehavior = 'smooth';
+    cardContainerRef.current.scrollLeft -= 1330;
+  };
+
+  const sliderRight = () => {
+    infinity();
+    cardContainerRef.current.style.scrollBehavior = 'smooth';
+    cardContainerRef.current.scrollLeft += 1330;
+  };
+
+  const infinity = () => {
+    if (cardContainerRef.current.scrollLeft === 0) {
+      cardContainerRef.current.style.scrollBehavior = 'auto';
+      cardContainerRef.current.scrollLeft = 1330 * dataLength;
+    }
+
+    if (cardContainerRef.current.scrollLeft === 1330 * (dataLength + 1)) {
+      cardContainerRef.current.style.scrollBehavior = 'auto';
+      cardContainerRef.current.scrollLeft = 1330;
+    }
+  };
+
+  const carouselRef = useRef();
+  let isPressedDown = false;
+  let cursorXspace;
+
+  useEffect(() => {
+    window.addEventListener('mouseup', () => {
+      isPressedDown = false;
+    });
+
+    carouselRef?.current.addEventListener('mousedown', e => {
+      isPressedDown = true;
+      cursorXspace = e.offsetX - cardContainerRef.current.offsetLeft;
+    });
+
+    carouselRef?.current.addEventListener('mouseup', () => {
+      isPressedDown = false;
+    });
+
+    carouselRef?.current.addEventListener('mousemove', e => {
+      infinity();
+      if (!isPressedDown) return;
+      e.preventDefault();
+      cardContainerRef.current.style.scrollBehavior = 'smooth';
+      if (cursorXspace - e.offsetX > 250) {
+        cardContainerRef.current.scrollLeft += 1330;
+      } else if (cursorXspace - e.offsetX < -250) {
+        cardContainerRef.current.scrollLeft -= 1330;
+      }
+    });
+  }, [carouselRef]);
+
   return (
     <div className={css.component}>
-      <div className={css.carousel}>
-        <ul className={css.cardContainer}>
+      <div className={css.carousel} ref={carouselRef}>
+        <ul className={css.cardContainer} ref={cardContainerRef}>
           {data.map((a, i) => {
             return (
               <div className={css.card} key={i}>
@@ -52,8 +113,11 @@ function MainPromationSlider() {
                   <div className={css.pagenation}>
                     <p className={css.currentPage}>{data[i].id + 1}</p>
                     <p className={css.totalPage}>{dataLength}</p>
-                    <MdArrowBackIos className={css.btn} />
-                    <MdArrowForwardIos className={css.btn} />
+                    <MdArrowBackIos className={css.btn} onClick={sliderLeft} />
+                    <MdArrowForwardIos
+                      className={css.btn}
+                      onClick={sliderRight}
+                    />
                   </div>
                 </div>
 

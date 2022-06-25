@@ -26,6 +26,8 @@
 }
 
 .card {
+  width: 1330px;
+  height: 540px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,12 +36,12 @@
 
 .promtionInfo {
   width: 370px;
-  height: 540px;
+  height: 100%;
 }
 
 .promtionImg {
   width: 960px;
-  height: 540px;
+  height: 100%;
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
