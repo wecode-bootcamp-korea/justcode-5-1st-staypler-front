@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import css from './MainPromationSlider.module.scss';
+import css from './MainPromotionSlider.module.scss';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
-function MainPromationSlider() {
+function MainPromotionSlider() {
   const [data, setData] = useState([]);
   const dataLength = data.length - 2;
   let cardContainerRef = useRef();
@@ -140,4 +140,4 @@ function MainPromationSlider() {
   );
 }
 
-export default MainPromationSlider;
+export default MainPromotionSlider;
