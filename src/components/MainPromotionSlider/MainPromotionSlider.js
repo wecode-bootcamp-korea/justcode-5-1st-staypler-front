@@ -1,11 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react';
 import css from './MainPromotionSlider.module.scss';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+
+const infinity = (cardContainerRef, carouselRef, dataLength) => {
+  if (cardContainerRef.current.scrollLeft === 0) {
+    cardContainerRef.current.style.scrollBehavior = 'auto';
+    cardContainerRef.current.scrollLeft =
+      carouselRef.current.offsetWidth * dataLength;
+  }
+
+  if (
+    cardContainerRef.current.scrollLeft ===
+    carouselRef.current.offsetWidth * (dataLength + 1)
+  ) {
+    cardContainerRef.current.style.scrollBehavior = 'auto';
+    cardContainerRef.current.scrollLeft = carouselRef.current.offsetWidth;
+  }
+};
 
 function MainPromotionSlider() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const dataLength = data.length - 2;
   let cardContainerRef = useRef();
+  const carouselRef = useRef();
 
   useEffect(() => {
     fetch('http://localhost:3000/data/MainPromationSlider.json')
@@ -15,65 +34,72 @@ function MainPromotionSlider() {
       });
   }, []);
 
+  const goToDetail = id => {
+    navigate(`/rooms/${data[id].rooms_id}`);
+  };
+
   useEffect(() => {
     cardContainerRef.current.style.scrollBehavior = 'auto';
-    cardContainerRef.current.scrollLeft = 1330;
+    cardContainerRef.current.scrollLeft = carouselRef.current.offsetWidth;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardContainerRef.current]);
 
   const sliderLeft = () => {
-    infinity();
+    infinity(cardContainerRef, carouselRef, dataLength);
     cardContainerRef.current.style.scrollBehavior = 'smooth';
-    cardContainerRef.current.scrollLeft -= 1330;
+    cardContainerRef.current.scrollLeft -= carouselRef.current.offsetWidth;
   };
 
   const sliderRight = () => {
-    infinity();
+    infinity(cardContainerRef, carouselRef, dataLength);
     cardContainerRef.current.style.scrollBehavior = 'smooth';
-    cardContainerRef.current.scrollLeft += 1330;
+    cardContainerRef.current.scrollLeft += carouselRef.current.offsetWidth;
   };
-
-  const infinity = () => {
-    if (cardContainerRef.current.scrollLeft === 0) {
-      cardContainerRef.current.style.scrollBehavior = 'auto';
-      cardContainerRef.current.scrollLeft = 1330 * dataLength;
-    }
-
-    if (cardContainerRef.current.scrollLeft === 1330 * (dataLength + 1)) {
-      cardContainerRef.current.style.scrollBehavior = 'auto';
-      cardContainerRef.current.scrollLeft = 1330;
-    }
-  };
-
-  const carouselRef = useRef();
-  let isPressedDown = false;
-  let cursorXspace;
 
   useEffect(() => {
-    window.addEventListener('mouseup', () => {
-      isPressedDown = false;
-    });
+    let isPressedDown = false;
+    let cursorXspace;
 
-    carouselRef?.current.addEventListener('mousedown', e => {
+    const carouselRefCurrent = carouselRef.current;
+
+    function mouseUpCallback() {
+      isPressedDown = false;
+    }
+
+    function mouseDownCallback(e) {
       isPressedDown = true;
       cursorXspace = e.offsetX - cardContainerRef.current.offsetLeft;
-    });
+    }
 
-    carouselRef?.current.addEventListener('mouseup', () => {
-      isPressedDown = false;
-    });
+    function mouseMoveCallback(e) {
+      infinity(cardContainerRef, carouselRef, dataLength);
 
-    carouselRef?.current.addEventListener('mousemove', e => {
-      infinity();
       if (!isPressedDown) return;
       e.preventDefault();
       cardContainerRef.current.style.scrollBehavior = 'smooth';
-      if (cursorXspace - e.offsetX > 250) {
-        cardContainerRef.current.scrollLeft += 1330;
-      } else if (cursorXspace - e.offsetX < -250) {
-        cardContainerRef.current.scrollLeft -= 1330;
+      if (cursorXspace - e.offsetX > carouselRefCurrent.offsetWidth * 0.2) {
+        cardContainerRef.current.scrollLeft += carouselRefCurrent.offsetWidth;
+      } else if (
+        cursorXspace - e.offsetX <
+        carouselRefCurrent.offsetWidth * -0.2
+      ) {
+        cardContainerRef.current.scrollLeft -= carouselRefCurrent.offsetWidth;
       }
-    });
-  }, [carouselRef]);
+    }
+
+    window.addEventListener('mouseup', mouseUpCallback);
+    carouselRefCurrent.addEventListener('mousedown', mouseDownCallback);
+    carouselRefCurrent.addEventListener('mouseup', mouseUpCallback);
+    carouselRefCurrent.addEventListener('mousemove', mouseMoveCallback);
+
+    return () => {
+      window.removeEventListener('mouseup', mouseUpCallback);
+      carouselRefCurrent.removeEventListener('mousedown', mouseDownCallback);
+      carouselRefCurrent.removeEventListener('mouseup', mouseUpCallback);
+      carouselRefCurrent.removeEventListener('mousemove', mouseMoveCallback);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carouselRef.current]);
 
   return (
     <div className={css.component}>
@@ -81,7 +107,13 @@ function MainPromotionSlider() {
         <ul className={css.cardContainer} ref={cardContainerRef}>
           {data.map((a, i) => {
             return (
-              <div className={css.card} key={i}>
+              <div
+                className={css.card}
+                key={i}
+                onDoubleClick={() => {
+                  goToDetail(i);
+                }}
+              >
                 <div className={css.promtionInfo}>
                   <p className={css.promotion}>PROMOTION</p>
                   <h1 className={css.promotionTitle}>
