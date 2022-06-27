@@ -8,7 +8,8 @@
 
 .carousel {
   height: 850px;
-  width: 1800px;
+  max-width: 1800px;
+  width: 100%;
   background: rgb(24 24 24 / 22%);
 }
 
@@ -31,7 +32,7 @@
 
 .card {
   height: 850px;
-  width: 1800px;
+  width: 100%;
   position: relative;
   display: inline-block;
   scroll-snap-align: center;
@@ -52,31 +53,31 @@
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  left: 1410px;
+  right: 60px;
   background: #ffffff;
   text-align: center;
   color: #181818;
-}
 
-.roomName {
-  font-family: 'Noto Serif KR', serif;
-  margin-top: 35px;
-  font-weight: 500;
-  font-size: 35px;
-}
+  .roomName {
+    font-family: 'Noto Serif KR', serif;
+    margin-top: 35px;
+    font-weight: 500;
+    font-size: 35px;
+  }
 
-.roomConcept {
-  margin: 30px 0px 80px;
-  font-weight: 300;
-  font-size: 17px;
-}
+  .roomConcept {
+    margin: 30px 0px 80px;
+    font-weight: 300;
+    font-size: 17px;
+  }
 
-.readMore {
-  font-family: 'Abel', 'Noto Sans KR', serif;
-  font-size: 15px;
-  padding-bottom: 8px;
-  display: inline-block;
-  border-bottom: 1px solid black;
+  .readMore {
+    font-family: 'Abel', 'Noto Sans KR', serif;
+    font-size: 15px;
+    padding-bottom: 8px;
+    display: inline-block;
+    border-bottom: 1px solid black;
+  }
 }
 
 .pagenation {
@@ -87,7 +88,6 @@
   bottom: 0;
   align-items: center;
   font-size: 18px;
-
   background: #000000cc;
 }
 
@@ -100,21 +100,21 @@
   border-right: 1px solid #ffffff2b;
   font-weight: 300;
   font-size: 18px;
-}
 
-.currentPage {
-  font-size: 22px;
-  font-weight: 400;
-  color: #ffffffc4;
-}
+  .currentPage {
+    font-size: 22px;
+    font-weight: 400;
+    color: #ffffffc4;
+  }
 
-.totalPage::before {
-  content: '/';
-  margin: 0 5px;
-}
+  .totalPage::before {
+    content: '/';
+    margin: 0 5px;
+  }
 
-.totalPage {
-  color: #ffffff69;
+  .totalPage {
+    color: #ffffff69;
+  }
 }
 
 .sliderBtns {
@@ -124,10 +124,10 @@
   justify-content: center;
   align-items: center;
   color: #ffffff69;
-}
 
-.prevBtn {
-  border-right: 1px solid #ffffff2b;
-  width: 30px;
-  margin-right: 12px;
+  .prevBtn {
+    border-right: 1px solid #ffffff2b;
+    width: 30px;
+    margin-right: 12px;
+  }
 }
