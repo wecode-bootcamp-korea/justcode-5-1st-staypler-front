@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import css from './Main3imagesSlider.module.scss';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const infinity = (cardContainerRef, carouselRef, dataLength) => {
   if (cardContainerRef?.current.scrollLeft === 0) {
@@ -21,6 +22,7 @@ const infinity = (cardContainerRef, carouselRef, dataLength) => {
 
 function Main3imagesSlider() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const dataLength = data?.length / 3;
   let cardContainerRef = useRef();
   const carouselRef = useRef();
@@ -33,6 +35,10 @@ function Main3imagesSlider() {
         setData([...fetchdata, ...fetchdata, ...fetchdata]);
       });
   }, []);
+
+  const goToDetail = id => {
+    navigate(`/rooms/${data[id].rooms_id}`);
+  };
 
   useEffect(() => {
     cardContainerRef.current.style.scrollBehavior = 'auto';
@@ -75,7 +81,13 @@ function Main3imagesSlider() {
           <div className={css.cards}>
             {data.map((a, i) => {
               return (
-                <div className={css.card} key={i}>
+                <div
+                  className={css.card}
+                  key={i}
+                  onClick={() => {
+                    goToDetail(i);
+                  }}
+                >
                   <div
                     className={css.cardImg}
                     style={{
