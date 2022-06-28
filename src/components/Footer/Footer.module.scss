@@ -1,2 +1,33 @@
 .container {
+  background-color: #f5f5f5;
+  padding: 175px 30px 70px 30px;
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footerLeft {
+}
+
+.menu {
+}
+
+.footerDetail {
+  font-size: 10px;
+  line-height: 30px;
+}
+
+.copyRight {
+  font-weight: bold;
+}
+
+.footerRight {
+  adding-left: 30px;
+  border-left: 1.5px solid rgba(128, 128, 128, 0.3);
+}
+
+.logo {
+}
+
+.icon {
 }

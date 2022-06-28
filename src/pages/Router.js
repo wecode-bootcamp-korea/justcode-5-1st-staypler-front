@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import Header from './../components/Header/Header';
+import Footer from './../components/Footer/Footer';
 import Home from './Home/Home';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
@@ -13,6 +15,7 @@ import Mypage from './Mypage/Mypage';
 function Router() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -24,6 +27,7 @@ function Router() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="*" element={<Home />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
