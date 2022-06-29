@@ -1,0 +1,49 @@
+.container {
+  text-align: center;
+  margin: 120px auto;
+  max-width: 1330px;
+  padding: 0 20px;
+  color: #222;
+}
+
+.titleDescContent {
+  display: block;
+  font-size: 25px;
+  font-weight: 500px;
+  margin: 20px 252px 0px 252px;
+
+  .introTitle {
+    margin: 10px 0;
+  }
+  .roomName {
+    margin-top: 15px;
+    font-size: 14px;
+    letter-spacing: 7px;
+  }
+}
+
+.titleDescContent:after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: #000;
+  margin: 25px auto 0;
+}
+
+.mainContent {
+  width: 780px;
+  margin: 20px auto 0;
+  font-size: 16px;
+  font-weight: 300px;
+  letter-spacing: 1px;
+  line-height: 2.2;
+}
+
+.subContent {
+  margin: 50px auto 0;
+  width: 780px;
+  font-size: 14px;
+  font-weight: 300px;
+  line-height: 2;
+}
