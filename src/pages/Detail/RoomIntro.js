@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import style from './RoomIntro.module.scss';
+import css from './RoomIntro.module.scss';
 
 const RoomIntro = ({ details, room_name }) => {
   const roomsIntro = details.length > 0 ? details[0].rooms_intro : null;
@@ -7,15 +7,15 @@ const RoomIntro = ({ details, room_name }) => {
   return (
     <div>
       {roomsIntro && (
-        <div className={style.container}>
-          <div className={style.titleDescContent}>
-            <h1 className={style.introTitle}>{roomsIntro.title}</h1>
-            <p className={style.roomName}>{room_name}</p>
+        <div className={css.container}>
+          <div className={css.titleDescContent}>
+            <h1 className={css.introTitle}>{roomsIntro.title}</h1>
+            <p className={css.roomName}>{room_name}</p>
           </div>
-          <div className={style.mainContent}>
+          <div className={css.mainContent}>
             <p>{roomsIntro.mainContent}</p>
           </div>
-          <div className={style.subContent}>
+          <div className={css.subContent}>
             <p>{roomsIntro.subContent}</p>
           </div>
         </div>

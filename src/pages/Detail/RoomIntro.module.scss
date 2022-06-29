@@ -1,17 +1,31 @@
 .container {
+  display: block;
+  position: relative;
   text-align: center;
-  margin: 120px auto;
   max-width: 1330px;
+  margin: 120px auto;
   padding: 0 20px;
   color: #222;
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
 }
 
 .titleDescContent {
-  display: block;
+  padding: 0;
+  margin: 0;
   font-size: 25px;
   font-weight: 500px;
-  margin: 20px 252px 0px 252px;
-
+  &::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: #000;
+    margin: 25px auto 0;
+  }
   .introTitle {
     margin: 10px 0;
   }
@@ -22,21 +36,12 @@
   }
 }
 
-.titleDescContent:after {
-  content: '';
-  display: block;
-  width: 1px;
-  height: 40px;
-  background: #000;
-  margin: 25px auto 0;
-}
-
 .mainContent {
   width: 780px;
   margin: 20px auto 0;
-  font-size: 16px;
   font-weight: 300px;
   letter-spacing: 1px;
+  font-size: 16px;
   line-height: 2.2;
 }
 
@@ -46,4 +51,32 @@
   font-size: 14px;
   font-weight: 300px;
   line-height: 2;
+}
+
+@media (max-width: 768px) {
+  .container {
+    border-top: none;
+    .titleDescContent {
+      margin-top: 60px;
+      font-size: 16px;
+      &::after {
+        height: 20px;
+        margin-top: 15px;
+      }
+      .roomName {
+        margin-top: 6px;
+        font-size: 10px;
+        letter-spacing: 4.5px;
+      }
+    }
+    .mainContent {
+      font-size: 13px;
+      width: 100%;
+    }
+    .subContent {
+      width: 100%;
+      margin: 30px auto 0;
+      font-size: 12px;
+    }
+  }
 }
