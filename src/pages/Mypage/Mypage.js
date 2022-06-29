@@ -6,7 +6,11 @@ import PageMainHeader from './PageMainHeader';
 function Mypage() {
   return (
     <div className={css.container}>
-      <PageMainHeader pageTitleEN="MY PAGE" pageTitleKO="마이페이지" />
+      <PageMainHeader
+        pageTitleEN="MY PAGE"
+        pageTitleKO="마이페이지"
+        url="/mypage"
+      />
       <MypageContents />
     </div>
   );
