@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
-import style from './RoomSpecial.module.scss';
+import css from './RoomSpecial.module.scss';
 
 const RoomSpecial = ({ details }) => {
   const special = details.length > 0 ? details[0].special : null;
 
   return (
-    <div className={style.container}>
-      <div className={style.specialWrap}>
-        <div className={style.special}>SPECIAL</div>
-        <div className={style.speailListWrap}>
+    <div className={css.container}>
+      <div className={css.specialWrap}>
+        <div className={css.special}>SPECIAL</div>
+        <div className={css.speailListWrap}>
           {special &&
             special.map((el, idx) => {
               return (
-                <div className={style.contentWrap} key={el.id}>
-                  <img src={el.image} alt={el.id} className={style.icon} />
-                  <div className={style.title}>{el.title}</div>
-                  <div className={style.content}>{el.content}</div>
+                <div className={css.contentWrap} key={el.id}>
+                  <i>
+                    <img src={el.image} alt={el.id} className={css.icon} />
+                  </i>
+                  <div className={css.title}>{el.title}</div>
+                  <div className={css.content}>{el.content}</div>
                 </div>
               );
             })}

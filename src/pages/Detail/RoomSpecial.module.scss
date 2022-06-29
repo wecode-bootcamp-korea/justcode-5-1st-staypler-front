@@ -10,15 +10,15 @@
   margin: 70px auto;
   font-size: 14px;
   line-height: 1;
-}
-.container:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
 }
 
 .specialWrap {
@@ -30,54 +30,93 @@
   text-align: center;
   margin: 0 auto;
   padding: 0 20px;
-}
-
-.special {
-  display: block;
-  margin: 0 auto 20px;
-  font-size: 21px;
-  font-weight: 300;
-  letter-spacing: 21px;
-  padding: 0 0 0 21px;
-  font-family: Abel;
-  color: #fff;
-}
-
-.speailListWrap {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin: 75px 0 0;
-  min-width: 1100px;
-  font-size: 14px;
-  padding: 0;
-  gap: 30px;
+  .special {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 0 0 0 21px;
+    font-family: Abel;
+    font-size: 21px;
+    font-weight: 300;
+    letter-spacing: 21px;
+    color: #fff;
+  }
+  .speailListWrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    min-width: 1100px;
+    margin: 75px 0 0;
+    padding: 0;
+    gap: 30px;
+    font-size: 14px;
+  }
 }
 
 .contentWrap {
   position: relative;
-  float: left;
-  background: rgba(0, 0, 0, 0.7);
   width: 343px;
   padding: 45px 33px;
   font-weight: 300;
   line-height: 1;
-}
-.icon {
-  width: 50px;
-  vertical-align: middle;
+  background: rgba(0, 0, 0, 0.7);
+  .icon {
+    width: 50px;
+    vertical-align: middle;
+  }
+  .title {
+    margin: 20px 0;
+    font-weight: 400;
+    font-size: 20px;
+    color: #fff;
+  }
+  .content {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #b3b3b3;
+  }
 }
 
-.title {
-  font-weight: 400;
-  font-size: 20px;
-  color: #fff;
-  margin: 20px 0;
-}
-
-.content {
-  font-size: 14px;
-  line-height: 1.7;
-  color: #b3b3b3;
-  margin: 0;
+@media (max-width: 768px) {
+  .container {
+    margin-top: 60px;
+    padding: 45px 0;
+    .special {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    .speailListWrap {
+      flex-direction: column;
+      min-width: auto;
+      margin: 20px 0 0;
+      padding: 0 30px;
+    }
+    .contentWrap {
+      width: 100%;
+      padding: 20px;
+      i {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100px;
+        margin-top: -35px;
+      }
+      .icon {
+        width: 25px;
+      }
+      .title {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100px;
+        font-size: 12px;
+        margin: 0;
+      }
+      .content {
+        margin-left: 80px;
+        text-align: left;
+        font-size: 12px;
+      }
+    }
+  }
 }
