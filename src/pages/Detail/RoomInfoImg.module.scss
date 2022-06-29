@@ -1,67 +1,118 @@
 .imgCard {
   position: relative;
-  width: 460px;
+  width: 460px !important;
+  height: 460px;
+  margin: 0 50px 100px 0;
+  flex-shrink: 0;
+  list-style: none;
+  background: #ddd;
+  :hover {
+    cursor: pointer;
+  }
 }
-
-.imgCard:hover {
-  cursor: pointer;
-}
-
 .roomImg {
   width: 460px;
   height: 460px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
-
 .infoBox {
-  display: flex;
-  justify-content: center;
-  gap: 140px;
   position: absolute;
+  display: block;
   bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  height: 28%;
-  padding: 20px 20px;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
+  height: 140px;
+  line-height: 1;
+  font-weight: 300;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
 }
-
-.roomCondition {
+.roomName {
   position: absolute;
-  left: 30px;
   width: 290px;
-  height: 44px;
-  .roomName {
-    font-size: 24px;
-  }
-  .roomType {
-    margin-top: 2px;
-    font-size: 13px;
-    opacity: 50%;
-    letter-spacing: 2px;
-  }
+  bottom: 75px;
+  left: 30px;
+  font-size: 24px;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-
+.roomType {
+  margin-top: 5px;
+  padding-bottom: 1px;
+  font-size: 14px;
+  font-family: Abel, SpoqaHanSans;
+  letter-spacing: 2px;
+  opacity: 50%;
+}
 .price {
   position: absolute;
+  bottom: 90px;
   right: 30px;
   font-size: 21px;
+  font-family: Abel, SpoqaHanSans;
+}
+.etc {
+  position: absolute;
+  width: 70%;
+  bottom: 30px;
+  left: 30px;
+  font-size: 14px;
 }
 
 .bookingButton {
   position: absolute;
   right: 30px;
   bottom: 25px;
-  padding-bottom: 5px;
+  line-height: 25px;
+  letter-spacing: 1.5px;
   font-size: 13px;
+  font-family: Abel, SpoqaHanSans;
   border-bottom: 1px solid white;
-  :hover {
-    cursor: pointer;
-  }
 }
-.etc {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  font-size: 14px;
+
+@media (max-width: 768px) {
+  .imgCard {
+    width: 230px !important;
+    height: 230px;
+    margin: 0 0 50px 20px;
+    box-shadow: -6px 7.5px 15px 0 rgb(0 0 0 / 20%);
+  }
+  .roomImg {
+    width: 230px;
+    height: 230px;
+  }
+  .infoBox {
+    height: 70px;
+    .roomName {
+      width: 150px;
+      bottom: 30px;
+      left: 15px;
+      font-size: 14px;
+    }
+    .roomType {
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+    .price {
+      bottom: 45px;
+      right: 15px;
+      font-size: 13px;
+    }
+    .etc {
+      width: 60%;
+      bottom: 13px;
+      left: 15px;
+      font-size: 10px;
+    }
+    .bookingButton {
+      display: block;
+      bottom: 7px;
+      right: 14px;
+      font-size: 10px;
+    }
+  }
 }
