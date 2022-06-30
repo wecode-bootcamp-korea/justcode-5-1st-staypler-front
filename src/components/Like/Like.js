@@ -3,14 +3,17 @@ import { FiHeart } from 'react-icons/fi';
 import { FaHeart } from 'react-icons/fa';
 import style from './Like.module.scss';
 
-function Like(props) {
-  const [isLike, setIsLike] = useState(false);
-  const [likeTable, setLikeTable] = useState(null);
+function Like({ id, isLike }) {
+  const [heart, setHeart] = useState();
 
   useEffect(() => {
-    setIsLike(!isLike);
-    fetch('http://192.168.1.4:10010/mypage', {
-      method: 'GET',
+    console.log('LIKE', isLike);
+    setHeart(isLike);
+  }, []);
+
+  const HeartBtn = () => {
+    fetch(`http://localhost:10010/rooms/${id}/like`, {
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         'Content-Type': 'application/json',
@@ -22,26 +25,18 @@ function Like(props) {
           return res.json();
         }
       })
-      .then(res => setLikeTable(res));
-  }, []);
+      .then(res => {
+        setHeart(res.isLike);
+      });
+  };
 
   return (
     <div>
-      <button>
-        {isLike ? (
-          <FiHeart
-            size="23"
-            color="#d2d2d2"
-            className={style.heart}
-            onClick={() => setIsLike(prev => !prev)}
-          />
+      <button onClick={HeartBtn}>
+        {heart ? (
+          <FaHeart size="23" color="#d2d2d2" className={style.heart} />
         ) : (
-          <FaHeart
-            size="23"
-            color="#d2d2d2"
-            className={style.heart}
-            onClick={() => setIsLike(prev => !prev)}
-          />
+          <FiHeart size="23" color="#d2d2d2" className={style.heart} />
         )}
       </button>
     </div>
