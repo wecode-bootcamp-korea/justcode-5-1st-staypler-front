@@ -11,7 +11,6 @@ function MypageStayList({ API }) {
 
   const [pages, setPages] = useState();
 
-  // const pages = 10; // 총 room 개수
   const numberOfpages = [];
   for (let i = 1; i <= pages; i++) {
     numberOfpages.push(i);
@@ -41,7 +40,9 @@ function MypageStayList({ API }) {
         setPages(fetchdata.maxPage);
         setData(fetchdata.data);
       });
-  });
+  }, []);
+
+  console.log(data);
 
   // pagenation 버튼 클릭 후, fetch해올 때 사용예정
   useEffect(() => {
@@ -71,7 +72,6 @@ function MypageStayList({ API }) {
     }
 
     function mouseDownCallback(e) {
-      console.log('Hi');
       isPressedDown = true;
       cursorXspace = e.offsetX - cardContainerRef.current.offsetLeft;
     }
