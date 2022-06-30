@@ -1,0 +1,126 @@
+.component {
+  height: 765px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0d0d0d;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 300;
+  color: #ffffff;
+  letter-spacing: 8px;
+  text-align: center;
+}
+
+.carousel {
+  height: 555px;
+  width: 1320px;
+}
+
+.cardContainer {
+  margin-top: 40px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  cursor: pointer;
+}
+
+.cardContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.cards {
+  display: flex;
+  width: 100%;
+}
+
+.card {
+  width: 440px;
+  height: 396px;
+  padding: 0px 15px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-snap-align: center;
+}
+
+.roomName {
+  margin-top: 30px;
+  font-size: 22px;
+  font-weight: 400;
+  text-align: center;
+  color: #ffffffe8;
+}
+
+.cardImg {
+  width: 100%;
+  height: 250px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.roomInfo {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 300px;
+  color: #ffffff63;
+  text-align: center;
+  .city::before {
+    content: '/';
+  }
+  .price::before {
+    content: 'ㆍ';
+    font-weight: 700;
+  }
+}
+
+.reserve {
+  width: 45px;
+  margin-top: 30px;
+  padding-bottom: 6px;
+  font-size: 14px;
+  font-weight: 300;
+  font-family: 'Abel', 'Noto Sans KR';
+  text-align: center;
+  color: #ffffffe8;
+  border-bottom: 1px solid #ffffffe8;
+}
+
+.pagenation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  left: 0;
+  margin-top: 50px;
+}
+
+.pagNum {
+  font-size: 14px;
+  font-weight: 300;
+  color: #888888;
+
+  &.current {
+    margin-right: 3px;
+  }
+
+  &.total {
+    margin-right: 20px;
+  }
+
+  &.total::before {
+    content: '/';
+    margin-right: 3px;
+  }
+}
+
+.btn {
+  color: #ffffffe8;
+}
