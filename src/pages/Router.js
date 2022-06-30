@@ -22,7 +22,10 @@ function Router() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/findstay" element={<Findstay />} />
         <Route path="/detail" element={<Detail />} />
-        <Route path="/reservation" element={<Reservation />} />
+        <Route
+          path="/rooms/:id/reservation/:roomid"
+          element={<Reservation />}
+        />
         <Route path="/payment" element={<Payment />} />
         <Route path="/mypage" element={<Mypage />}>
           <Route
