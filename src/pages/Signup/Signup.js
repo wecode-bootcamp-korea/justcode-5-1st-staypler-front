@@ -116,7 +116,7 @@ function Signup() {
       regSpecialCharacter.test(inputValue.password)
     ) {
       setPasswordValid(true);
-      setDesc({ ...desc, [desc.password]: '' });
+      setDesc({ ...desc, password: '' });
     } else {
       setPasswordValid(false);
       setDesc({
@@ -126,7 +126,7 @@ function Signup() {
     }
   };
   const rePasswordValidation = () => {
-    if (inputValue.rePassword === inputValue.password) {
+    if (inputValue.repassword === inputValue.password) {
       setRePasswordValid(true);
       setDesc({ ...desc, repassword: '' });
     } else {
