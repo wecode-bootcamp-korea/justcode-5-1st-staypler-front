@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailBannerSlider from '../../components/DetailBannerSlider/DetailBannerSlider';
@@ -31,4 +30,3 @@ function Detail() {
 }
 
 export default Detail;
-
