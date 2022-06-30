@@ -1,0 +1,119 @@
+.container {
+  width: 100%;
+  min-width: 200px;
+}
+
+.card {
+  width: 100%;
+  height: 240px;
+  display: flex;
+  justify-content: space-between;
+  color: #181818;
+  margin-bottom: 80px;
+}
+
+.roomInfo {
+  min-width: 200px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.roomName {
+  font-size: 32px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.roomDetail {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 21px;
+  color: #333333;
+}
+
+.city::before,
+.maxNumPeople::before {
+  content: '/';
+  margin: 0 3px;
+}
+
+.reservationBtn {
+  border: 0;
+  background: none;
+  background: #000000;
+  color: #ffffff;
+  height: 45px;
+  width: 150px;
+  font-size: 13px;
+  font-weight: 300;
+  font-family: Abel, 'Noto Sans KR';
+  cursor: pointer;
+}
+
+.carousel {
+  max-width: 410px;
+  width: 100%;
+  height: 100%;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.cardContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.roomImage {
+  width: 100%;
+  height: 240px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  cursor: pointer;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: rgba(216, 73, 73, 0.2); */
+  width: 100%;
+  font-weight: 500;
+  font-size: 14px;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0000003d;
+    /* padding: 8px 14px; */
+    height: 40px;
+    width: 40px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+
+    cursor: pointer;
+  }
+  div.active {
+    color: #181818;
+  }
+
+  div.disabled {
+    opacity: 0.2;
+  }
+
+  div:hover:not(.active) {
+    color: #181818;
+  }
+}
