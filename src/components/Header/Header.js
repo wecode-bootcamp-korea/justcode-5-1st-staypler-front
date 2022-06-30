@@ -67,7 +67,7 @@ function Header() {
           </div>
           <div className={css.sideMenu}>
             <div className={css.sideBtnGroup}>
-              <Link to="/Detail" className={css.menuList}>
+              <Link to="/findstay" className={css.menuList}>
                 FIND STAY
               </Link>
               <Link to="/" className={css.menuList}>
@@ -82,7 +82,7 @@ function Header() {
             </div>
             <div>
               <div className={css.loginIcon}>
-                {false ? (
+                {true ? (
                   <MdPerson
                     size={20}
                     onClick={() => {
@@ -91,7 +91,7 @@ function Header() {
                   />
                 ) : null}
               </div>
-              <Link to="/" className={css.menuList}>
+              <Link to="/login" className={css.menuList}>
                 LOGIN
               </Link>
               <Link to="/" className={css.menuList}>
