@@ -27,15 +27,20 @@ function MainBannerSlider() {
   const carouselRef = useRef();
 
   useEffect(() => {
-    fetch('http://localhost:3000/data/MainBannerSliderData.json')
-      .then(res => res.json())
-      .then(fetchdata => {
+    fetch('http://192.168.1.4:10010/main/banner')
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(fetchdatas => {
+        let fetchdata = fetchdatas.data;
         setData([fetchdata[fetchdata.length - 1], ...fetchdata, fetchdata[0]]);
       });
   }, []);
 
   const goToDetail = id => {
-    navigate(`/rooms/${data[id].rooms_id}`);
+    navigate(`/rooms/${data[id].room_id}`);
   };
 
   useEffect(() => {
