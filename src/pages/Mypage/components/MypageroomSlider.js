@@ -2,17 +2,35 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import css from './MypageroomSlider.module.scss';
 
-function MypageroomSlider({ title, API주소 }) {
+function MypageroomSlider({ title, API }) {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   let cardContainerRef = useRef();
   const carouselRef = useRef();
 
+  const [CurrentButton, setCurrentButton] = useState(1);
+  let params = {
+    page: 1,
+    count: 5,
+    getImageAll: 0,
+    id: 1,
+  };
+
+  let query = Object.keys(params)
+    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+    .join('&');
+
+  let url = API + '?' + query;
+
   useEffect(() => {
-    fetch('http://localhost:3000/data/Mypage.json')
-      .then(res => res.json())
+    fetch(url)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
       .then(fetchdata => {
-        setData(fetchdata);
+        setData(fetchdata.data);
       });
   }, []);
 
@@ -72,7 +90,7 @@ function MypageroomSlider({ title, API주소 }) {
               return (
                 <div className={css.card} key={i}>
                   <div className={css.roomInfo}>
-                    <div className={css.roomName}>{data[i].room_name}</div>
+                    <div className={css.roomName}>{data[i].rooms_name}</div>
                     <div className={css.roomDetail}>
                       <div>
                         <span className={css.province}>{data[i].province}</span>
@@ -87,7 +105,10 @@ function MypageroomSlider({ title, API주소 }) {
                         </span>
                       </div>
                       <div className={css.price}>
-                        ￦{data[i].price.toLocaleString('ko-KR')}
+                        ￦{data[i].max_price?.toLocaleString('ko-KR')}
+                      </div>
+                      <div className={css.price}>
+                        ￦{data[i].min_price?.toLocaleString('ko-KR')}
                       </div>
                     </div>
                     <button
@@ -102,7 +123,7 @@ function MypageroomSlider({ title, API주소 }) {
                   <div
                     className={css.roomImage}
                     style={{
-                      backgroundImage: `url(${data[i].images[0]})`,
+                      backgroundImage: `url(${data[i].images})`,
                     }}
                     onClick={() => {
                       goToDetail(i);

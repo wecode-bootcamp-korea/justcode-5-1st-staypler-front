@@ -31,11 +31,11 @@ function Router() {
               <>
                 <MypageroomSlider
                   title="다가올 예약"
-                  // API="API주소"
+                  API="http://192.168.1.4:10010/mypage/bookings"
                 />
                 <MypageroomSlider
                   title="관심 스테이"
-                  // API="API주소"
+                  API="http://192.168.1.4:10010/mypage/like"
                 />
               </>
             }
@@ -43,17 +43,13 @@ function Router() {
           <Route
             path="likestay"
             element={
-              <MypageStayList
-              // API={API 주소}
-              />
+              <MypageStayList API="http://192.168.1.4:10010/mypage/like" />
             }
           />
           <Route
             path="reservation"
             element={
-              <MypageStayList
-              // API={API 주소}
-              />
+              <MypageStayList API="http://192.168.1.4:10010/mypage/bookings" />
             }
           />
           <Route path="edit" element={<MypageEditInformation />} />

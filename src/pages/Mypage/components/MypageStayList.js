@@ -3,44 +3,59 @@ import { useNavigate } from 'react-router-dom';
 import css from './MypageStayList.module.scss';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 
-function MypageStayList({ API주소 }) {
+function MypageStayList({ API }) {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   let cardContainerRef = useRef();
   const carouselRef = useRef();
 
-  const pages = 10; // 총 room 개수
+  const [pages, setPages] = useState();
+
+  // const pages = 10; // 총 room 개수
   const numberOfpages = [];
   for (let i = 1; i <= pages; i++) {
     numberOfpages.push(i);
   }
   const [CurrentButton, setCurrentButton] = useState(1);
+  let params = {
+    page: CurrentButton,
+    count: 3,
+    getImageAll: 1,
+    id: 1,
+  };
+
+  let query = Object.keys(params)
+    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+    .join('&');
+
+  let url = API + '?' + query;
 
   useEffect(() => {
-    fetch('http://localhost:3000/data/Mypage.json')
-      .then(res => res.json())
+    fetch(url)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
       .then(fetchdata => {
-        setData(fetchdata);
+        setPages(fetchdata.maxPage);
+        setData(fetchdata.data);
       });
-  }, []);
+  });
 
   // pagenation 버튼 클릭 후, fetch해올 때 사용예정
-  // useEffect(() => {
-  //   fetch("API 주소", {
-  //     method: "GET",
-  // 		headers: {
-  // 			Content-Type: "application/json"
-  // 		},
-  //     body: JSON.stringify({
-  //       email: id,
-  //       password: pw,
-  //     }),
-  //   })
-  //   .then(res => res.json())
-  //   .then(fetchdata => {
-  //     setData(fetchdata);
-  //   });
-  // }, [CurrentButton]);
+  useEffect(() => {
+    fetch(url)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(fetchdata => {
+        setPages(fetchdata.maxPage);
+        setData(fetchdata.data);
+      });
+  }, [CurrentButton]);
 
   const goToDetail = id => {
     navigate(`/rooms/${data[id].rooms_id}`);
@@ -96,7 +111,7 @@ function MypageStayList({ API주소 }) {
           return (
             <div className={css.card} key={i}>
               <div className={css.roomInfo}>
-                <div className={css.roomName}>{data[i].room_name}</div>
+                <div className={css.roomName}>{data[i].rooms_name}</div>
                 <div className={css.roomDetail}>
                   <div>
                     <span className={css.province}>{data[i].province}</span>
@@ -111,7 +126,10 @@ function MypageStayList({ API주소 }) {
                     </span>
                   </div>
                   <div className={css.price}>
-                    ￦{data[i].price.toLocaleString('ko-KR')}
+                    ￦{data[i].max_price?.toLocaleString('ko-KR')}
+                  </div>
+                  <div className={css.price}>
+                    ￦{data[i].min_price?.toLocaleString('ko-KR')}
                   </div>
                 </div>
                 <button
