@@ -9,6 +9,9 @@ import Detail from './Detail/Detail';
 import Reservation from './Reservation/Reservation';
 import Payment from './Payment/Payment';
 import Mypage from './Mypage/Mypage';
+import MypageStayList from './Mypage/components/MypageStayList';
+import MypageEditInformation from './Mypage/components/MypageEditInformation';
+import MypageroomSlider from './Mypage/components/MypageroomSlider';
 
 function Router() {
   return (
@@ -18,11 +21,43 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/findstay" element={<Findstay />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/rooms/:id" element={<Detail />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="*" element={<Home />} />
+        <Route path="/mypage" element={<Mypage />}>
+          <Route
+            path=""
+            element={
+              <>
+                <MypageroomSlider
+                  title="다가올 예약"
+                  // API="API주소"
+                />
+                <MypageroomSlider
+                  title="관심 스테이"
+                  // API="API주소"
+                />
+              </>
+            }
+          />
+          <Route
+            path="likestay"
+            element={
+              <MypageStayList
+              // API={API 주소}
+              />
+            }
+          />
+          <Route
+            path="reservation"
+            element={
+              <MypageStayList
+              // API={API 주소}
+              />
+            }
+          />
+          <Route path="edit" element={<MypageEditInformation />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
