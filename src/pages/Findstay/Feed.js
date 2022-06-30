@@ -20,7 +20,7 @@ function Feed(props) {
     navigate(`/rooms/${id}`);
   };
   return (
-    <div className={css.listBox}>
+    <div className={css.listBox} key={id}>
       <div className={css.roomNameBox}>
         <div className={css.roomNameTit}>{roomName}</div>
         <div className={css.roomType}>{roomType}</div>

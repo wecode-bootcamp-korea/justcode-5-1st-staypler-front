@@ -6,26 +6,26 @@ import Feed from './Feed.js';
 
 function Findstay() {
   const [data, setData] = useState([]);
+  let [pageBtnNum, setPageBtnNum] = useState(1);
+  let [pages, setpages] = useState();
+
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/rooms?page=1')
+    fetch(`http://localhost:10010/rooms?page=${pageBtnNum}`)
       .then(res => {
         if (res.ok) {
           return res.json();
         }
       })
       .then(fetchdata => {
+        setpages(Math.ceil(fetchdata.rooms_count / 6));
         setData(fetchdata.data);
       });
-  }, []);
+  }, [pageBtnNum]);
 
-  const [nameInput, setNameInput] = useState('');
-  const updateNameInput = e => {
-    setNameInput(e.target.value);
-  };
-
-  // const sortedFeeds = data.filter(feed => {
-  //   return feed.title.includes(nameInput);
-  // });
+  const pageNumber = [];
+  for (let i = 1; i <= pages; i++) {
+    pageNumber.push(i);
+  }
 
   return (
     <div className={css.container}>
@@ -37,11 +37,7 @@ function Findstay() {
         <div className={css.firstLine}>
           <div className={css.keyword}>
             <span className={css.tit}>여행지/숙소</span>
-            <input
-              className={css.searchBar}
-              type="text"
-              onChange={updateNameInput}
-            />
+            <input className={css.searchBar} type="text" />
             <div className={css.filterBtn}>
               <button className={css.filterBtn}>지역</button>
             </div>
@@ -97,6 +93,21 @@ function Findstay() {
           />
         );
       })}
+      <div className={css.pagenationWrapper}>
+        {pageNumber.map(num => {
+          return (
+            <div
+              className={css.pageNumber}
+              key={num}
+              onClick={() => {
+                setPageBtnNum(num);
+              }}
+            >
+              {num}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
