@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import css from "./RoomSpecial.module.scss";
-
+import React, { useState } from 'react';
+import css from './RoomSpecial.module.scss';
 const RoomSpecial = ({ roomData }) => {
   const special = roomData.specials;
-
   return (
     <div className={css.container}>
       <div className={css.specialWrap}>
@@ -26,5 +24,4 @@ const RoomSpecial = ({ roomData }) => {
     </div>
   );
 };
-
 export default RoomSpecial;

@@ -1,29 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
-import css from "./RoomsInfoSlider.module.scss";
-import RoomInfoImg from "./RoomInfoImg";
-
+import React, { useState, useEffect, useRef } from 'react';
+import css from './RoomsInfoSlider.module.scss';
+import RoomInfoImg from './RoomInfoImg';
 const RoomInfoSlider = ({ roomData }) => {
   const slideRef = useRef();
   const rooms = roomData.room;
-
   const [currentRoom, setCurrentRoom] = useState(0);
-
   const state = (100 / rooms?.length) * currentRoom;
   const next = () => {
     setCurrentRoom(() =>
       currentRoom === rooms?.length - 1 ? currentRoom : currentRoom + 1
     );
   };
-
   const prev = () => {
     setCurrentRoom(() => (currentRoom === 0 ? currentRoom : currentRoom - 1));
   };
-
   useEffect(() => {
     slideRef.current.style.transform = `translate(-${state}%)`;
-    slideRef.current.style.transition = ".5s";
+    slideRef.current.style.transition = '.5s';
   }, [state]);
-
   return (
     <div className={css.container}>
       <div className={css.roomsInfoContainer}>
@@ -33,7 +27,7 @@ const RoomInfoSlider = ({ roomData }) => {
             <div className={css.button}>
               <img
                 className="prevButton"
-                src={process.env.PUBLIC_URL + "./images/prevbutton.png"}
+                src={process.env.PUBLIC_URL + './images/prevbutton.png'}
                 alt="prev"
                 onClick={prev}
               />
@@ -41,7 +35,7 @@ const RoomInfoSlider = ({ roomData }) => {
             <div className={css.button}>
               <img
                 className="nextButton"
-                src={process.env.PUBLIC_URL + "./images/nextbutton.png"}
+                src={process.env.PUBLIC_URL + './images/nextbutton.png'}
                 alt="prev"
                 onClick={next}
               />
@@ -75,5 +69,4 @@ const RoomInfoSlider = ({ roomData }) => {
     </div>
   );
 };
-
 export default RoomInfoSlider;

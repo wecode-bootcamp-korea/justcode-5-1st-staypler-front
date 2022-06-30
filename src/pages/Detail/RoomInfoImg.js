@@ -1,7 +1,6 @@
 import React from 'react';
 import css from './RoomInfoImg.module.scss';
 import { useNavigate } from 'react-router-dom';
-
 const RoomInfoImg = ({
   imageUrl,
   id,
@@ -13,7 +12,7 @@ const RoomInfoImg = ({
 }) => {
   return (
     <ul>
-      <li className={css.imgCard} >
+      <li className={css.imgCard}>
         <img src={imageUrl} alt={id} className={css.roomImg} />
         <div className={css.infoBox}>
           <div className={css.roomName}>
@@ -32,5 +31,4 @@ const RoomInfoImg = ({
     </ul>
   );
 };
-
 export default RoomInfoImg;
