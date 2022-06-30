@@ -10,7 +10,7 @@ function Signup() {
   const [passwordValid, setPasswordValid] = useState(false);
   const [rePasswordValid, setRePasswordValid] = useState(false);
   const [phoneNumValid, setPhoneNumValid] = useState(false);
-  // const [signUpValid, setSignUpValid] = useState(false);
+  const [signUpValid, setSignUpValid] = useState(false);
   const regSpecialCharacter =
     /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\']/g;
   const regNumber = /[0-9]/g;
@@ -29,14 +29,14 @@ function Signup() {
 
   // const signUpValidation = () => {
   //   if (
-  //     emailValid === true &&
-  //     nameValid === true &&
-  //     passwordValid === true &&
-  //     rePasswordValid === true &&
-  //     phoneNumValid === true
-  //     // check.serviceBtn === true &&
-  //     // check.useBtn === true &&
-  //     // check.ageBtn === true
+  // emailValid === true
+  // nameValid === true &&
+  // passwordValid === true &&
+  // rePasswordValid === true &&
+  // phoneNumValid === true
+  // check.serviceBtn === true &&
+  // check.useBtn === true &&
+  // check.ageBtn === true
   //   ) {
   //     setSignUpValid(true);
   //   } else {
@@ -58,7 +58,7 @@ function Signup() {
     })
       .then(res => res.json())
       .then(res => console.log(res));
-    navigate('/users/login');
+    navigate('/login');
   };
 
   const handleInput = event => {
@@ -320,6 +320,8 @@ function Signup() {
               type="button"
               className={css.signupBtn}
               onClick={signupBtnActivation}
+              // disabled={signUpValid ? false : true}
+              // style={{ opacity: signUpValid ? '1' : '0.3' }}
             >
               회원가입
             </button>
