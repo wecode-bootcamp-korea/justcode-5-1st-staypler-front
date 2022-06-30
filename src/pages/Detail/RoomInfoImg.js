@@ -11,17 +11,9 @@ const RoomInfoImg = ({
   min_limit,
   max_limit,
 }) => {
-  const navigate = useNavigate();
-  const goToBooking = () => {
-    fetch(`http://192.168.1.4:10010/rooms/${id}/reservation`)
-      .then(res => res.json())
-      .then(result => {
-        navigate('/rooms/${id}/reservation');
-      });
-  };
   return (
     <ul>
-      <li className={css.imgCard} onClick={goToBooking}>
+      <li className={css.imgCard} >
         <img src={imageUrl} alt={id} className={css.roomImg} />
         <div className={css.infoBox}>
           <div className={css.roomName}>
