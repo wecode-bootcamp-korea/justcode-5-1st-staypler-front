@@ -14,11 +14,12 @@ function MypageHeader() {
   let url = 'http://192.168.1.4:10010/mypage/header?' + query;
 
   useEffect(() => {
-    fetch(url, {
+    fetch('http://192.168.1.4:10010/mypage', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        // 'Content-Type': 'application/json',
+        // Accept: 'application/json',
       },
     })
       .then(res => {

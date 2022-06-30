@@ -20,7 +20,6 @@ function MypageStayList({ API }) {
     page: CurrentButton,
     count: 3,
     getImageAll: 1,
-    id: 1,
   };
 
   let query = Object.keys(params)
@@ -30,7 +29,14 @@ function MypageStayList({ API }) {
   let url = API + '?' + query;
 
   useEffect(() => {
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -41,8 +47,6 @@ function MypageStayList({ API }) {
         setData(fetchdata.data);
       });
   }, []);
-
-  console.log(data);
 
   // pagenation 버튼 클릭 후, fetch해올 때 사용예정
   useEffect(() => {
