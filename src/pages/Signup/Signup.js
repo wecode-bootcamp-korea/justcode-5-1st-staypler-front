@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import css from './Signup.module.scss';
 
 function Signup() {
+  const navigate = useNavigate();
+  const [emailValid, setEmailValid] = useState(false);
+  const [nameValid, setNameValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [rePasswordValid, setRePasswordValid] = useState(false);
+  const [phoneNumValid, setPhoneNumValid] = useState(false);
+  // const [signUpValid, setSignUpValid] = useState(false);
   const regSpecialCharacter =
     /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\']/g;
   const regNumber = /[0-9]/g;
@@ -11,7 +18,7 @@ function Signup() {
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
   const regPhoneNum = /^\d{3}-\d{3,4}-\d{4}$/;
-  const navigate = useNavigate();
+
   const [inputValue, setInputValue] = useState({
     email: '',
     name: '',
@@ -20,24 +27,38 @@ function Signup() {
     phoneNum: '',
   });
 
+  // const signUpValidation = () => {
+  //   if (
+  //     emailValid === true &&
+  //     nameValid === true &&
+  //     passwordValid === true &&
+  //     rePasswordValid === true &&
+  //     phoneNumValid === true
+  //     // check.serviceBtn === true &&
+  //     // check.useBtn === true &&
+  //     // check.ageBtn === true
+  //   ) {
+  //     setSignUpValid(true);
+  //   } else {
+  //     setSignUpValid(false);
+  //   }
+  // };
   const signupBtnActivation = () => {
-    // fetch("http://?/signup", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     email: userId,
-    //     password: userPw,
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((result) =>
-    //     result.token !== undefined
-    //       ? navigate("/home")
-    //       : alert('아이디혹은 비밀번호가 잘못되었습니다')
-    //   );
-    navigate('/home');
+    fetch('http://192.168.1.4:10010/users/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: inputValue.email,
+        username: inputValue.name,
+        password: inputValue.password,
+        phoneNumber: inputValue.phoneNum,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => console.log(res));
+    navigate('/users/login');
   };
 
   const handleInput = event => {
@@ -54,12 +75,6 @@ function Signup() {
     rePassword: '',
     phoneNum: '',
   });
-
-  const [emailValid, setEmailValid] = useState(false);
-  const [nameValid, setNameValid] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
-  const [rePasswordValid, setRePasswordValid] = useState(false);
-  const [phoneNumValid, setPhoneNumValid] = useState(false);
 
   const [check, setCheck] = useState({
     allBtn: false,
@@ -95,7 +110,7 @@ function Signup() {
     setCheck({ ...check, [name]: !check[name] });
   };
 
-  useEffect(() => {
+  const areeAllBtnActivate = () => {
     if (
       check.allBtn === true &&
       check.useBtn === true &&
@@ -107,12 +122,12 @@ function Signup() {
     } else {
       setCheck({ ...check, allBtn: false });
     }
-  }, [check]);
+  };
 
   const emailValidation = () => {
     if (regEmail.test(inputValue.email)) {
       setEmailValid(true);
-      setDesc({ ...desc, [desc.email]: '' });
+      setDesc({ ...desc, email: '' });
     } else {
       setEmailValid(false);
       setDesc({ ...desc, email: '잘못된양식입니다.' });
@@ -147,12 +162,12 @@ function Signup() {
     }
   };
   const rePasswordValidation = () => {
-    if (inputValue.repassword === inputValue.password) {
+    if (inputValue.rePassword === inputValue.password) {
       setRePasswordValid(true);
-      setDesc({ ...desc, repassword: '' });
+      setDesc({ ...desc, rePassword: '' });
     } else {
       setRePasswordValid(false);
-      setDesc({ ...desc, repassword: '입력하신 비밀번호가 같지않습니다.' });
+      setDesc({ ...desc, rePassword: '입력하신 비밀번호가 같지않습니다.' });
     }
   };
   const phoneNumValidation = () => {
@@ -236,6 +251,7 @@ function Signup() {
                   checked={check.allBtn}
                   className={css.checkbox}
                   onChange={allBtnEvent}
+                  onClick={areeAllBtnActivate}
                 />
                 사용자 약관 전체동의
               </div>
@@ -250,7 +266,6 @@ function Signup() {
                   />
                   <span>서비스 이용약관 동의(필수)</span>
                 </div>
-                <input type="button" className={css.downBtn} />
               </div>
               <div className={css.agreebox}>
                 <div className={css.agree}>
@@ -263,7 +278,6 @@ function Signup() {
                   />
                   <span>개인정보 처리방침 동의(필수)</span>
                 </div>
-                <input type="button" className={css.downBtn} />
               </div>
               <div className={css.agreebox}>
                 <div className={css.agree}>
@@ -276,7 +290,6 @@ function Signup() {
                   />
                   <span>만 14세 이상 확인(필수)</span>
                 </div>
-                <input type="button" className={css.downBtn} />
               </div>
               <div className={css.agreebox}>
                 <div className={css.agree}>
@@ -289,7 +302,6 @@ function Signup() {
                   />
                   <span>평생회원제 동의(선택)</span>
                 </div>
-                <input type="button" className={css.downBtn} />
               </div>
               <div className={css.agreebox}>
                 <div className={css.agree}>
@@ -302,10 +314,13 @@ function Signup() {
                   />
                   <span>마케팅 정보 수신 동의(선택)</span>
                 </div>
-                <input type="button" className={css.downBtn} />
               </div>
             </div>
-            <button type="button" className={css.signupBtn}>
+            <button
+              type="button"
+              className={css.signupBtn}
+              onClick={signupBtnActivation}
+            >
               회원가입
             </button>
           </div>
