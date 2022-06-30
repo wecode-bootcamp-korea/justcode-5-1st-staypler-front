@@ -1,0 +1,131 @@
+.container {
+  width: 100%;
+}
+
+.mainTitle {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.mainbox {
+  width: 436px;
+  min-width: 395px;
+  padding-top: 45px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.inputbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+  .title {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 3px;
+  }
+  input {
+    height: 46px;
+    font-size: 14px;
+    font-weight: 300;
+    outline: none;
+    vertical-align: middle;
+    border: 0;
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 13px;
+    width: 100%;
+  }
+  .description {
+    color: red;
+    font-size: 14px;
+    padding-top: 5px;
+    display: contents;
+  }
+}
+
+.passwordBtn {
+  margin-top: 15px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.userImageGroup {
+  width: 400px;
+  min-width: 250px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.userImage {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #dddddd;
+  border-radius: 100px;
+  background: #ededed;
+}
+
+.uploadImage {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #dddddd;
+  border-radius: 100px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 110px;
+  right: 80px;
+  color: gray;
+}
+.agreebox {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 15px;
+
+  .agree {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.btns {
+  width: 100%;
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    width: 48%;
+    height: 55px;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  .saveBtn {
+    background-color: black;
+    color: white;
+  }
+  .logoutBtn {
+    background-color: white;
+    color: black;
+  }
+}
+
+.script {
+  padding: 30px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 24px;
+
+  background: #fbfbfb;
+  color: #555;
+}
