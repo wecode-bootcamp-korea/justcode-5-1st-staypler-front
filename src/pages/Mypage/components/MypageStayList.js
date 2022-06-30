@@ -38,11 +38,10 @@ function MypageStayList({ API }) {
         }
       })
       .then(fetchdata => {
-        // let fetchdata = fetchdata.data;
         setPages(fetchdata.maxPage);
         setData(fetchdata.data);
       });
-  }, []);
+  });
 
   // pagenation 버튼 클릭 후, fetch해올 때 사용예정
   useEffect(() => {
@@ -53,7 +52,6 @@ function MypageStayList({ API }) {
         }
       })
       .then(fetchdata => {
-        // let fetchdata = fetchdata.data;
         setPages(fetchdata.maxPage);
         setData(fetchdata.data);
       });
