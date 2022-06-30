@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import css from './Signup.module.scss';
 
@@ -10,7 +11,7 @@ function Signup() {
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
   const regPhoneNum = /^\d{3}-\d{3,4}-\d{4}$/;
-
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: '',
     name: '',
@@ -18,6 +19,26 @@ function Signup() {
     rePassword: '',
     phoneNum: '',
   });
+
+  const signupBtnActivation = () => {
+    // fetch("http://?/signup", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email: userId,
+    //     password: userPw,
+    //   }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((result) =>
+    //     result.token !== undefined
+    //       ? navigate("/home")
+    //       : alert('아이디혹은 비밀번호가 잘못되었습니다')
+    //   );
+    navigate('/home');
+  };
 
   const handleInput = event => {
     const { name, value } = event.target;
