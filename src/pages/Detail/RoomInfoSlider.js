@@ -1,30 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { BASE_URL } from '../../config';
-import css from './RoomInfoSlider.module.scss';
-import RoomInfoImg from './RoomInfoImg';
+import React, { useState, useEffect, useRef } from "react";
+import css from "./RoomsInfoSlider.module.scss";
+import RoomInfoImg from "./RoomInfoImg";
 
-const RoomInfoSlider = () => {
+const RoomInfoSlider = ({ roomData }) => {
   const slideRef = useRef();
-  const [slide, setSlide] = useState([]);
+  const rooms = roomData.room;
 
-  useEffect(() => {
-    fetch('http://localhost:3000/data/roomIntro.json', {
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then(res => {
-        setSlide(res.data);
-      });
-  }, []);
-
-  const rooms = slide.length > 0 ? slide[0].rooms : null;
   const [currentRoom, setCurrentRoom] = useState(0);
 
-  const state = slide.length && (100 / rooms.length) * currentRoom;
-
+  const state = (100 / rooms?.length) * currentRoom;
   const next = () => {
     setCurrentRoom(() =>
-      currentRoom === rooms.length - 1 ? currentRoom : currentRoom + 1
+      currentRoom === rooms?.length - 1 ? currentRoom : currentRoom + 1
     );
   };
 
@@ -34,7 +21,7 @@ const RoomInfoSlider = () => {
 
   useEffect(() => {
     slideRef.current.style.transform = `translate(-${state}%)`;
-    slideRef.current.style.transition = '.5s';
+    slideRef.current.style.transition = ".5s";
   }, [state]);
 
   return (
@@ -46,7 +33,7 @@ const RoomInfoSlider = () => {
             <div className={css.button}>
               <img
                 className="prevButton"
-                src={process.env.PUBLIC_URL + './images/prevbutton.png'}
+                src={process.env.PUBLIC_URL + "./images/prevbutton.png"}
                 alt="prev"
                 onClick={prev}
               />
@@ -54,7 +41,7 @@ const RoomInfoSlider = () => {
             <div className={css.button}>
               <img
                 className="nextButton"
-                src={process.env.PUBLIC_URL + './images/nextbutton.png'}
+                src={process.env.PUBLIC_URL + "./images/nextbutton.png"}
                 alt="prev"
                 onClick={next}
               />
@@ -65,12 +52,12 @@ const RoomInfoSlider = () => {
       <div className={css.roomSlideContainer}>
         <div className={css.sliderWrapper}>
           <div className={css.roomSlide} ref={slideRef}>
-            {slide.length &&
+            {rooms?.length &&
               rooms.map((el, idx) => {
                 return (
                   <RoomInfoImg
                     className={css.cards}
-                    imageUrl={el.imageUrl}
+                    imageUrl={el.image}
                     id={el.id}
                     key={el.id}
                     currentRoom={currentRoom}
