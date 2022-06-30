@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import css from './Header.module.scss';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { BsCalendar4 } from 'react-icons/bs';
-import { IoLanguageOutline } from 'react-icons/io5';
+import { BsToggleOn } from 'react-icons/bs';
 import WhereModal from '../WhereModal/WhereModal';
 import WhenModal from '../WhenModal/WhenModal';
 
@@ -65,23 +65,23 @@ function Header() {
             </div>
           </div>
           <div className={css.sideMenu}>
-            <Link to="/" className={css.monuList}>
+            <Link to="/Detail" className={css.menuList}>
               FIND STAY
             </Link>
-            <Link to="/" className={css.monuList}>
+            <Link to="/" className={css.menuList}>
               PROMOTION
             </Link>
-            <Link to="/" className={css.monuList}>
+            <Link to="/" className={css.menuList}>
               JOURNAL
             </Link>
-            <Link to="/" className={css.monuList}>
+            <Link to="/" className={css.menuList}>
               PRE-ORDER
             </Link>
-            <Link to="/" className={css.monuList}>
+            <Link to="/" className={css.menuList}>
               LOGIN
             </Link>
             <Link to="/" className={css.menuList}>
-              <IoLanguageOutline size="24" />
+              <BsToggleOn size="23" />
             </Link>
           </div>
         </nav>
