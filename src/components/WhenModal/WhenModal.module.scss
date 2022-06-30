@@ -1,0 +1,71 @@
+.modalWrapper {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+}
+
+.modal {
+  padding: 20px;
+  background: white;
+  width: 1210px;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 6px 0 rgb(0 0 0 / 50%);
+  overflow: auto;
+  margin: auto;
+}
+
+/*title section*/
+.titleWrapeer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalTitle {
+  width: 1130px;
+  height: 145px;
+  display: flex;
+  justify-content: space-between;
+  padding: 70px 0 20px 0;
+  border-bottom: 1px solid gray;
+}
+
+.whenText {
+  font-weight: bold;
+  font-size: 36px;
+}
+
+.closeModal {
+  cursor: pointer;
+}
+
+.calendarWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 100px;
+  position: relative;
+}
+
+.prevBtn {
+  position: absolute;
+  left: 0%;
+  cursor: pointer;
+}
+
+.nextBtn {
+  position: absolute;
+  right: 0%;
+  cursor: pointer;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}

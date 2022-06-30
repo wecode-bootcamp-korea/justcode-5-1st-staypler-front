@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "isKorea": true,
+    "city": "국내전체"
+  },
+  {
+    "id": 2,
+    "isKorea": true,
+    "city": "제주"
+  },
+  {
+    "id": 3,
+    "isKorea": true,
+    "city": "서울"
+  },
+  {
+    "id": 4,
+    "isKorea": true,
+    "city": "강원"
+  },
+  {
+    "id": 5,
+    "isKorea": true,
+    "city": "부산"
+  },
+  {
+    "id": 6,
+    "isKorea": true,
+    "city": "경기"
+  },
+  {
+    "id": 7,
+    "isKorea": true,
+    "city": "충청"
+  },
+  {
+    "id": 8,
+    "isKorea": true,
+    "city": "경상"
+  },
+  {
+    "id": 9,
+    "isKorea": true,
+    "city": "전라"
+  },
+  {
+    "id": 10,
+    "isKorea": true,
+    "city": "인천"
+  },
+  {
+    "id": 11,
+    "isKorea": true,
+    "city": "광주"
+  },
+  {
+    "id": 12,
+    "isKorea": true,
+    "city": "대전"
+  },
+  {
+    "id": 13,
+    "isKorea": true,
+    "city": "대구"
+  },
+  {
+    "id": 14,
+    "isKorea": true,
+    "city": "울산"
+  },
+  {
+    "id": 15,
+    "isKorea": false,
+    "city": "베트남"
+  },
+  {
+    "id": 16,
+    "isKorea": false,
+    "city": "태국"
+  },
+  {
+    "id": 17,
+    "isKorea": false,
+    "city": "대만"
+  },
+  {
+    "id": 18,
+    "isKorea": false,
+    "city": "싱가폴"
+  },
+  {
+    "id": 19,
+    "isKorea": false,
+    "city": "인도네시아"
+  },
+  {
+    "id": 20,
+    "isKorea": false,
+    "city": "말레이시아"
+  },
+  {
+    "id": 21,
+    "isKorea": false,
+    "city": "필리핀"
+  },
+  {
+    "id": 22,
+    "isKorea": false,
+    "city": "라오스"
+  },
+  {
+    "id": 23,
+    "isKorea": false,
+    "city": "캄보디아"
+  },
+  {
+    "id": 24,
+    "isKorea": false,
+    "city": "몰디브"
+  },
+  {
+    "id": 25,
+    "isKorea": false,
+    "city": "프랑스"
+  },
+  {
+    "id": 26,
+    "isKorea": false,
+    "city": "일본"
+  }
+]
