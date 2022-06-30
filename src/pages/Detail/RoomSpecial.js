@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import css from './RoomSpecial.module.scss';
+import React, { useState } from "react";
+import css from "./RoomSpecial.module.scss";
 
 const RoomSpecial = ({ roomData }) => {
-  console.log('special: ', roomData.specials);
   const special = roomData.specials;
 
   return (
