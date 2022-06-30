@@ -133,4 +133,14 @@
       }
     }
   }
+  .pagenationWrapper {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    .pageNumber {
+      margin-right: 10px;
+      font-size: 20px;
+      color: darkgray;
+    }
+  }
 }
