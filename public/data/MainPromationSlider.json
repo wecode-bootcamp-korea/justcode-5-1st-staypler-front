@@ -1,0 +1,72 @@
+[
+  {
+    "id": 0,
+    "room_name": "벵디 1967",
+    "room_type": "민박",
+    "province": "제주",
+    "image": "https://images.unsplash.com/photo-1580729739238-17abfd5e940f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aG91c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    "city": "제주시",
+    "promotion_title": "느림의 즐거움을 깨닫는 시간",
+    "promotion_sub_title": "7,8월 연박 시 스즈키 모리히사의 풍경 제공",
+    "left_days": 1,
+    "price": 360000,
+    "max_limit": 1,
+    "min_limit": 4
+  },
+  {
+    "id": 1,
+    "room_name": "목가블루",
+    "room_type": "한옥",
+    "province": "강원",
+    "image": "https://images.unsplash.com/photo-1626222628055-fb92dd194160?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzR8fGhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "city": "강원시",
+    "promotion_title": "시간이 멈춘 듯 느껴지는 공간의 힘",
+    "promotion_sub_title": "가족 인원 외 1인 무료 추가",
+    "left_days": 3,
+    "price": 450000,
+    "max_limit": 2,
+    "min_limit": 3
+  },
+  {
+    "id": 2,
+    "room_name": "평대라움",
+    "room_type": "민박",
+    "province": "제주",
+    "image": "https://images.unsplash.com/photo-1602159222267-a2274c936b9f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTM4fHxob3VzZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    "city": "제주시",
+    "promotion_title": "평대리의 여유로운 여느 때를 누리다",
+    "promotion_sub_title": "BYERDE 70ml 어메니티 5종 세트 증정",
+    "left_days": 6,
+    "price": 80000,
+    "max_limit": 4,
+    "min_limit": 8
+  },
+  {
+    "id": 3,
+    "room_name": "여유를 담다",
+    "room_type": "민박",
+    "province": "제주",
+    "image": "https://images.unsplash.com/photo-1586982599726-11708daaceca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODJ8fGhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "city": "제주시",
+    "promotion_title": "바다와 향을 마음에 담다",
+    "promotion_sub_title": "6-9월 숙박 시 10% 할인",
+    "left_days": 8,
+    "price": 550000,
+    "max_limit": 3,
+    "min_limit": 4
+  },
+  {
+    "id": 4,
+    "room_name": "스튜디오 오소",
+    "room_type": "렌탈하우스",
+    "province": "경상",
+    "image": "https://images.unsplash.com/photo-1587913560680-7f8187bf9634?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTAzfHxob3VzZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    "city": "경주시",
+    "promotion_title": "경주의 높은 곳에서 새로운 영감을 찾다",
+    "promotion_sub_title": "7.1 - 7.15 기간 내 주중 숙박 시 5만원 할인",
+    "left_days": 10,
+    "price": 400000,
+    "max_limit": 4,
+    "min_limit": 2
+  }
+]
