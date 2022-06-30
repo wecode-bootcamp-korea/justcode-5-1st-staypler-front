@@ -9,15 +9,19 @@ function Like(props) {
 
   useEffect(() => {
     setIsLike(!isLike);
-    // let token = localStorage.getItem('login-token') || '';
-    fetch('http://localhost:3000/data/roomIntro.json', {
+    fetch('http://192.168.1.4:10010/mypage', {
       method: 'GET',
-      // headers: {
-      //   Authorization: token,
-      // },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
     })
-      .then(res => res.json())
-
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
       .then(res => setLikeTable(res));
   }, []);
 
