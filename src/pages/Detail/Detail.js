@@ -20,8 +20,6 @@ function Detail() {
       });
   }, []);
 
-  // console.log(data);
-
   return (
     <div className={css.container}>
       {data && <DetailBannerSlider roomData={data} />}

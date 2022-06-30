@@ -24,19 +24,6 @@ function DetailBannerSlider({ roomData }) {
   let dataImages = [];
   let cardContainerRef = useRef();
   const carouselRef = useRef();
-  console.log(data);
-
-  // useEffect(() => {
-  //   fetch('http://192.168.1.4:10010/main/promotion')
-  //     .then(res => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-  //     })
-  //     .then(fetchdata => {
-  //       setData(fetchdata);
-  //     });
-  // }, []);
 
   if (data.images !== undefined) {
     dataImages = [data.images[dataLength - 1], ...data.images, data.images[0]];
