@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import css from './Findstay.module.scss';
 import Feed from './Feed.js';
+// import { useNavigate } from 'react-router-dom';
+// import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 
 function Findstay() {
-  const [feed, setFeed] = useState([]);
+  const [data, setData] = useState([]);
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/rooms/?page=1')
+    fetch('http://192.168.1.4:10010/rooms?page=1')
       .then(res => {
         if (res.ok) {
           return res.json();
         }
       })
       .then(fetchdata => {
-        setFeed(fetchdata.data);
+        setData(fetchdata.data);
       });
   }, []);
 
@@ -20,9 +22,11 @@ function Findstay() {
   const updateNameInput = e => {
     setNameInput(e.target.value);
   };
-  // const sortedFeeds = feed.filter(feed => {
-  //   return feed.room_name.includes(nameInput);
+
+  // const sortedFeeds = data.filter(feed => {
+  //   return feed.title.includes(nameInput);
   // });
+
   return (
     <div className={css.container}>
       <header>
@@ -75,10 +79,11 @@ function Findstay() {
           <button className={css.searchBtn}>search</button>
         </div>
       </div>
-      {feed.map(feed => {
+      {data.map(feed => {
         return (
           <Feed
             key={feed.id}
+            data={data}
             roomName={feed.title}
             roomType={feed.type}
             province={feed.province}

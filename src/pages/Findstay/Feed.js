@@ -7,12 +7,18 @@ function Feed(props) {
     roomType,
     province,
     city,
+    data,
     maxLimit,
     minLimit,
     minPrice,
     maxPrice,
     images,
   } = props;
+  console.log(data);
+  const navigate = useNavigate();
+  const goToDetail = id => {
+    navigate(`/rooms/${data.id}`);
+  };
   return (
     <div className={css.listBox}>
       <div className={css.roomNameBox}>
@@ -32,7 +38,9 @@ function Feed(props) {
               {minPrice}~{maxPrice}
             </span>
           </div>
-          <div className={css.reservationBtn}>예약하기</div>
+          <div className={css.reservationBtn} onClick={goToDetail}>
+            예약하기
+          </div>
         </div>
         <img className={css.feedPhoto} src={images} alt="FeedPhoto" />
       </div>
