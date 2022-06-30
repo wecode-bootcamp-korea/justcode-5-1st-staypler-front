@@ -1,0 +1,118 @@
+.component {
+  height: 540px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+}
+
+.reservationCard {
+  max-width: 1290px;
+  width: 97%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.roomInfo {
+  min-width: 220px;
+  margin-left: 5px;
+  color: #181818;
+  position: relative;
+
+  .title {
+    margin-bottom: 15px;
+    font-family: Abel, 'Noto Sans KR';
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 3.6px;
+    line-height: 12px;
+  }
+
+  .roomName {
+    margin-bottom: 40px;
+    font-size: 30px;
+    font-weight: 500;
+  }
+
+  .price {
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  .roomDetail {
+    position: absolute;
+    bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 25px;
+    color: #333333;
+  }
+}
+
+.carousel {
+  max-width: 960px !important;
+  min-width: 710px;
+  width: 100%;
+  height: 540px;
+  position: relative;
+}
+
+.cardContainer {
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.cardContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  flex-shrink: 0;
+  height: 100%;
+  max-width: 960px !important;
+  width: 100%;
+  scroll-snap-align: center;
+}
+
+.roomImg {
+  height: 100%;
+  max-width: 960px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+}
+
+.sliderBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  div {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #00000054;
+
+    * {
+      color: #ffffff;
+    }
+  }
+
+  div:hover {
+    opacity: 0.5;
+  }
+}
