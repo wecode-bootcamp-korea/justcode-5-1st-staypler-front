@@ -9,75 +9,90 @@ import ImgUploadModal from './ImgUploadModal';
 import Modal from './Modal';
 
 function MypageEditInformation() {
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
   const [savePassword, setSavePassword] = useState(false);
   const [saveEdit, setSaveEdit] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  let modalText = '';
+  const [modalText, setModalText] = useState('');
 
   const [imgUploadModal, setImgUploadModal] = useState(false);
   const [scriptOpne, setScriptOpen] = useState(false);
 
-  // 초기 fetch 작성
-  // useEffect(() => {
-  //   fetch('http://localhost:3000/data/Mypage.json')
-  //     .then(res => res.json())
-  //     .then(fetchdata => {
-  //       setData(fetchdata);
-  //     });
-  // }, []);
+  const [inputValue, setInputValue] = useState({
+    email: '',
+    name: '',
+    exPassword: '',
+    password: '',
+    rePassword: '',
+    phoneNum: '',
+    image: '',
+  });
+
+  useEffect(() => {
+    fetch('http://192.168.1.4:10010/mypage')
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(fetchdata => {
+        setData(fetchdata.data[0]);
+        setInputValue(prev => ({
+          ...prev,
+          email: fetchdata.data[0].email,
+          name: fetchdata.data[0].name,
+          phoneNum: fetchdata.data[0].phone,
+          image: fetchdata.data[0].profile_image_url,
+        }));
+      });
+  }, []);
 
   // password 저장 버튼 클릭에 따른 fetch
-  // useEffect(() => {
-  //   fetch("API 주소", {
-  //     method: "GET",
-  // 		headers: {
-  // 			Content-Type: "application/json"
-  // 		},
-  //     body: JSON.stringify({
-  //       email: id,
-  //       password: pw,
-  //     }),
-  //   })
-  //   .then((res) => {
-  //     if(Response.status === 200){
-  //       setOpenModal(true)
-  // modalText = '비밀번호가 수정되었습니다.';
-  //     }else if(
-  //       setOpenModal(true)
-  // modalText = '정보가 올바른 형식으로 입력되지 않았습니다.';
-  //     )
-  //   })
-  //   .then(fetchdata => {
-  //     setData(fetchdata);
-  //   });
-  // },[savePassword]
+  async function savePasswordBtn() {
+    await fetch('http://192.168.1.4:10010/mypage/password', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        current_password: inputValue.exPassword,
+        new_password: inputValue.password,
+        confirm_new_password: inputValue.rePassword,
+      }),
+    }).then(res => {
+      if (res.status === 200) {
+        setOpenModal(true);
+        setModalText('비밀번호가 수정되었습니다.');
+      } else {
+        setOpenModal(true);
+        setModalText('정보가 올바른 형식으로 입력되지 않았습니다.');
+      }
+    });
+  }
 
   // 전체 저장 버튼 클릭에 따른 fetch
-  // useEffect(() => {
-  //   fetch("API 주소", {
-  //     method: "GET",
-  // 		headers: {
-  // 			Content-Type: "application/json"
-  // 		},
-  //     body: JSON.stringify({
-  //       email: id,
-  //       password: pw,
-  //     }),
-  //   })
-  //   .then((res) => {
-  //     if(Response.status === 200){
-  //       setOpenModal(true)
-  // modalText = '회원 정보가 수정되었습니다.';
-  //     }else if(
-  //       setOpenModal(true)
-  // modalText = '정보가 올바른 형식으로 입력되지 않았습니다.';
-  //     )
-  //   })
-  //   .then(fetchdata => {
-  //     setData(fetchdata);
-  //   });
-  // },[saveEdit]
+  async function saveAllBtn() {
+    await fetch('http://192.168.1.4:10010/mypage', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: inputValue.name,
+        phone_number: inputValue.phoneNum,
+        profile_image: inputValue.image,
+      }),
+    }).then(res => {
+      console.log(res.status);
+      if (res.status === 200) {
+        setOpenModal(true);
+        setModalText('회원정보가 수정되었습니다.');
+      } else {
+        setOpenModal(true);
+        setModalText('정보가 올바른 형식으로 입력되지 않았습니다.');
+      }
+    });
+  }
 
   const regularExpressions = {
     regSpecialCharacter: /[!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g,
@@ -85,16 +100,6 @@ function MypageEditInformation() {
     regString: /[a-zA-Z]/g,
     regPhoneNum: /^\d{3}-\d{3,4}-\d{4}$/,
   };
-
-  const [inputValue, setInputValue] = useState({
-    email: '유저 이메일값 전달',
-    name: '유저 이름 전달',
-    exPassword: '',
-    password: '',
-    rePassword: '',
-    phoneNum: '010-1234-5678',
-    image: 'http://',
-  });
 
   const [nameValid, setNameValid] = useState(true);
   const [phoneNumValid, setPhoneNumValid] = useState(true);
@@ -233,9 +238,7 @@ function MypageEditInformation() {
             <button
               type="button"
               className={css.passwordBtn}
-              onClick={() => {
-                setSavePassword(!savePassword);
-              }}
+              onClick={savePasswordBtn}
             >
               비밀번호 변경
             </button>
@@ -288,9 +291,7 @@ function MypageEditInformation() {
           type="button"
           className={css.saveBtn}
           disabled={!nameValid && !phoneNumValid}
-          onClick={() => {
-            setSaveEdit(!saveEdit);
-          }}
+          onClick={saveAllBtn}
         >
           저장하기
         </button>
