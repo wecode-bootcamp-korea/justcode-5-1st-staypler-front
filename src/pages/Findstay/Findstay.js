@@ -3,32 +3,26 @@ import css from './Findstay.module.scss';
 import Feed from './Feed.js';
 
 function Findstay() {
-  const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   fetch('http://192.168.1.4:10010/경로작성')
-  //     .then(res => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-  //     })
-  //     .then(fetchdata => {
-  //       let fetchdata = fetchdata.data;
-  //       setData(fetchdata);
-  //     });
-  // }, []);
+  const [feed, setFeed] = useState([]);
+  useEffect(() => {
+    fetch('http://192.168.1.4:10010/rooms/?page=1')
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(fetchdata => {
+        setFeed(fetchdata.data);
+      });
+  }, []);
+
   const [nameInput, setNameInput] = useState('');
   const updateNameInput = e => {
     setNameInput(e.target.value);
   };
-  const sortedFeeds = data.filter(feed => {
-    return feed.room_name.includes(nameInput);
-  });
-
-  // useEffect(() => {
-  //   fetch('http://192.168.1.4:10010/경로')
-  //     .then(res => res.json())
-  //     .then(res => setData(res));
-  // }, []);
+  // const sortedFeeds = feed.filter(feed => {
+  //   return feed.room_name.includes(nameInput);
+  // });
   return (
     <div className={css.container}>
       <header>
@@ -81,12 +75,12 @@ function Findstay() {
           <button className={css.searchBtn}>search</button>
         </div>
       </div>
-      {sortedFeeds.map(feed => {
+      {feed.map(feed => {
         return (
           <Feed
             key={feed.id}
-            roomName={feed.room_name}
-            roomType={feed.room_type}
+            roomName={feed.title}
+            roomType={feed.type}
             province={feed.province}
             images={feed.images.image}
             city={feed.city}
