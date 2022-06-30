@@ -1,20 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import css from './Header.module.scss';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { BsCalendar4 } from 'react-icons/bs';
 import { BsToggleOn } from 'react-icons/bs';
 import WhereModal from '../WhereModal/WhereModal';
 import WhenModal from '../WhenModal/WhenModal';
+import { MdPerson } from 'react-icons/md';
 
 function Header() {
   const [modalActive, setModalActive] = useState(0);
   const modalWhereRef = useRef();
   const modalWhenRef = useRef();
+  const navigate = useNavigate();
 
   const openModal1 = () => setModalActive(1);
   const openModal2 = () => setModalActive(2);
-
   const closeModal = () => setModalActive(0);
 
   // 모달 ON/OFF 상태 관리
@@ -65,24 +66,38 @@ function Header() {
             </div>
           </div>
           <div className={css.sideMenu}>
-            <Link to="/Detail" className={css.menuList}>
-              FIND STAY
-            </Link>
-            <Link to="/" className={css.menuList}>
-              PROMOTION
-            </Link>
-            <Link to="/" className={css.menuList}>
-              JOURNAL
-            </Link>
-            <Link to="/" className={css.menuList}>
-              PRE-ORDER
-            </Link>
-            <Link to="/" className={css.menuList}>
-              LOGIN
-            </Link>
-            <Link to="/" className={css.menuList}>
-              <BsToggleOn size="23" />
-            </Link>
+            <div className={css.sideBtnGroup}>
+              <Link to="/Detail" className={css.menuList}>
+                FIND STAY
+              </Link>
+              <Link to="/" className={css.menuList}>
+                PROMOTION
+              </Link>
+              <Link to="/" className={css.menuList}>
+                JOURNAL
+              </Link>
+              <Link to="/" className={css.menuList}>
+                PRE-ORDER
+              </Link>
+            </div>
+            <div>
+              <div className={css.loginIcon}>
+                {false ? (
+                  <MdPerson
+                    size={20}
+                    onClick={() => {
+                      navigate('/mypage');
+                    }}
+                  />
+                ) : null}
+              </div>
+              <Link to="/" className={css.menuList}>
+                LOGIN
+              </Link>
+              <Link to="/" className={css.menuList}>
+                <BsToggleOn size="23" />
+              </Link>
+            </div>
           </div>
         </nav>
       </div>
