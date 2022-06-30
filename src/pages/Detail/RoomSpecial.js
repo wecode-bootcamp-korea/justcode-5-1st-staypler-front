@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import css from './RoomSpecial.module.scss';
 
-const RoomSpecial = ({ details }) => {
-  const special = details.length > 0 ? details[0].special : null;
+const RoomSpecial = ({ roomData }) => {
+  console.log('special: ', roomData.specials);
+  const special = roomData.specials;
 
   return (
     <div className={css.container}>
