@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import Header from './../components/Header/Header';
+import Footer from './../components/Footer/Footer';
 import Home from './Home/Home';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
@@ -16,15 +18,13 @@ import MypageroomSlider from './Mypage/components/MypageroomSlider';
 function Router() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/findstay" element={<Findstay />} />
-        <Route
-          path="/roomid/reservation/:roomid"
-          element={<Reservation />}
-        />
+        <Route path="/roomid/reservation/:roomid" element={<Reservation />} />
         <Route path="/rooms/:id" element={<Detail />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/mypage" element={<Mypage />}>
@@ -58,6 +58,7 @@ function Router() {
           <Route path="edit" element={<MypageEditInformation />} />
         </Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
