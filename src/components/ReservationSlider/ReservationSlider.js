@@ -18,7 +18,7 @@ const infinity = (cardContainerRef, carouselRef, dataLength) => {
   }
 };
 
-function ReservationSlider() {
+function ReservationSlider({ roomid }) {
   const [data, setData] = useState({});
   const dataLength = data.images?.length;
   let dataImages = [];
@@ -26,12 +26,14 @@ function ReservationSlider() {
   const carouselRef = useRef();
 
   useEffect(() => {
-    fetch('http://localhost:3000/data/ReservationSlider.json')
+    fetch(`http://192.168.1.4:10010/rooms/${roomid}/room`)
       .then(res => res.json())
       .then(fetchdata => {
-        setData(fetchdata);
+        setData(fetchdata.data[0]);
       });
   }, []);
+
+  console.log(data);
 
   if (data.images !== undefined) {
     dataImages = [data.images[dataLength - 1], ...data.images, data.images[0]];

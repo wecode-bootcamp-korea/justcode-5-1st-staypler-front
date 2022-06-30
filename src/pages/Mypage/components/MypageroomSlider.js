@@ -13,7 +13,6 @@ function MypageroomSlider({ title, API }) {
     page: 1,
     count: 5,
     getImageAll: 0,
-    id: 1,
   };
 
   let query = Object.keys(params)
@@ -23,7 +22,14 @@ function MypageroomSlider({ title, API }) {
   let url = API + '?' + query;
 
   useEffect(() => {
-    fetch(url)
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then(res => {
         if (res.ok) {
           return res.json();

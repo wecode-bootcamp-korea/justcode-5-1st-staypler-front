@@ -29,7 +29,14 @@ function MypageEditInformation() {
   });
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/mypage')
+    fetch('http://192.168.1.4:10010/mypage', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -52,7 +59,9 @@ function MypageEditInformation() {
     await fetch('http://192.168.1.4:10010/mypage/password', {
       method: 'PUT',
       headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
         current_password: inputValue.exPassword,
@@ -75,7 +84,9 @@ function MypageEditInformation() {
     await fetch('http://192.168.1.4:10010/mypage', {
       method: 'PUT',
       headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
         name: inputValue.name,
@@ -83,7 +94,6 @@ function MypageEditInformation() {
         profile_image: inputValue.image,
       }),
     }).then(res => {
-      console.log(res.status);
       if (res.status === 200) {
         setOpenModal(true);
         setModalText('회원정보가 수정되었습니다.');
