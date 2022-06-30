@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import css from './Login.module.scss';
 
 function Login() {
@@ -17,23 +16,22 @@ function Login() {
   };
   const navigate = useNavigate();
   const goToHome = () => {
-    // fetch("http://?/login", {
-    //   method: "POST",
+    // fetch('http://192.168.1.4:10010/users/login', {
+    //   method: 'POST',
     //   headers: {
-    //     "Content-Type": "application/json",
+    //     'Content-Type': 'application/json',
     //   },
     //   body: JSON.stringify({
-    //     email: userId,
-    //     password: userPw,
+    //     email: inputValue.email,
+    //     password: inputValue.password,
     //   }),
     // })
-    //   .then((response) => response.json())
-    //   .then((result) =>
+    //   .then(response => response.json())
+    //   .then(result =>
     //     result.token !== undefined
-    //       ? navigate("/home")
+    //       ? navigate('/home')
     //       : alert('아이디혹은 비밀번호가 잘못되었습니다')
     //   );
-    navigate('/home');
   };
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -107,7 +105,11 @@ function Login() {
           >
             로그인
           </button>
-          <button type="button" className={css.signupBtn}>
+          <button
+            type="button"
+            className={css.signupBtn}
+            onClick={navigate('/users/signup')}
+          >
             회원가입
           </button>
         </div>
