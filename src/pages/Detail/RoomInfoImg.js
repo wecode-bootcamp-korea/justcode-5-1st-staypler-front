@@ -1,7 +1,6 @@
 import React from 'react';
 import css from './RoomInfoImg.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../../Desktop/justcode/justcode-5-1st-staypler/justcode-5-1st-staypler-front/src/config';
 
 const RoomInfoImg = ({
   imageUrl,
@@ -12,25 +11,17 @@ const RoomInfoImg = ({
   min_limit,
   max_limit,
 }) => {
-  //예약페이지연결
   const navigate = useNavigate();
-
   const goToBooking = () => {
-    fetch(`${BASE_URL}/rooms/room`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    fetch(`http://192.168.1.4:10010/rooms/${id}/reservation`)
       .then(res => res.json())
       .then(result => {
-        localStorage.setItem('token', result.access_token);
-        navigate('/rooms/room');
+        navigate('/rooms/${id}/reservation');
       });
   };
   return (
-    <ul onClick={goToBooking}>
-      <li className={css.imgCard}>
+    <ul>
+      <li className={css.imgCard} onClick={goToBooking}>
         <img src={imageUrl} alt={id} className={css.roomImg} />
         <div className={css.infoBox}>
           <div className={css.roomName}>
