@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import css from './RoomIntro.module.scss';
 
-const RoomIntro = ({ details, room_name }) => {
-  const roomsIntro = details.length > 0 ? details[0].rooms_intro : null;
+const RoomIntro = ({ roomData, room_name }) => {
+  console.log('intro: ', roomData.intro);
+  const roomsIntro = roomData.intro;
 
   return (
     <div>
@@ -13,10 +14,10 @@ const RoomIntro = ({ details, room_name }) => {
             <p className={css.roomName}>{room_name}</p>
           </div>
           <div className={css.mainContent}>
-            <p>{roomsIntro.mainContent}</p>
+            <p>{roomsIntro.main_content}</p>
           </div>
           <div className={css.subContent}>
-            <p>{roomsIntro.subContent}</p>
+            <p>{roomsIntro.sub_content}</p>
           </div>
         </div>
       )}
