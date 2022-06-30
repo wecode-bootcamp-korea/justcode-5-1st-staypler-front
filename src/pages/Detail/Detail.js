@@ -1,8 +1,10 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailBannerSlider from '../../components/DetailBannerSlider/DetailBannerSlider';
 
 import css from './Detail.module.scss';
+import FAQ from './FAQ/FAQ';
 
 function Detail() {
   const [data, setData] = useState([]);
@@ -23,8 +25,10 @@ function Detail() {
   return (
     <div className={css.container}>
       {data && <DetailBannerSlider roomData={data} />}
+      <FAQ />
     </div>
   );
 }
 
 export default Detail;
+

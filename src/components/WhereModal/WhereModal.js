@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import css from './WhereModal.module.scss';
 import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai';
 import BlackButton from '../BlackButton/BlackButton';
+import { Link } from 'react-router-dom';
 
 function WhereModal({ modalRef, closeModal }) {
   const [selectCountry, setSelectCounry] = useState(null);
@@ -125,12 +126,12 @@ function WhereModal({ modalRef, closeModal }) {
               </ul>
             </div>
           </div>
-          <div className={css.btnWrapper}>
+          <Link to="/Detail" className={css.btnWrapper}>
             <BlackButton
               className={css.searchBtn}
               content="search &nbsp; &nbsp; →"
             />
-          </div>
+          </Link>
         </div>
       </div>
     </div>
