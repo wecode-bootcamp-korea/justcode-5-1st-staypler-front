@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import css from './RoomIntro.module.scss';
 
 const RoomIntro = ({ roomData, room_name }) => {
-  console.log('intro: ', roomData.intro);
   const roomsIntro = roomData.intro;
 
   return (
