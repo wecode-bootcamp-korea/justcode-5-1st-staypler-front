@@ -17,6 +17,7 @@ function Like(props) {
       // },
     })
       .then(res => res.json())
+
       .then(res => setLikeTable(res));
   }, []);
 
