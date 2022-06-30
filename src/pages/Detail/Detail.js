@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import DetailBannerSlider from '../../components/DetailBannerSlider/DetailBannerSlider';
 import Like from '../../components/Like/Like';
 import RoomInfoSlider from './RoomInfoSlider';
-import RoomIntro from '/RoomIntro';
+import RoomIntro from './RoomIntro';
 import RoomSpecial from './RoomSpecial';
 import css from './Detail.module.scss';
 import FAQ from './FAQ/FAQ';
