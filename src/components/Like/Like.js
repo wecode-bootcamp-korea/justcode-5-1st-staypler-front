@@ -5,25 +5,38 @@ import style from './Like.module.scss';
 
 function Like(props) {
   const [isLike, setIsLike] = useState(false);
+  const [likeTable, setLikeTable] = useState(null);
 
-  function clickHeart() {
+  useEffect(() => {
     setIsLike(!isLike);
-    // let token = sessionStorage.getItem('login-token') || '';
+    // let token = localStorage.getItem('login-token') || '';
     fetch('http://localhost:3000/data/roomIntro.json', {
-      method: 'POST',
+      method: 'GET',
       // headers: {
       //   Authorization: token,
       // },
-    }).then(res => res.json());
-  }
+    })
+      .then(res => res.json())
+      .then(res => setLikeTable(res));
+  }, []);
 
   return (
     <div>
-      <button onClick={clickHeart}>
+      <button>
         {isLike ? (
-          <FiHeart size="23" color="#d2d2d2" className={style.heart} />
+          <FiHeart
+            size="23"
+            color="#d2d2d2"
+            className={style.heart}
+            onClick={() => setIsLike(prev => !prev)}
+          />
         ) : (
-          <FaHeart size="23" color="#d2d2d2" className={style.heart} />
+          <FaHeart
+            size="23"
+            color="#d2d2d2"
+            className={style.heart}
+            onClick={() => setIsLike(prev => !prev)}
+          />
         )}
       </button>
     </div>
