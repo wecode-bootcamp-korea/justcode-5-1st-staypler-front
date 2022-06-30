@@ -83,7 +83,7 @@ function Findstay() {
         return (
           <Feed
             key={feed.id}
-            data={data}
+            id={feed.id}
             roomName={feed.title}
             roomType={feed.type}
             province={feed.province}

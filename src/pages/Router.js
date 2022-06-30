@@ -24,10 +24,7 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/findstay" element={<Findstay />} />
-        <Route
-          path="/roomid/reservation/:roomid"
-          element={<Reservation />}
-        />
+        <Route path="/roomid/reservation/:roomid" element={<Reservation />} />
         <Route path="/rooms/:id" element={<Detail />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/mypage" element={<Mypage />}>
