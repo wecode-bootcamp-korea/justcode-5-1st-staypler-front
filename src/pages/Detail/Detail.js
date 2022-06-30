@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import DetailBannerSlider from '../../components/DetailBannerSlider/DetailBannerSlider';
 import Like from '../../components/Like/Like';
 import RoomInfoSlider from './RoomInfoSlider';
-// import RoomIntro from '/RoomIntro';
+import RoomIntro from '/RoomIntro';
 import RoomSpecial from './RoomSpecial';
 import css from './Detail.module.scss';
 import FAQ from './FAQ/FAQ';
@@ -29,7 +29,7 @@ function Detail() {
       </div>
       {data && <DetailBannerSlider roomData={data} />}
       {data && <RoomInfoSlider roomData={data} />}
-      {/* {data && <RoomIntro roomData={data} room_name={data.room_name} />} */}
+      {data && <RoomIntro roomData={data} room_name={data.room_name} />}
       {data && <RoomSpecial roomData={data} />}
       <div
         className={css.address}
