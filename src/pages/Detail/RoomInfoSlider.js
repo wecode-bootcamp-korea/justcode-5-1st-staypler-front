@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 import css from './RoomsInfoSlider.module.scss';
 import RoomInfoImg from './RoomInfoImg';
+
 const RoomInfoSlider = ({ roomData }) => {
   const slideRef = useRef();
   const rooms = roomData.room;
   const [currentRoom, setCurrentRoom] = useState(0);
-  const state = (100 / rooms?.length) * currentRoom;
+  const state = (150 / rooms?.length) * currentRoom;
   const next = () => {
     setCurrentRoom(() =>
       currentRoom === rooms?.length - 1 ? currentRoom : currentRoom + 1
@@ -18,6 +20,7 @@ const RoomInfoSlider = ({ roomData }) => {
     slideRef.current.style.transform = `translate(-${state}%)`;
     slideRef.current.style.transition = '.5s';
   }, [state]);
+
   return (
     <div className={css.container}>
       <div className={css.roomsInfoContainer}>
@@ -47,7 +50,7 @@ const RoomInfoSlider = ({ roomData }) => {
         <div className={css.sliderWrapper}>
           <div className={css.roomSlide} ref={slideRef}>
             {rooms?.length &&
-              rooms.map((el, idx) => {
+              rooms.map((el, i) => {
                 return (
                   <RoomInfoImg
                     className={css.cards}
@@ -60,6 +63,7 @@ const RoomInfoSlider = ({ roomData }) => {
                     type={el.type}
                     max_limit={el.max_limit}
                     min_limit={el.min_limit}
+                    idx={i}
                   />
                 );
               })}
