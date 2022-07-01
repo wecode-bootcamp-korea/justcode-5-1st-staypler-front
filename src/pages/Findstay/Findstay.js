@@ -10,7 +10,7 @@ function Findstay() {
   let [pages, setpages] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:10010/rooms?page=${pageBtnNum}`)
+    fetch(`http://192.168.1.6:10010/rooms?page=${pageBtnNum}`)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -26,7 +26,7 @@ function Findstay() {
   for (let i = 1; i <= pages; i++) {
     pageNumber.push(i);
   }
-
+  console.log(data);
   return (
     <div className={css.container}>
       <header>
@@ -83,7 +83,7 @@ function Findstay() {
             roomName={feed.title}
             roomType={feed.type}
             province={feed.province}
-            images={feed.images.image}
+            images={feed.images[0]}
             city={feed.city}
             maxPrice={feed.max_price}
             minPrice={feed.min_price}
