@@ -10,7 +10,7 @@ function Findstay() {
   let [pages, setpages] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:10010/rooms?page=${pageBtnNum}`)
+    fetch(`http://192.168.1.6:10010/rooms?page=${pageBtnNum}`)
       .then(res => {
         if (res.ok) {
           return res.json();

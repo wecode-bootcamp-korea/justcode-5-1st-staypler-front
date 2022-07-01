@@ -27,7 +27,7 @@ function MainBannerSlider() {
   const carouselRef = useRef();
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/main/banner')
+    fetch('http://192.168.1.6:10010/main/banner')
       .then(res => {
         if (res.ok) {
           return res.json();

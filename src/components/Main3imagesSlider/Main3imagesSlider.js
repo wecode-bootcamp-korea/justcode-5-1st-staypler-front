@@ -29,7 +29,7 @@ function Main3imagesSlider() {
   let [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/main/recommend')
+    fetch('http://192.168.1.6:10010/main/recommend')
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -44,6 +44,8 @@ function Main3imagesSlider() {
   const goToDetail = id => {
     navigate(`/rooms/${data[id].rooms_id}`);
   };
+
+  console.log(data);
 
   useEffect(() => {
     cardContainerRef.current.style.scrollBehavior = 'auto';
@@ -104,11 +106,9 @@ function Main3imagesSlider() {
                     <span className={css.province}>{data[i].province}</span>
                     <span className={css.city}>{data[i].city}</span>
                     <span className={css.price}>
-                      ￦{data[i].max_price?.toLocaleString('ko-KR')}
+                      ￦{data[i].max_price?.toLocaleString('ko-KR')} ~
                     </span>
-                    <span className={css.price}>
-                      ￦{data[i].min_price?.toLocaleString('ko-KR')}
-                    </span>
+                    <span> ￦{data[i].min_price?.toLocaleString('ko-KR')}</span>
                   </div>
                   <span className={css.reserve}>reserve</span>
                 </div>

@@ -11,10 +11,10 @@ function MypageHeader() {
     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
     .join('&');
 
-  let url = 'http://192.168.1.4:10010/mypage/header?' + query;
+  let url = 'http://192.168.1.6:10010/mypage/header?' + query;
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/mypage', {
+    fetch('http://192.168.1.6:10010/mypage', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,

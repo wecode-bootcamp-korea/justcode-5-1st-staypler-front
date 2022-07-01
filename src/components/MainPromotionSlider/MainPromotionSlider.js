@@ -27,7 +27,7 @@ function MainPromotionSlider() {
   const carouselRef = useRef();
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/main/promotion')
+    fetch('http://192.168.1.6:10010/main/promotion')
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -38,6 +38,8 @@ function MainPromotionSlider() {
         setData([fetchdata[fetchdata.length - 1], ...fetchdata, fetchdata[0]]);
       });
   }, []);
+
+  console.log(data);
 
   const goToDetail = id => {
     navigate(`/rooms/${data[id].room_id}`);
@@ -97,6 +99,8 @@ function MainPromotionSlider() {
     carouselRefCurrent.addEventListener('mouseup', mouseUpCallback);
     carouselRefCurrent.addEventListener('mousemove', mouseMoveCallback);
 
+    console.log(data);
+
     return () => {
       window.removeEventListener('mouseup', mouseUpCallback);
       carouselRefCurrent.removeEventListener('mousedown', mouseDownCallback);
@@ -143,9 +147,14 @@ function MainPromotionSlider() {
                           최대 {data[i].min_limit}명
                         </p>
                       </div>
-                      <p className={css.price}>
-                        {data[i].price?.toLocaleString('ko-KR')}원
-                      </p>
+                      <div className={css.priceGroup}>
+                        <p className={css.price}>
+                          {data[i].min_price?.toLocaleString('ko-KR')}원
+                        </p>
+                        <p className={css.price}>
+                          ~ {data[i].max_price?.toLocaleString('ko-KR')}원
+                        </p>
+                      </div>
                     </div>
 
                     <div className={css.pagenation}>

@@ -81,7 +81,7 @@ function MypageEditInformation() {
 
   // 전체 저장 버튼 클릭에 따른 fetch
   async function saveAllBtn() {
-    await fetch('http://192.168.1.4:10010/mypage', {
+    await fetch('http://192.168.1.6:10010/mypage', {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,

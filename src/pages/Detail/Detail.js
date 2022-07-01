@@ -10,12 +10,11 @@ import FAQ from './FAQ/FAQ';
 function Detail() {
   const [data, setData] = useState([]);
   let { id } = useParams();
-  console.log(id);
   useEffect(() => {
-    fetch(`http://localhost:10010/rooms/${id}`, {
+    fetch(`http://192.168.1.6:10010/rooms/${id}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        // Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },

@@ -26,14 +26,12 @@ function ReservationSlider({ roomid }) {
   const carouselRef = useRef();
 
   useEffect(() => {
-    fetch(`http://192.168.1.4:10010/rooms/${roomid}/room`)
+    fetch(`http://192.168.1.6:10010/rooms/${roomid}/room`)
       .then(res => res.json())
       .then(fetchdata => {
         setData(fetchdata.data[0]);
       });
   }, []);
-
-  console.log(data);
 
   if (data.images !== undefined) {
     dataImages = [data.images[dataLength - 1], ...data.images, data.images[0]];

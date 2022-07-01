@@ -17,7 +17,7 @@ function Login() {
   };
   const loginBtnHandle = event => {
     event.preventDefault();
-    fetch('http://192.168.1.4:10010/users/login', {
+    fetch('http://192.168.1.6:10010/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,10 +27,17 @@ function Login() {
         password: inputValue.password,
       }),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        // console.log(response.json());
+      })
       .then(result => {
+        console.log(result);
         if (result.token) {
           // console.log(result);
+
           localStorage.setItem('login-token', result.token);
           navigate('/');
         } else {
