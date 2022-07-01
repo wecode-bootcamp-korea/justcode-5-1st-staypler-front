@@ -1,6 +1,7 @@
 import React from 'react';
-import css from './RoomInfoImg.module.scss';
 import { useNavigate } from 'react-router-dom';
+import css from './RoomInfoImg.module.scss';
+
 const RoomInfoImg = ({
   imageUrl,
   id,
@@ -9,10 +10,20 @@ const RoomInfoImg = ({
   type,
   min_limit,
   max_limit,
+  idx,
 }) => {
+  const navigate = useNavigate();
+  const goToBooking = id => {
+    navigate(`/reservation/${id}`);
+  };
   return (
     <ul>
-      <li className={css.imgCard}>
+      <li
+        className={css.imgCard}
+        onClick={() => {
+          goToBooking(idx);
+        }}
+      >
         <img src={imageUrl} alt={id} className={css.roomImg} />
         <div className={css.infoBox}>
           <div className={css.roomName}>

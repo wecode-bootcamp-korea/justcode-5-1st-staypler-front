@@ -10,9 +10,9 @@ import FAQ from './FAQ/FAQ';
 function Detail() {
   const [data, setData] = useState([]);
   let { id } = useParams();
-  console.log(id);
+
   useEffect(() => {
-    fetch(`http://localhost:10010/rooms/${id}`, {
+    fetch(`http://192.168.1.6:10010/rooms/${id}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -26,11 +26,10 @@ function Detail() {
         }
       })
       .then(fetchdata => {
-        console.log('data:', fetchdata);
         setData(fetchdata.data[0]);
       });
   }, []);
-  // console.log(data);
+
   return (
     <div className={css.container}>
       <div className={css.roomName}>
