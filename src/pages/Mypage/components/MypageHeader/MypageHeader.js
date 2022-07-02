@@ -27,10 +27,7 @@ function MypageHeader() {
 
   return (
     <div className={css.headerContainer}>
-      <p className={css.helloToUser}>
-        김지현
-        {/* {data.name} */}
-      </p>
+      <p className={css.helloToUser}>{data.name}</p>
       <div>
         <span className={css.email}>{data.email}</span>
         <button className={css.editBtn}>회원 정보 수정</button>
