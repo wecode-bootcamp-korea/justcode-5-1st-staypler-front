@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import css from './Findstay.module.scss';
 import Feed from './Feed.js';
+import { BASEURL } from '../../ApiOrigin';
+import PageHeader from '../../components/PageHeader/PageHeader';
+
 // import { useNavigate } from 'react-router-dom';
 // import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
-
 function Findstay() {
   const [data, setData] = useState([]);
   let [pageBtnNum, setPageBtnNum] = useState(1);
   let [pages, setpages] = useState();
-
   useEffect(() => {
-    fetch(`http://localhost:10010/rooms?page=${pageBtnNum}`)
+    fetch(`${BASEURL}/rooms?page=${pageBtnNum}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -21,18 +29,17 @@ function Findstay() {
         setData(fetchdata.data);
       });
   }, [pageBtnNum]);
-
   const pageNumber = [];
   for (let i = 1; i <= pages; i++) {
     pageNumber.push(i);
   }
-
   return (
     <div className={css.container}>
-      <header>
-        <div className={css.title}>FIND STAY</div>
-        <div className={css.subtitle}>머무는 것 자체로 여행이 되는 공간</div>
-      </header>
+      <PageHeader
+        pageTitleEN="FIND STAY"
+        pageTitleKO="머무는 것 자체로 여행이 되는 공간"
+        url="/findstay"
+      />
       <div className={css.filterWrapper}>
         <div className={css.firstLine}>
           <div className={css.keyword}>
@@ -83,7 +90,7 @@ function Findstay() {
             roomName={feed.title}
             roomType={feed.type}
             province={feed.province}
-            images={feed.images.image}
+            images={feed.images[0]}
             city={feed.city}
             maxPrice={feed.max_price}
             minPrice={feed.min_price}
@@ -111,5 +118,4 @@ function Findstay() {
     </div>
   );
 }
-
 export default Findstay;

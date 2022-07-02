@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import css from './Header.module.scss';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { BsCalendar4 } from 'react-icons/bs';
 import { BsToggleOn } from 'react-icons/bs';
+import { MdPerson } from 'react-icons/md';
+import css from './Header.module.scss';
 import WhereModal from '../WhereModal/WhereModal';
 import WhenModal from '../WhenModal/WhenModal';
-import { MdPerson } from 'react-icons/md';
 
 function Header() {
   const [modalActive, setModalActive] = useState(0);
@@ -49,54 +49,56 @@ function Header() {
           <Link to="/" className={css.logo}>
             S T A Y <br /> P L E R
           </Link>
-          <div className={css.centerMenu}>
-            <div id="modal1" className={css.modalBtn} onClick={openModal1}>
+          <div className={css.Menu}>
+            <div className={css.centerMenu}>
+              <div id="modal1" className={css.modalBtn} onClick={openModal1}>
+                <div>
+                  <MdOutlineLocationOn className={css.modalIcon} size="26" />
+                </div>
+                <p id="modalOpen1" className={css.modalText}>
+                  어디로떠날까요?
+                </p>
+              </div>
+              <div id="modal2" className={css.modalBtn} onClick={openModal2}>
+                <BsCalendar4 className={css.modalIcon} size="26" />
+                <p id="modalOpen2" className={css.modalText}>
+                  언제떠날까요?
+                </p>
+              </div>
+            </div>
+            <div className={css.sideMenu}>
+              <div className={css.sideBtnGroup}>
+                <Link to="/findstay" className={css.menuList}>
+                  FIND STAY
+                </Link>
+                <Link to="/" className={css.menuList}>
+                  PROMOTION
+                </Link>
+                <Link to="/" className={css.menuList}>
+                  JOURNAL
+                </Link>
+                <Link to="/" className={css.menuList}>
+                  PRE-ORDER
+                </Link>
+              </div>
               <div>
-                <MdOutlineLocationOn className={css.modalIcon} size="26" />
+                <div className={css.loginIcon}>
+                  {true ? (
+                    <MdPerson
+                      size={20}
+                      onClick={() => {
+                        navigate('/mypage');
+                      }}
+                    />
+                  ) : null}
+                </div>
+                <Link to="/login" className={css.menuList}>
+                  LOGIN
+                </Link>
+                <Link to="/" className={css.menuList}>
+                  <BsToggleOn size="23" />
+                </Link>
               </div>
-              <p id="modalOpen1" className={css.modalText}>
-                어디로떠날까요?
-              </p>
-            </div>
-            <div id="modal2" className={css.modalBtn} onClick={openModal2}>
-              <BsCalendar4 className={css.modalIcon} size="26" />
-              <p id="modalOpen2" className={css.modalText}>
-                언제떠날까요?
-              </p>
-            </div>
-          </div>
-          <div className={css.sideMenu}>
-            <div className={css.sideBtnGroup}>
-              <Link to="/findstay" className={css.menuList}>
-                FIND STAY
-              </Link>
-              <Link to="/" className={css.menuList}>
-                PROMOTION
-              </Link>
-              <Link to="/" className={css.menuList}>
-                JOURNAL
-              </Link>
-              <Link to="/" className={css.menuList}>
-                PRE-ORDER
-              </Link>
-            </div>
-            <div>
-              <div className={css.loginIcon}>
-                {true ? (
-                  <MdPerson
-                    size={20}
-                    onClick={() => {
-                      navigate('/mypage');
-                    }}
-                  />
-                ) : null}
-              </div>
-              <Link to="/login" className={css.menuList}>
-                LOGIN
-              </Link>
-              <Link to="/" className={css.menuList}>
-                <BsToggleOn size="23" />
-              </Link>
             </div>
           </div>
         </nav>

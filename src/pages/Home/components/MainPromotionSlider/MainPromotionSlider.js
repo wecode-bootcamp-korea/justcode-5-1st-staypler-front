@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import css from './MainPromotionSlider.module.scss';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { BASEURL } from '../../../../ApiOrigin';
 
 const infinity = (cardContainerRef, carouselRef, dataLength) => {
   if (cardContainerRef.current.scrollLeft === 0) {
@@ -27,7 +28,7 @@ function MainPromotionSlider() {
   const carouselRef = useRef();
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/main/promotion')
+    fetch(`${BASEURL}/main/promotion`)
       .then(res => {
         if (res.ok) {
           return res.json();

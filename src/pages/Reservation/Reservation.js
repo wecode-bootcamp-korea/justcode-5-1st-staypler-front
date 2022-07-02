@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import ReservationSlider from '../../components/ReservationSlider/ReservationSlider';
-import ReservationHeader from './ReservationHeader';
+import ReservationSlider from './components/ReservationSlider/ReservationSlider';
+import ReservationHeader from './components/ReservationHeader/ReservationHeader';
+import { BASEURL } from '../../ApiOrigin';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 import css from './Reservation.module.scss';
 
@@ -9,7 +11,7 @@ function Reservation() {
   const { roomid } = useParams();
   const [data, setData] = useState({});
   useEffect(() => {
-    fetch(`http://192.168.1.6:10010/rooms/${roomid}/room`, {
+    fetch(`${BASEURL}/rooms/${roomid}/room`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -22,6 +24,7 @@ function Reservation() {
         }
       })
       .then(fetchdata => {
+        console.log(fetchdata);
         setData(fetchdata.data[0]);
       });
   }, []);
@@ -29,6 +32,11 @@ function Reservation() {
   // console.log(data);
   return (
     <div className={css.container}>
+      <PageHeader
+        pageTitleEN="BOOKING"
+        pageTitleKO=""
+        url={`/reservation/${roomid}`}
+      />
       <ReservationHeader roomid={roomid} roomname={data?.room_name} />
       {data && (
         <ReservationSlider

@@ -1,0 +1,50 @@
+[
+  {
+    "id": 0,
+    "room_name": "청수리아파트",
+    "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    "privince": "제주",
+    "city": "제주시",
+    "price": 300000
+  },
+  {
+    "id": 1,
+    "room_name": "월정담",
+    "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    "privince": "제주",
+    "city": "제주시",
+    "price": 500000
+  },
+  {
+    "id": 2,
+    "room_name": "제주토끼",
+    "image": "https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHJvb218ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "privince": "제주",
+    "city": "제주시",
+    "price": 350000
+  },
+  {
+    "id": 3,
+    "room_name": "심박한집",
+    "image": "https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHJvb218ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "privince": "강원",
+    "city": "고성군",
+    "price": 230000
+  },
+  {
+    "id": 4,
+    "room_name": "디귿집",
+    "image": "https://images.unsplash.com/photo-1552242718-c5360894aecd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fHJvb218ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "privince": "서울",
+    "city": "종로구",
+    "price": 480000
+  },
+  {
+    "id": 5,
+    "room_name": "토브카키",
+    "image": "https://images.unsplash.com/photo-1610123172763-1f587473048f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHJvb218ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "privince": "강원",
+    "city": "강릉시",
+    "price": 2300000
+  }
+]

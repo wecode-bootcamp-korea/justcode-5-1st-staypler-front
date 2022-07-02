@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import css from './MypageHeader.module.scss';
+import { BASEURL } from '../../../../ApiOrigin';
 
 function MypageHeader() {
   const [data, setData] = useState({});
-  let params = {
-    id: 1,
-  };
-
-  let query = Object.keys(params)
-    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-    .join('&');
-
-  let url = 'http://192.168.1.4:10010/mypage/header?' + query;
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/mypage', {
+    fetch(`${BASEURL}/mypage`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -35,7 +27,10 @@ function MypageHeader() {
 
   return (
     <div className={css.headerContainer}>
-      <p className={css.helloToUser}>{data.name}</p>
+      <p className={css.helloToUser}>
+        김지현
+        {/* {data.name} */}
+      </p>
       <div>
         <span className={css.email}>{data.email}</span>
         <button className={css.editBtn}>회원 정보 수정</button>

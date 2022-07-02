@@ -6,7 +6,6 @@ function ReservationHeader(props) {
   return (
     <div className={css.container}>
       <div className={css.header}>
-        <div className={css.title}>BOOKING</div>
         <div className={css.bookingRow}>
           <div className={css.name}>{props.roomname}</div>
           <div className={css.bookingDate}>

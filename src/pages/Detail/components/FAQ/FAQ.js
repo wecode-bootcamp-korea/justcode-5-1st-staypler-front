@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import css from './FAQ.module.scss';
 import FAQButton from './faqButtons/FAQButton';
 import FaqContent from './faqContents/FaqContent';
-
+import { BASEURL } from '../../../../ApiOrigin';
 const FAQ = () => {
   //infoButton 값 관리
   const [clicked, setClicked] = useState(0);
@@ -42,7 +42,7 @@ const FAQ = () => {
   ]);
 
   useEffect(() => {
-    fetch('/data/faq.json', { method: 'GET' })
+    fetch(`${BASEURL}/data/faq.json`, { method: 'GET' })
       .then(res => res.json())
       .then(res => setCompInfo(res));
   });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import css from './PageMainHeader.module.scss';
+import css from './PageHeader.module.scss';
 
-function PageMainHeader(props) {
+function PageHeader(props) {
   const { pageTitleEN, pageTitleKO, url } = props;
   const navigate = useNavigate();
 
@@ -28,4 +28,4 @@ function PageMainHeader(props) {
   );
 }
 
-export default PageMainHeader;
+export default PageHeader;

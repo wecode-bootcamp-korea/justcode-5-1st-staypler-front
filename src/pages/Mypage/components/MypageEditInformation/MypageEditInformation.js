@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import css from './MypageEditInformation.module.scss';
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from 'react-icons/md';
 import { FiCamera } from 'react-icons/fi';
-import ImgUploadModal from './ImgUploadModal';
-import Modal from './Modal';
+import css from './MypageEditInformation.module.scss';
+import ImgUploadModal from './../ImgUploadModal/ImgUploadModal';
+import Modal from './../Modal/Modal';
+import { BASEURL } from '../../../../ApiOrigin';
 
 function MypageEditInformation() {
   const [data, setData] = useState([]);
@@ -29,7 +30,7 @@ function MypageEditInformation() {
   });
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/mypage', {
+    fetch(`${BASEURL}:10010/mypage`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -56,7 +57,7 @@ function MypageEditInformation() {
 
   // password 저장 버튼 클릭에 따른 fetch
   async function savePasswordBtn() {
-    await fetch('http://192.168.1.4:10010/mypage/password', {
+    await fetch(`${BASEURL}/mypage/password`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -81,7 +82,7 @@ function MypageEditInformation() {
 
   // 전체 저장 버튼 클릭에 따른 fetch
   async function saveAllBtn() {
-    await fetch('http://192.168.1.4:10010/mypage', {
+    await fetch(`${BASEURL}/mypage`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
