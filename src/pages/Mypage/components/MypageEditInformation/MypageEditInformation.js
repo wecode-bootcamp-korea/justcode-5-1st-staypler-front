@@ -30,7 +30,7 @@ function MypageEditInformation() {
   });
 
   useEffect(() => {
-    fetch(`${BASEURL}:10010/mypage`, {
+    fetch(`${BASEURL}/mypage`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
