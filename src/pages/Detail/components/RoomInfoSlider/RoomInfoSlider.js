@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import css from './RoomsInfoSlider.module.scss';
-import RoomInfoImg from './RoomInfoImg';
+import RoomInfoImg from './../RoomInfoImg/RoomInfoImg';
 
 const RoomInfoSlider = ({ roomData }) => {
   const slideRef = useRef();
@@ -63,7 +62,7 @@ const RoomInfoSlider = ({ roomData }) => {
                     type={el.type}
                     max_limit={el.max_limit}
                     min_limit={el.min_limit}
-                    idx={i}
+                    idx={el.id}
                   />
                 );
               })}

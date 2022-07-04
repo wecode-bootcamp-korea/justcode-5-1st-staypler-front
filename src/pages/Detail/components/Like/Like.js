@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FiHeart } from 'react-icons/fi';
 import { FaHeart } from 'react-icons/fa';
 import style from './Like.module.scss';
+import { BASEURL } from '../../../../ApiOrigin';
 
 function Like({ id, isLike }) {
   const [heart, setHeart] = useState();
@@ -12,7 +13,7 @@ function Like({ id, isLike }) {
   }, []);
 
   const HeartBtn = () => {
-    fetch(`http://localhost:10010/rooms/${id}/like`, {
+    fetch(`${BASEURL}/rooms/${id}/like`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,

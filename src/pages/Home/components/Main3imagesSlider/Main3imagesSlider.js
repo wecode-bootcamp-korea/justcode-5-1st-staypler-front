@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import css from './Main3imagesSlider.module.scss';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { BASEURL } from '../../../../ApiOrigin';
 
 const infinity = (cardContainerRef, carouselRef, dataLength) => {
   if (cardContainerRef?.current.scrollLeft === 0) {
@@ -29,7 +30,7 @@ function Main3imagesSlider() {
   let [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/main/recommend')
+    fetch(`${BASEURL}/main/recommend`)
       .then(res => {
         if (res.ok) {
           return res.json();

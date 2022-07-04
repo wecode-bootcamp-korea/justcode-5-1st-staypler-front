@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import css from './MypageHeader.module.scss';
+import { BASEURL } from '../../../../ApiOrigin';
 
 function MypageHeader() {
   const [data, setData] = useState({});
-  let params = {
-    id: 1,
-  };
-
-  let query = Object.keys(params)
-    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-    .join('&');
-
-  let url = 'http://192.168.1.4:10010/mypage/header?' + query;
 
   useEffect(() => {
-    fetch('http://192.168.1.4:10010/mypage', {
+    fetch(`${BASEURL}/mypage`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,

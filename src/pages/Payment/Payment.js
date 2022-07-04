@@ -4,6 +4,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import BlackButton from '../../components/BlackButton/BlackButton';
 import WhenModal from '../../components/WhenModal/WhenModal';
 import { VscChevronDown } from 'react-icons/vsc';
+import { BASEURL } from '../../ApiOrigin';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 function Payment() {
   const params = useParams();
@@ -55,7 +57,7 @@ function Payment() {
 
   useEffect(() => {
     console.log('roomid', room_name);
-    fetch(`http://192.168.1.6:10010/rooms/bookings=${roomid}`, {
+    fetch(`${BASEURL}/bookings=${roomid}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -67,7 +69,7 @@ function Payment() {
       .then(res => {
         setRoomData(res.data[0]);
         console.log(res.data[0]);
-        fetch(`http://192.168.1.4:10010/rooms/${roomid}/room`, {
+        fetch(`${BASEURL}/rooms/${roomid}/room`, {
           method: 'GET',
         })
           .then(res => res.json())
@@ -95,9 +97,7 @@ function Payment() {
 
   return (
     <div className={css.container}>
-      <header>
-        <div className={css.title}>BOOKING</div>
-      </header>
+      <PageHeader pageTitleEN="BOOKING" pageTitleKO="" url="/payment" />
       <div className={css.subTitle}>
         <div className={css.subLeft}>
           <h1>{reserData?.name}</h1>

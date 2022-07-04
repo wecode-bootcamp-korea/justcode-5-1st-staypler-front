@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import css from './ReservationSlider.module.scss';
+import { useNavigate } from 'react-router-dom';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import css from './MainBannerSlider.module.scss';
+import { BASEURL } from '../../../../ApiOrigin';
 
 const infinity = (cardContainerRef, carouselRef, dataLength) => {
   if (cardContainerRef.current.scrollLeft === 0) {
@@ -18,26 +20,30 @@ const infinity = (cardContainerRef, carouselRef, dataLength) => {
   }
 };
 
-function ReservationSlider({ roomid }) {
-  const [data, setData] = useState({});
-  const dataLength = data.images?.length;
-  let dataImages = [];
+function MainBannerSlider() {
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const dataLength = data.length - 2;
   let cardContainerRef = useRef();
   const carouselRef = useRef();
 
   useEffect(() => {
-    fetch(`http://192.168.1.4:10010/rooms/${roomid}/room`)
-      .then(res => res.json())
-      .then(fetchdata => {
-        setData(fetchdata.data[0]);
+    fetch(`${BASEURL}/data/MainBannerSliderData.json`)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(fetchdatas => {
+        console.log(fetchdatas);
+        let fetchdata = fetchdatas.data;
+        setData([fetchdata[fetchdata.length - 1], ...fetchdata, fetchdata[0]]);
       });
   }, []);
 
-  console.log(data);
-
-  if (data.images !== undefined) {
-    dataImages = [data.images[dataLength - 1], ...data.images, data.images[0]];
-  }
+  const goToDetail = id => {
+    navigate(`/rooms/${data[id].room_id}`);
+  };
 
   useEffect(() => {
     cardContainerRef.current.style.scrollBehavior = 'auto';
@@ -104,52 +110,59 @@ function ReservationSlider({ roomid }) {
 
   return (
     <div className={css.component}>
-      <div className={css.reservationCard}>
-        <div className={css.roomInfo}>
-          <h1 className={css.title}>ROOM INFORMATION</h1>
-          <p className={css.roomName}>{data.room_name}</p>
-          <p className={css.price}>
-            ￦{data.price?.toLocaleString('ko-KR')}/1박
-          </p>
-          <div className={css.roomDetail}>
-            <div>
-              체크인 {data.check_in_time} / 체크아웃 {data.check_out_time}
-            </div>
-            <div>
-              기준 인원 {data.min_limit}명 (최대 인원 {data.max_limit}
-              명)
-            </div>
-          </div>
-        </div>
-        <div className={css.carousel} ref={carouselRef}>
-          <div className={css.cardContainer} ref={cardContainerRef}>
-            {dataImages &&
-              dataImages.map((a, i) => {
-                return (
-                  <div className={css.card} key={i}>
-                    <div
-                      className={css.roomImg}
-                      style={{
-                        backgroundImage: `url(${dataImages[i]})`,
-                      }}
-                      key={i}
+      <div className={css.carousel} ref={carouselRef}>
+        <ul className={css.cardContainer} ref={cardContainerRef}>
+          {data.map((a, i) => {
+            return (
+              <li
+                className={css.card}
+                key={i}
+                onDoubleClick={() => {
+                  goToDetail(i);
+                }}
+              >
+                <div
+                  className={css.roomImg}
+                  style={{
+                    backgroundImage: `url(${data[i].image})`,
+                  }}
+                />
+                <div className={css.roomInfo}>
+                  <div className={css.roomName}>{data[i].room_name}</div>
+                  <div className={css.roomConcept}>{data[i].concept}</div>
+                  <div className={css.readMore}>read more</div>
+                </div>
+                <div className={css.pagenation}>
+                  <div className={css.pagNums}>
+                    <div className={css.currentPage}>
+                      {data[i].id + 1 < 10
+                        ? '0' + (data[i].id + 1)
+                        : data[i].id + 1}
+                    </div>
+                    <div className={css.totalPage}>
+                      {dataLength < 10 ? '0' + dataLength : dataLength}
+                    </div>
+                  </div>
+                  <div className={css.sliderBtns}>
+                    <MdArrowBackIos
+                      size={20}
+                      className={css.prevBtn}
+                      onClick={sliderLeft}
+                    />
+                    <MdArrowForwardIos
+                      size={20}
+                      className={css.afterBtn}
+                      onClick={sliderRight}
                     />
                   </div>
-                );
-              })}
-          </div>
-          <div className={css.sliderBtn}>
-            <div onClick={sliderLeft}>
-              <MdArrowBackIos size={20} />
-            </div>
-            <div onClick={sliderRight}>
-              <MdArrowForwardIos size={20} />
-            </div>
-          </div>
-        </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
 }
 
-export default ReservationSlider;
+export default MainBannerSlider;
