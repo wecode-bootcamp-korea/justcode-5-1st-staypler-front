@@ -31,6 +31,24 @@ function CheckInOut({
   const tempoCheckOutDay = tempoCheckOut;
 
   //특정 날짜마다 어떤 조건에 해당하는지 판단-> 조건에 맞는 className 주기
+  const checkDate = days => {
+    if (days.format('YYYY-MM-DD') === checkInDay) {
+      return css.checkInDay;
+    } else if (days.format('YYYY-MM-DD') === checkOutDay) {
+      return css.checkOutDay;
+    } else if (
+      moment(days.format('YYYY-MM-DD')).isBetween(checkInDay, tempoCheckOutDay)
+    ) {
+      return css.tempoCheckOutDay;
+    } else if (
+      moment(days.format('YYYY-MM-DD')).isBetween(checkInDay, checkOutDay)
+    ) {
+      return css.onDay;
+    } else {
+      return css.days;
+    }
+  };
+
   const CalendarArr = (today, firstWeek, lastWeek) => {
     let result = [];
     let week = firstWeek;
@@ -46,79 +64,21 @@ function CheckInOut({
                 .week(i)
                 .startOf('week')
                 .add(index, 'day');
-              if (days.format('MM') !== today.format('MM')) {
-                return <td />;
-              } else if (days.format('YYYY-MM-DD') === checkInDay) {
-                return (
-                  <td
-                    className={css.checkInDay}
-                    onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
-                    onMouseLeave={onHoverReset}
-                    onClick={() => onCheck(days.format('YYYY-MM-DD'))}
-                    key={index}
-                  >
-                    <span>{days.format('D')}</span>
-                  </td>
-                );
-              } else if (
-                moment(days.format('YYYY-MM-DD')).isBetween(
-                  checkInDay,
-                  tempoCheckOutDay
-                )
-              ) {
-                return (
-                  <td
-                    className={css.tempoCheckOutDay}
-                    onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
-                    onMouseLeave={onHoverReset}
-                    onClick={() => onCheck(days.format('YYYY-MM-DD'))}
-                    key={index}
-                  >
-                    <span>{days.format('D')}</span>
-                  </td>
-                );
-              } else if (days.format('YYYY-MM-DD') === checkOutDay) {
-                return (
-                  <td
-                    className={css.checkOutDay}
-                    onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
-                    onMouseLeave={onHoverReset}
-                    onClick={() => onCheck(days.format('YYYY-MM-DD'))}
-                    key={index}
-                  >
-                    <span>{days.format('D')}</span>
-                  </td>
-                );
-              } else if (
-                moment(days.format('YYYY-MM-DD')).isBetween(
-                  checkInDay,
-                  checkOutDay
-                )
-              ) {
-                return (
-                  <td
-                    className={css.onDay}
-                    onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
-                    onMouseLeave={onHoverReset}
-                    onClick={() => onCheck(days.format('YYYY-MM-DD'))}
-                    key={index}
-                  >
-                    <span>{days.format('D')}</span>
-                  </td>
-                );
-              } else if (
+              if (
                 moment().isAfter(days.format('YYYY-MM-DD')) &&
-                moment().format('YYYY-MM-DD')
+                moment().format('YYYY-MM-DD') !== days.format('YYYY-MM-DD')
               ) {
                 return (
                   <td className={css.lastDays} key={index}>
                     <span>{days.format('D')}</span>
                   </td>
                 );
+              } else if (days.format('MM') !== today.format('MM')) {
+                return <td key={index} />;
               } else {
                 return (
                   <td
-                    className={css.days}
+                    className={`${checkDate(days)}`}
                     onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
                     onMouseLeave={onHoverReset}
                     onClick={() => onCheck(days.format('YYYY-MM-DD'))}
@@ -137,40 +97,39 @@ function CheckInOut({
 
   return (
     <div className={css.calendarWrapper}>
-      <div className={css.calendar}>
-        <div className={css.month}>{stateMoment.format('M월')}</div>
-        <table className={css.calendarTable}>
-          <thead>
-            <tr className={css.week}>
-              <td>일</td>
-              <td>월</td>
-              <td>화</td>
-              <td>수</td>
-              <td>목</td>
-              <td>금</td>
-              <td>토</td>
-            </tr>
-          </thead>
-          <tbody>{CalendarArr(thisMonth, thisFirstWeek, thisLastWeek)}</tbody>
-        </table>
-      </div>
-      <div className={css.calendar}>
-        <div className={css.month}>{nextMonth.format('M월')}</div>
-        <table className={css.calendarTable}>
-          <thead>
-            <tr className={css.week}>
-              <td>일</td>
-              <td>월</td>
-              <td>화</td>
-              <td>수</td>
-              <td>목</td>
-              <td>금</td>
-              <td>토</td>
-            </tr>
-          </thead>
-          <tbody>{CalendarArr(nextMonth, nextFirstWeek, nextLastWeek)}</tbody>
-        </table>
-      </div>
+      {Array(2)
+        .fill(0)
+        .map((el, idx) => {
+          return (
+            <div className={css.calendar} key={idx}>
+              <div className={css.month}>
+                {idx === 0
+                  ? stateMoment.format('M월')
+                  : nextMonth.format('M월')}
+              </div>
+              <table className={css.calendarTable}>
+                <thead className={css.week}>
+                  <tr>
+                    {['일', '월', '화', '수', '목', '금', '토'].map(
+                      (week, idx) => {
+                        return (
+                          <td className={css.week} key={idx}>
+                            {week}
+                          </td>
+                        );
+                      }
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {idx === 0
+                    ? CalendarArr(thisMonth, thisFirstWeek, thisLastWeek)
+                    : CalendarArr(nextMonth, nextFirstWeek, nextLastWeek)}
+                </tbody>
+              </table>
+            </div>
+          );
+        })}
     </div>
   );
 }
