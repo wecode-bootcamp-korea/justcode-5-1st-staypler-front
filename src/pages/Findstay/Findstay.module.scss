@@ -1,2 +1,132 @@
 .container {
+  margin-left: 8%;
+  margin-right: 8%;
+
+  .filterWrapper {
+    margin-top: 50px;
+    border-bottom: 3px solid black;
+    border-top: 3px solid black;
+    height: 300px;
+    // margin-left: 8%;
+    // margin-right: 8%;
+    .firstLine {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: solid 1px lightgray;
+      .keyword {
+        display: flex;
+        align-items: center;
+        .tit {
+          font-weight: 500;
+        }
+        .searchBar {
+          margin: 0 10px;
+          width: 200px;
+          height: 35px;
+          border-radius: 5px;
+          font-size: 15px;
+          border: solid 1px lightgray;
+        }
+        .locationBtn {
+          padding: 0;
+          margin-left: 10px;
+          height: 40px;
+          font-size: 15px;
+          z-index: 100;
+        }
+        .checking {
+          display: flex;
+          align-items: center;
+          .checkingBtn {
+            margin-left: 15px;
+            width: 130px;
+            height: 35px;
+            border-radius: 5px;
+            font-size: 15px;
+            border: solid 1px lightgray;
+          }
+          .checkingTit {
+            margin-left: 30px;
+          }
+        }
+        .filterBtn {
+          margin-right: 30px;
+          width: 130px;
+          height: 35px;
+          font-size: 15px;
+        }
+      }
+      .refreshBtn {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .searchBtnWrapper {
+      display: flex;
+      justify-content: center;
+      .searchBtn {
+        width: 100px;
+        height: 35px;
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+        margin-top: 40px;
+      }
+    }
+  }
+  .listBox {
+    padding: 70px 5% 50px 0;
+    width: 50%;
+    display: inline-block;
+    .roomNameTit {
+      font-size: 30px;
+    }
+    .roomType {
+      font-size: 15px;
+      letter-spacing: 12px;
+      margin-top: 10px;
+    }
+    .feedContents {
+      display: flex;
+      justify-content: space-between;
+      .leftColumn {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .description {
+          margin-top: 60px;
+          display: flex;
+          flex-direction: column;
+          font-size: 14px;
+          color: gray;
+          span {
+            margin-top: 5px;
+          }
+        }
+        .reservationBtn {
+          margin-top: 30px;
+          height: 30px;
+          width: 70px;
+        }
+      }
+      .feedPhoto {
+        width: 320px;
+        height: 200px;
+      }
+    }
+  }
+  .pagenationWrapper {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+    .pageNumber {
+      margin-right: 10px;
+      font-size: 20px;
+      color: darkgray;
+    }
+  }
 }

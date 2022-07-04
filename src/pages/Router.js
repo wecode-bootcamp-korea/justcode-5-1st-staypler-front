@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
 import Header from './../components/Header/Header';
 import Footer from './../components/Footer/Footer';
 import Home from './Home/Home';
@@ -11,9 +10,10 @@ import Detail from './Detail/Detail';
 import Reservation from './Reservation/Reservation';
 import Payment from './Payment/Payment';
 import Mypage from './Mypage/Mypage';
-import MypageStayList from './Mypage/components/MypageStayList';
-import MypageEditInformation from './Mypage/components/MypageEditInformation';
-import MypageroomSlider from './Mypage/components/MypageroomSlider';
+import MypageStayList from './Mypage/components/MypageStayList/MypageStayList';
+import MypageEditInformation from './Mypage/components/MypageEditInformation/MypageEditInformation';
+import MypageroomSlider from './Mypage/components/MypageroomSlider/MypageroomSlider';
+import { BASEURL } from '../ApiOrigin';
 
 function Router() {
   return (
@@ -24,7 +24,7 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/findstay" element={<Findstay />} />
-        <Route path="/roomid/reservation/:roomid" element={<Reservation />} />
+        <Route path="/reservation/:roomid" element={<Reservation />} />
         <Route path="/rooms/:id" element={<Detail />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/mypage" element={<Mypage />}>
@@ -34,26 +34,22 @@ function Router() {
               <>
                 <MypageroomSlider
                   title="다가올 예약"
-                  API="http://192.168.1.4:10010/mypage/bookings"
+                  API={`${BASEURL}/mypage/like`}
                 />
                 <MypageroomSlider
                   title="관심 스테이"
-                  API="http://192.168.1.4:10010/mypage/like"
+                  API={`${BASEURL}/mypage/like`}
                 />
               </>
             }
           />
           <Route
             path="likestay"
-            element={
-              <MypageStayList API="http://192.168.1.4:10010/mypage/like" />
-            }
+            element={<MypageStayList API={`${BASEURL}/mypage/like`} />}
           />
           <Route
             path="reservation"
-            element={
-              <MypageStayList API="http://192.168.1.4:10010/mypage/bookings" />
-            }
+            element={<MypageStayList API={`${BASEURL}/mypage/bookings`} />}
           />
           <Route path="edit" element={<MypageEditInformation />} />
         </Route>

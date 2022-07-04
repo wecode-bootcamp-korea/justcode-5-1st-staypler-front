@@ -1,2 +1,28 @@
 .container {
+  position: relative;
+  min-height: 800px;
+}
+.roomName {
+  display: flex;
+  padding: 150px 0 30px;
+  font-size: 15px;
+  align-items: center;
+}
+.address {
+  padding: 50px 0 100px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 2.2;
+}
+
+@media (max-width: 1470px) {
+  .container {
+    min-width: 1000px;
+  }
+}
+@media (max-width: 768px) {
+  .address {
+    text-align: left;
+    font-size: 12px;
+  }
 }
