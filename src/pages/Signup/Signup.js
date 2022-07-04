@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import css from './Signup.module.scss';
+import { BASEURL } from '../../ApiOrigin';
 
 function Signup() {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ function Signup() {
   //   }
   // };
   const signupBtnActivation = () => {
-    fetch('http://192.168.1.6:10010/users/signup', {
+    fetch(`${BASEURL}/users/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

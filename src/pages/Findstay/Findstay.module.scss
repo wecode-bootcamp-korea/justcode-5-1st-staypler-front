@@ -1,24 +1,9 @@
 .container {
   margin-left: 8%;
   margin-right: 8%;
-  padding-top: 80px;
-  header {
-    text-align: center;
-    padding-top: 70px;
-    height: 200px;
-    width: 100%;
-    .title {
-      font-size: 18px;
-      letter-spacing: 12px;
-      text-indent: 12px;
-      font-weight: bold;
-    }
-    .subtitle {
-      margin-top: 13px;
-      font-size: 15px;
-    }
-  }
+
   .filterWrapper {
+    margin-top: 50px;
     border-bottom: 3px solid black;
     border-top: 3px solid black;
     height: 300px;
@@ -124,7 +109,7 @@
         .reservationBtn {
           margin-top: 30px;
           height: 30px;
-          width: 60px;
+          width: 70px;
         }
       }
       .feedPhoto {
@@ -137,6 +122,7 @@
     display: flex;
     justify-content: center;
     cursor: pointer;
+    margin-bottom: 20px;
     .pageNumber {
       margin-right: 10px;
       font-size: 20px;

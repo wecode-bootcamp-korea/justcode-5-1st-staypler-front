@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import css from './Login.module.scss';
+import { BASEURL } from '../../ApiOrigin';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 function Login() {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ function Login() {
   };
   const loginBtnHandle = event => {
     event.preventDefault();
-    fetch('http://192.168.1.6:10010/users/login', {
+    fetch(`${BASEURL}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,13 +33,9 @@ function Login() {
         if (response.ok) {
           return response.json();
         }
-        // console.log(response.json());
       })
       .then(result => {
-        console.log(result);
         if (result.token) {
-          // console.log(result);
-
           localStorage.setItem('login-token', result.token);
           navigate('/');
         } else {
@@ -53,10 +51,7 @@ function Login() {
 
   return (
     <div className={css.container}>
-      <header>
-        <div className={css.title}>LOGIN</div>
-        <div className={css.subtitle}>로그인</div>
-      </header>
+      <PageHeader pageTitleEN="LOGIN" pageTitleKO="로그인" url="/login" />
       <div className={css.wrapper}>
         <div className={css.mainbox}>
           <div className={css.formwrap}>

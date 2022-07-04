@@ -26,8 +26,12 @@
   font-size: 18px;
 }
 
+.Menu {
+  display: flex;
+}
+
 .centerMenu {
-  padding-left: 30px;
+  margin-right: 120px;
   flex-shrink: 0;
   min-width: 50px;
   display: flex;
@@ -47,7 +51,12 @@
     }
   }
 
+  .modalIcon {
+    padding-right: 5px;
+  }
+
   .modalText {
+    font-size: 15px;
     margin: 7px;
 
     &:nth-child(1) {

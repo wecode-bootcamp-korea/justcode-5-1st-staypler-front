@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import DetailBannerSlider from '../../components/DetailBannerSlider/DetailBannerSlider';
-import Like from '../../components/Like/Like';
-import RoomInfoSlider from './RoomInfoSlider';
-import RoomIntro from './RoomIntro';
-import RoomSpecial from './RoomSpecial';
+import { useParams } from 'react-router-dom';
 import css from './Detail.module.scss';
-import FAQ from './FAQ/FAQ';
+import DetailBannerSlider from './components/DetailBannerSlider/DetailBannerSlider';
+import Like from './components/Like/Like';
+import RoomInfoSlider from './components/RoomInfoSlider/RoomInfoSlider';
+import RoomIntro from './components/RoomIntro/RoomIntro';
+import RoomSpecial from './components/RoomSpecial/RoomSpecial';
+import FAQ from './components/FAQ/FAQ';
+import { BASEURL } from '../../ApiOrigin';
+
 function Detail() {
   const [data, setData] = useState([]);
   let { id } = useParams();
+
   useEffect(() => {
-    fetch(`http://192.168.1.6:10010/rooms/${id}`, {
+    fetch(`${BASEURL}/${id}`, {
       method: 'GET',
       headers: {
         // Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -25,11 +28,10 @@ function Detail() {
         }
       })
       .then(fetchdata => {
-        console.log('data:', fetchdata);
         setData(fetchdata.data[0]);
       });
   }, []);
-  // console.log(data);
+
   return (
     <div className={css.container}>
       <div className={css.roomName}>

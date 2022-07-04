@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import css from './WhereModal.module.scss';
-import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai';
-import BlackButton from '../BlackButton/BlackButton';
 import { Link } from 'react-router-dom';
+import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai';
+import css from './WhereModal.module.scss';
+import BlackButton from './../BlackButton/BlackButton';
+import { BASEURL } from '../../ApiOrigin';
 
 function WhereModal({ modalRef, closeModal }) {
   const [selectCountry, setSelectCounry] = useState(null);
@@ -14,7 +15,7 @@ function WhereModal({ modalRef, closeModal }) {
     },
   ]);
   useEffect(() => {
-    fetch('/data/countries.json', { method: 'GET' })
+    fetch(`${BASEURL}/data/countries.json`, { method: 'GET' })
       .then(res => res.json())
       .then(res => setCountries(res));
   });
