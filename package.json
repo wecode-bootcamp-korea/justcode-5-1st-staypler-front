@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test",
+    "build": "react-scripts build",
     "eject": "react-scripts eject",
     "distribute": "npm i && npm run build && pm2 serve build 3000 --name StayPler-ec2-front-1 --spa"
   },
