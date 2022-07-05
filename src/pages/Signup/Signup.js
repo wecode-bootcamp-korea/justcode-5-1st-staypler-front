@@ -2,22 +2,36 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import css from './Signup.module.scss';
 import { BASEURL } from '../../ApiOrigin';
+import Modal from '../../components/Modal/Modal';
 
 function Signup() {
   const navigate = useNavigate();
-  const [emailValid, setEmailValid] = useState(false);
-  const [nameValid, setNameValid] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
-  const [rePasswordValid, setRePasswordValid] = useState(false);
-  const [phoneNumValid, setPhoneNumValid] = useState(false);
-  const [signUpValid, setSignUpValid] = useState(false);
-  const regSpecialCharacter =
-    /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\']/g;
-  const regNumber = /[0-9]/g;
-  const regString = /[a-zA-Z]/g;
-  const regEmail =
-    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-  const regPhoneNum = /^\d{3}-\d{3,4}-\d{4}$/;
+
+  const [openModal, setOpenModal] = useState(false);
+  const [modalText, setModalText] = useState('');
+
+  const [emailValid, setEmailValid] = useState(true);
+  const [nameValid, setNameValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
+  const [rePasswordValid, setRePasswordValid] = useState(true);
+  const [phoneNumValid, setPhoneNumValid] = useState(true);
+
+  const regularExpression = {
+    specialChar: /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\']/g,
+    number: /[0-9]/g,
+    string: /[a-zA-Z]/g,
+    email:
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
+    phoneNum: /^\d{3}-\d{3,4}-\d{4}$/,
+  };
+
+  const desc = {
+    email: '잘못된양식입니다.',
+    name: '1자이상 10자이하로 입력해주세요.',
+    password: '8자이상 20자이하, 숫자, 문자, 특수문자를 포함해주세요.',
+    rePassword: '입력하신 비밀번호가 같지않습니다.',
+    phoneNum: '잘못된양식입니다! -포함해서 입력해주세요.',
+  };
 
   const [inputValue, setInputValue] = useState({
     email: '',
@@ -27,40 +41,6 @@ function Signup() {
     phoneNum: '',
   });
 
-  // const signUpValidation = () => {
-  //   if (
-  // emailValid === true
-  // nameValid === true &&
-  // passwordValid === true &&
-  // rePasswordValid === true &&
-  // phoneNumValid === true
-  // check.serviceBtn === true &&
-  // check.useBtn === true &&
-  // check.ageBtn === true
-  //   ) {
-  //     setSignUpValid(true);
-  //   } else {
-  //     setSignUpValid(false);
-  //   }
-  // };
-  const signupBtnActivation = () => {
-    fetch(`${BASEURL}/users/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: inputValue.email,
-        username: inputValue.name,
-        password: inputValue.password,
-        phoneNumber: inputValue.phoneNum,
-      }),
-    })
-      .then(res => res.json())
-      .then(res => console.log(res));
-    navigate('/login');
-  };
-
   const handleInput = event => {
     const { name, value } = event.target;
     setInputValue({
@@ -68,13 +48,6 @@ function Signup() {
       [name]: value,
     });
   };
-  const [desc, setDesc] = useState({
-    email: '',
-    name: '',
-    password: '',
-    rePassword: '',
-    phoneNum: '',
-  });
 
   const [check, setCheck] = useState({
     allBtn: false,
@@ -84,6 +57,12 @@ function Signup() {
     membershipBtn: false,
     marketingBtn: false,
   });
+
+  const btnEvent = e => {
+    const { name } = e.target;
+    setCheck({ ...check, [name]: !check[name] });
+  };
+
   const allBtnEvent = () => {
     if (check.allBtn === false) {
       setCheck({
@@ -105,41 +84,67 @@ function Signup() {
       });
     }
   };
-  const btnEvent = e => {
-    const { name } = e.target;
-    setCheck({ ...check, [name]: !check[name] });
-  };
 
-  const areeAllBtnActivate = () => {
+  const signupBtnActivation = () => {
     if (
-      check.allBtn === true &&
-      check.useBtn === true &&
-      check.membershipBtn === true &&
-      check.marketingBtn === true &&
-      check.serviceBtn === true
+      // 입력창이 공백이 아닐 때
+      inputValue.email &&
+      inputValue.name &&
+      inputValue.password &&
+      inputValue.rePassword &&
+      inputValue.phoneNum &&
+      // 유효성 검사에 적합할 때
+      emailValid &&
+      nameValid &&
+      passwordValid &&
+      rePasswordValid &&
+      phoneNumValid &&
+      check.serviceBtn &&
+      check.useBtn &&
+      check.ageBtn
     ) {
-      setCheck({ ...check, allBtn: true });
+      fetch(`${BASEURL}/users/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: inputValue.email,
+          username: inputValue.name,
+          password: inputValue.password,
+          phoneNumber: inputValue.phoneNum,
+        }),
+      }).then(res => {
+        if (res.status === 200) {
+          setOpenModal(true);
+          setModalText('회원가입이 완료되었습니다.');
+          navigate('/login');
+        } else if (res.message === 'EXSITING_USER') {
+          setOpenModal(true);
+          setModalText('이미 가입된 사용자입니다.');
+        } else {
+          setOpenModal(true);
+          setModalText('정보가 올바른 형식으로 입력되지 않았습니다.');
+        }
+      });
     } else {
-      setCheck({ ...check, allBtn: false });
+      setOpenModal(true);
+      setModalText('정보가 올바른 형식으로 입력되지 않았습니다.');
     }
   };
 
   const emailValidation = () => {
-    if (regEmail.test(inputValue.email)) {
+    if (regularExpression.email.test(inputValue.email)) {
       setEmailValid(true);
-      setDesc({ ...desc, email: '' });
     } else {
       setEmailValid(false);
-      setDesc({ ...desc, email: '잘못된양식입니다.' });
     }
   };
   const nameValidation = () => {
     if (1 < inputValue.name.length && inputValue.name.length < 10) {
       setNameValid(true);
-      setDesc({ ...desc, name: '' });
     } else {
       setNameValid(false);
-      setDesc({ ...desc, name: '1자이상 10자이하로 입력해주세요.' });
     }
   };
 
@@ -147,41 +152,32 @@ function Signup() {
     if (
       8 < inputValue.password.length &&
       inputValue.password.length < 20 &&
-      regNumber.test(inputValue.password) &&
-      regString.test(inputValue.password) &&
-      regSpecialCharacter.test(inputValue.password)
+      regularExpression.number.test(inputValue.password) &&
+      regularExpression.string.test(inputValue.password) &&
+      regularExpression.specialChar.test(inputValue.password)
     ) {
       setPasswordValid(true);
-      setDesc({ ...desc, password: '' });
     } else {
       setPasswordValid(false);
-      setDesc({
-        ...desc,
-        password: '8자이상 20자이하, 숫자, 문자, 특수문자를 포함해주세요.',
-      });
     }
   };
+
   const rePasswordValidation = () => {
     if (inputValue.rePassword === inputValue.password) {
       setRePasswordValid(true);
-      setDesc({ ...desc, rePassword: '' });
     } else {
       setRePasswordValid(false);
-      setDesc({ ...desc, rePassword: '입력하신 비밀번호가 같지않습니다.' });
     }
   };
+
   const phoneNumValidation = () => {
-    if (regPhoneNum.test(inputValue.phoneNum)) {
+    if (regularExpression.phoneNum.test(inputValue.phoneNum)) {
       setPhoneNumValid(true);
-      setDesc({ ...desc, phoneNum: '' });
     } else {
       setPhoneNumValid(false);
-      setDesc({
-        ...desc,
-        phoneNum: '잘못된양식입니다! -포함해서 입력해주세요',
-      });
     }
   };
+
   return (
     <div className={css.container}>
       <header>
@@ -200,7 +196,7 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={emailValidation}
               />
-              <div className={css.description}>{desc.email}</div>
+              <div className={css.description}>{!emailValid && desc.email}</div>
             </div>
             <div className={css.inputbox}>
               <div className={css.title}>이름</div>
@@ -211,7 +207,7 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={nameValidation}
               />
-              <div className={css.description}>{desc.name}</div>
+              <div className={css.description}>{!nameValid && desc.name}</div>
             </div>
             <div className={css.inputbox}>
               <div className={css.title}>비밀번호</div>
@@ -222,7 +218,9 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={passwordValidation}
               />
-              <div className={css.description}>{desc.password}</div>
+              <div className={css.description}>
+                {!passwordValid && desc.password}
+              </div>
               <input
                 type="password"
                 name="rePassword"
@@ -230,7 +228,9 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={rePasswordValidation}
               />
-              <div className={css.description}>{desc.rePassword}</div>
+              <div className={css.description}>
+                {!rePasswordValid && desc.rePassword}
+              </div>
             </div>
             <div className={css.inputbox}>
               <div className={css.title}>휴대전화</div>
@@ -241,7 +241,9 @@ function Signup() {
                 onChange={handleInput}
                 onKeyUp={phoneNumValidation}
               />
-              <div className={css.description}>{desc.phoneNum}</div>
+              <div className={css.description}>
+                {!phoneNumValid && desc.phoneNum}
+              </div>
             </div>
             <div className={css.lowerbodywrapper}>
               <div className={css.agreeall}>
@@ -251,7 +253,6 @@ function Signup() {
                   checked={check.allBtn}
                   className={css.checkbox}
                   onChange={allBtnEvent}
-                  onClick={areeAllBtnActivate}
                 />
                 사용자 약관 전체동의
               </div>
@@ -320,11 +321,12 @@ function Signup() {
               type="button"
               className={css.signupBtn}
               onClick={signupBtnActivation}
-              // disabled={signUpValid ? false : true}
-              // style={{ opacity: signUpValid ? '1' : '0.3' }}
             >
               회원가입
             </button>
+            {openModal && (
+              <Modal setOpenModal={setOpenModal} text={modalText} />
+            )}
           </div>
         </div>
       </div>
