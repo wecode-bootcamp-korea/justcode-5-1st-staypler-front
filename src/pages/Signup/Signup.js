@@ -119,6 +119,9 @@ function Signup() {
           setOpenModal(true);
           setModalText('회원가입이 완료되었습니다.');
           navigate('/login');
+        } else if (res.message === 'EXSITING_USER') {
+          setOpenModal(true);
+          setModalText('이미 가입된 사용자입니다.');
         } else {
           setOpenModal(true);
           setModalText('정보가 올바른 형식으로 입력되지 않았습니다.');
