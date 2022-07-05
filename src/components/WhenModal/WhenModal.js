@@ -89,7 +89,7 @@ function WhenModal({ modalRef, closeModal }) {
             <AiOutlineLeft size="22" className={css.prevBtn} onClick={prev} />
             <AiOutlineRight size="22" className={css.nextBtn} onClick={next} />
           </div>
-          <Link to="/Detail" className={css.btnWrapper}>
+          <Link to="/findstay" className={css.btnWrapper}>
             <BlackButton
               className={css.searchBtn}
               content="search &nbsp; &nbsp; →"
