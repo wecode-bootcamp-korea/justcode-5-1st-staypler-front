@@ -14,7 +14,7 @@ function Detail() {
   let { id } = useParams();
 
   useEffect(() => {
-    fetch(`${BASEURL}/${id}`, {
+    fetch(`${BASEURL}/rooms/${id}`, {
       method: 'GET',
       headers: {
         // Authorization: `Bearer ${localStorage.getItem('login-token')}`,
