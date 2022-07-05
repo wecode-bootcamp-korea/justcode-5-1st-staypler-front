@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import css from './MainPromotionSlider.module.scss';
-import {
-  MdArrowBackIos,
-  MdArrowForwardIos,
-  MdFaceRetouchingOff,
-} from 'react-icons/md';
+import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { BASEURL } from '../../../../ApiOrigin';
 
@@ -38,8 +34,8 @@ function MainPromotionSlider() {
           return res.json();
         }
       })
-      .then(fetch => {
-        let fetchdata = fetch.data;
+      .then(fetchdatas => {
+        let fetchdata = fetchdatas.data;
         setData([fetchdata[fetchdata.length - 1], ...fetchdata, fetchdata[0]]);
       });
   }, []);

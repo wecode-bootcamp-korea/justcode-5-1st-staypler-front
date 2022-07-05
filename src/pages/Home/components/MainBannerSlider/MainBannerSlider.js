@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MdArrowBackIos, MdArrowForwardIos, MdFaceRetouchingNatural } from 'react-icons/md';
+import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import css from './MainBannerSlider.module.scss';
 import { BASEURL } from '../../../../ApiOrigin';
 
@@ -34,8 +34,9 @@ function MainBannerSlider() {
           return res.json();
         }
       })
-      .then(fetch => {
-        let fetchdata = fetch.data;
+      .then(fetchdatas => {
+        console.log(fetchdatas);
+        let fetchdata = fetchdatas.data;
         setData([fetchdata[fetchdata.length - 1], ...fetchdata, fetchdata[0]]);
       });
   }, []);

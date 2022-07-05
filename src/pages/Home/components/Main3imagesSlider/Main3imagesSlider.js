@@ -36,8 +36,8 @@ function Main3imagesSlider() {
           return res.json();
         }
       })
-      .then(fetch => {
-        let fetchdata = fetch.data;
+      .then(fetchdatas => {
+        let fetchdata = fetchdatas.data;
         setData([...fetchdata, ...fetchdata, ...fetchdata]);
       });
   }, []);
