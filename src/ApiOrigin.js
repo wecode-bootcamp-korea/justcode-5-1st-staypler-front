@@ -1,1 +1,1 @@
-export const BASEURL = process.env.BASEURL;
+export const BASEURL = 'http://13.125.249.195:10010';
