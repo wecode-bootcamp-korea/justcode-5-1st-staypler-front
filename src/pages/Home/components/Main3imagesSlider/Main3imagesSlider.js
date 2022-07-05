@@ -30,14 +30,17 @@ function Main3imagesSlider() {
   let [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch(`${BASEURL}/main/recommend`)
+    fetch(`${BASEURL}/data/Main3imagesSlider.json`)
       .then(res => {
         if (res.ok) {
           return res.json();
         }
       })
-      .then(fetchdatas => {
-        let fetchdata = fetchdatas.data;
+      .then(fetch => {
+        let fetchdata = fetch.data;
+        fetchdata.map((a, i) => {
+          fetchdata[i].index = i + 1;
+        });
         setData([...fetchdata, ...fetchdata, ...fetchdata]);
       });
   }, []);
