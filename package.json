@@ -7,6 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "build": "react-scripts build && rm build/static/**/*.map",
     "distribute": "npm i && npm run build && pm2 serve build 3000 --name StayPler-ec2-front-1 --spa"
   },
   "dependencies": {
