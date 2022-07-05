@@ -6,7 +6,7 @@ import {
 import { FiCamera } from 'react-icons/fi';
 import css from './MypageEditInformation.module.scss';
 import ImgUploadModal from './../ImgUploadModal/ImgUploadModal';
-import Modal from './../Modal/Modal';
+import Modal from '../../../../components/Modal/Modal';
 import { BASEURL } from '../../../../ApiOrigin';
 
 function MypageEditInformation() {
