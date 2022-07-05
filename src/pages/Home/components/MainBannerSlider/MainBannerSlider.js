@@ -24,7 +24,7 @@ function MainBannerSlider() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const dataLength = data.length - 2;
-  let cardContainerRef = useRef();
+  const cardContainerRef = useRef();
   const carouselRef = useRef();
 
   useEffect(() => {
@@ -34,9 +34,11 @@ function MainBannerSlider() {
           return res.json();
         }
       })
-      .then(fetchdatas => {
-        console.log(fetchdatas);
-        let fetchdata = fetchdatas.data;
+      .then(fetch => {
+        let fetchdata = fetch.data;
+        fetchdata.map((a, i) => {
+          fetchdata[i].index = i + 1;
+        });
         setData([fetchdata[fetchdata.length - 1], ...fetchdata, fetchdata[0]]);
       });
   }, []);
@@ -135,9 +137,7 @@ function MainBannerSlider() {
                 <div className={css.pagenation}>
                   <div className={css.pagNums}>
                     <div className={css.currentPage}>
-                      {data[i].id + 1 < 10
-                        ? '0' + (data[i].id + 1)
-                        : data[i].id + 1}
+                      {data[i].index < 10 ? '0' + data[i].index : data[i].index}
                     </div>
                     <div className={css.totalPage}>
                       {dataLength < 10 ? '0' + dataLength : dataLength}
