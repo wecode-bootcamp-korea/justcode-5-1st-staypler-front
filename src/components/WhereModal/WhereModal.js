@@ -14,11 +14,6 @@ function WhereModal({ modalRef, closeModal }) {
       city: '',
     },
   ]);
-  useEffect(() => {
-    fetch(`${BASEURL}/data/countries.json`, { method: 'GET' })
-      .then(res => res.json())
-      .then(res => setCountries(res));
-  });
 
   const clicked = e => {
     setSelectCounry(e.currentTarget.innerText);

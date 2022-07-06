@@ -34,8 +34,11 @@ function MainPromotionSlider() {
           return res.json();
         }
       })
-      .then(fetchdatas => {
-        let fetchdata = fetchdatas.data;
+      .then(fetch => {
+        let fetchdata = fetch.data;
+        fetchdata.map((a, i) => {
+          fetchdata[i].index = i + 1;
+        });
         setData([fetchdata[fetchdata.length - 1], ...fetchdata, fetchdata[0]]);
       });
   }, []);
@@ -150,7 +153,7 @@ function MainPromotionSlider() {
                     </div>
 
                     <div className={css.pagenation}>
-                      <p className={css.currentPage}>{data[i].id + 1}</p>
+                      <p className={css.currentPage}>{data[i].index}</p>
                       <p className={css.totalPage}>{dataLength}</p>
                       <MdArrowBackIos
                         className={css.btn}
