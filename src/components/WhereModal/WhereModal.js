@@ -10,12 +10,35 @@ function WhereModal({ modalRef, closeModal }) {
   const [countries, setCountries] = useState([
     {
       id: 1,
-      isKorea: true,
+      isKorea: false,
       city: '',
     },
   ]);
+  const [Korea, setKorea] = useState([
+    {
+      id: 1,
+      name: '국내전체',
+    },
+    {
+      id: 2,
+      name: '경기',
+    },
+    {
+      id: 3,
+      name: '서울',
+    },
+    {
+      id: 4,
+      name: '제주',
+    },
+    {
+      id: 5,
+      name: '부산',
+    },
+  ]);
   useEffect(() => {
-    fetch(`${BASEURL}/data/countries.json`, { method: 'GET' })
+    setCountries(mokCountry);
+    fetch(`${BASEURL}/findstay`, { method: 'GET' })
       .then(res => res.json())
       .then(res => setCountries(res));
   });
@@ -57,77 +80,35 @@ function WhereModal({ modalRef, closeModal }) {
             <div className={css.locationWrapper}>
               <p className={css.korAndAbr}>국내</p>
               <ul className={css.cities}>
-                {countries.map(country => {
-                  if (country.isKorea) {
-                    if (country.city === selectCountry) {
-                      return (
-                        <li
-                          className={css.city}
-                          key={country.id}
-                          onClick={clicked}
-                          style={{
-                            background: 'black',
-                            color: 'whitesmoke',
-                            borderRadius: '30px',
-                            boxShadow: '6px 7px 15px 0 rgb(0 0 0 / 30%)',
-                          }}
-                        >
-                          {country.city}
-                        </li>
-                      );
-                    } else {
-                      return (
-                        <li
-                          className={css.city}
-                          key={country.id}
-                          onClick={clicked}
-                        >
-                          {country.city}
-                        </li>
-                      );
-                    }
-                  }
-                })}
-              </ul>
-            </div>
-            <div className={css.locationWrapper}>
-              <p className={css.korAndAbr}>해외</p>
-              <ul className={css.cities}>
-                {countries.map(country => {
-                  if (!country.isKorea) {
-                    if (country.city === selectCountry) {
-                      return (
-                        <li
-                          className={css.city}
-                          key={country.id}
-                          onClick={clicked}
-                          style={{
-                            background: 'black',
-                            color: 'whitesmoke',
-                            borderRadius: '30px',
-                            boxShadow: '6px 7px 15px 0 rgb(0 0 0 / 30%)',
-                          }}
-                        >
-                          {country.city}
-                        </li>
-                      );
-                    } else {
-                      return (
-                        <li
-                          className={css.city}
-                          key={country.id}
-                          onClick={clicked}
-                        >
-                          {country.city}
-                        </li>
-                      );
-                    }
+                {Korea.map(city => {
+                  if (city.name === selectCountry) {
+                    return (
+                      <li
+                        className={css.city}
+                        key={city.id}
+                        onClick={clicked}
+                        style={{
+                          background: 'black',
+                          color: 'whitesmoke',
+                          borderRadius: '30px',
+                          boxShadow: '6px 7px 15px 0 rgb(0 0 0 / 30%)',
+                        }}
+                      >
+                        {city.name}
+                      </li>
+                    );
+                  } else {
+                    return (
+                      <li className={css.city} key={city.id} onClick={clicked}>
+                        {city.name}
+                      </li>
+                    );
                   }
                 })}
               </ul>
             </div>
           </div>
-          <Link to="/Detail" className={css.btnWrapper}>
+          <Link to="/findstay" className={css.btnWrapper}>
             <BlackButton
               className={css.searchBtn}
               content="search &nbsp; &nbsp; →"
@@ -140,3 +121,31 @@ function WhereModal({ modalRef, closeModal }) {
 }
 
 export default WhereModal;
+
+const mokCountry = [
+  {
+    id: 5,
+    isKorea: false,
+    city: '베트남',
+  },
+  {
+    id: 6,
+    isKorea: false,
+    city: '태국',
+  },
+  {
+    id: 7,
+    isKorea: false,
+    city: '대만',
+  },
+  {
+    id: 8,
+    isKorea: false,
+    city: '싱가폴',
+  },
+  {
+    id: 9,
+    isDoemstic: false,
+    city: '인도네시아',
+  },
+];
