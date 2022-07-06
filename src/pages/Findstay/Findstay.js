@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import Filter from './Filter/Filter';
 import Order from './Filter/Order';
 
+
 function Findstay() {
   const [data, setData] = useState([]);
 
@@ -15,6 +16,10 @@ function Findstay() {
 
   let [pageBtnNum, setPageBtnNum] = useState(1);
   let [pages, setpages] = useState();
+
+  let location = useLocation();
+  console.log(location.search);
+
   useEffect(() => {
     fetch(`${BASEURL}/rooms${location.search}&page=${pageBtnNum}`, {
       method: 'GET',
@@ -30,6 +35,7 @@ function Findstay() {
         }
       })
       .then(fetchdata => {
+        console.log(fetchdata);
         setpages(Math.ceil(fetchdata.rooms_count / 6));
         setData(fetchdata.data);
       });
