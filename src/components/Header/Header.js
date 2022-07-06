@@ -10,13 +10,19 @@ import WhenModal from '../WhenModal/WhenModal';
 
 function Header() {
   const [modalActive, setModalActive] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
   const modalWhereRef = useRef();
   const modalWhenRef = useRef();
   const navigate = useNavigate();
 
-  const openModal1 = () => setModalActive(1);
-  const openModal2 = () => setModalActive(2);
-  const closeModal = () => setModalActive(0);
+  const openModal = e => {
+    e.currentTarget.id === 'modal1' ? setModalActive(1) : setModalActive(2);
+    setScrollY(window.pageXOffset);
+  };
+  const closeModal = () => {
+    setModalActive(0);
+    setScrollY(0);
+  };
 
   // 모달 ON/OFF 상태 관리
   useEffect(() => {
@@ -40,7 +46,7 @@ function Header() {
       document.body.style.cssText = '';
       window.scrollTo(0, parseInt(scrollY || '0') * -1);
     };
-  }, [modalActive]);
+  }, [modalActive, scrollY]);
 
   return (
     <>
@@ -51,7 +57,7 @@ function Header() {
           </Link>
           <div className={css.Menu}>
             <div className={css.centerMenu}>
-              <div id="modal1" className={css.modalBtn} onClick={openModal1}>
+              <div id="modal1" className={css.modalBtn} onClick={openModal}>
                 <div>
                   <MdOutlineLocationOn className={css.modalIcon} size="26" />
                 </div>
@@ -59,7 +65,7 @@ function Header() {
                   어디로떠날까요?
                 </p>
               </div>
-              <div id="modal2" className={css.modalBtn} onClick={openModal2}>
+              <div id="modal2" className={css.modalBtn} onClick={openModal}>
                 <BsCalendar4 className={css.modalIcon} size="26" />
                 <p id="modalOpen2" className={css.modalText}>
                   언제떠날까요?
