@@ -30,7 +30,7 @@ function Main3imagesSlider() {
   let [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch(`${BASEURL}/data/Main3imagesSlider.json`)
+    fetch(`${BASEURL}/main/recommend`)
       .then(res => {
         if (res.ok) {
           return res.json();
