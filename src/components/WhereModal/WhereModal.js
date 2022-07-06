@@ -6,15 +6,6 @@ import BlackButton from './../BlackButton/BlackButton';
 import { BASEURL } from '../../ApiOrigin';
 function WhereModal({ modalRef, closeModal }) {
   const [selectCountry, setSelectCounry] = useState('');
-  //const [selectCountry, setSelectCounry] = useState(null);
-  //const [countries, setCountries] = useState([
-  //{
-  //  id: 1,
-  //  isKorea: false,
-  //  city: '',
-  // },
-  //]);
-  //const Korea = ['경기', '서울', '제주', '부산'];
   const [Korea, setKorea] = useState([
     {
       id: 1,
@@ -33,17 +24,10 @@ function WhereModal({ modalRef, closeModal }) {
       name: '부산',
     },
   ]);
-  // useEffect(() => {
-  //   fetch(`${BASEURL}/findstay?city`, { method: 'GET' })
-  //     .then(res => res.json())
-  //     .then(res => setKorea(res));
-  // });
   const clicked = e => {
     setSelectCounry(e.currentTarget.innerText);
-    // selectCountry = e.currentTarget.innerText;
     console.log(selectCountry);
   };
-  // const reset = () => setSelectCounry(null);
   return (
     <div className={css.modalWrapper} ref={modalRef}>
       <div>
@@ -57,7 +41,6 @@ function WhereModal({ modalRef, closeModal }) {
                 id="modalClose1"
                 onClick={() => {
                   closeModal();
-                  // reset();
                 }}
               />
             </div>
@@ -108,7 +91,6 @@ function WhereModal({ modalRef, closeModal }) {
             className={css.btnWrapper}
             onClick={() => {
               closeModal();
-              // reset();
             }}
           >
             <BlackButton
@@ -123,31 +105,3 @@ function WhereModal({ modalRef, closeModal }) {
 }
 
 export default WhereModal;
-
-// const mokCountry = [
-//   {
-//     id: 5,
-//     isKorea: false,
-//     city: '베트남',
-//   },
-//   {
-//     id: 6,
-//     isKorea: false,
-//     city: '태국',
-//   },
-//   {
-//     id: 7,
-//     isKorea: false,
-//     city: '대만',
-//   },
-//   {
-//     id: 8,
-//     isKorea: false,
-//     city: '싱가폴',
-//   },
-//   {
-//     id: 9,
-//     isDoemstic: false,
-//     city: '인도네시아',
-//   },
-// ];

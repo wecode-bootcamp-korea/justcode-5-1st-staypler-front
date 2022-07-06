@@ -20,6 +20,7 @@ function MypageHeader() {
         }
       })
       .then(fetchdatas => {
+        console.log(fetchdatas);
         let fetchdata = fetchdatas.data[0];
         setData(fetchdata);
       });

@@ -12,9 +12,11 @@ import { BASEURL } from '../../ApiOrigin';
 function Detail() {
   const [data, setData] = useState([]);
   let { id } = useParams();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://13.125.249.195:10010/rooms/${id}`, {
+    setLoading(true);
+    fetch(`${BASEURL}/rooms/${id}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -29,14 +31,15 @@ function Detail() {
       })
       .then(fetchdata => {
         setData(fetchdata.data[0]);
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <div className={css.container}>
       <div className={css.roomName}>
         {data.room_name}
-        {data && <Like id={id} isLike={data.islike} />}
+        {!loading && data && <Like id={id} isLike={data.islike} />}
       </div>
       {data && <DetailBannerSlider roomData={data} />}
       {data && <RoomInfoSlider roomData={data} />}

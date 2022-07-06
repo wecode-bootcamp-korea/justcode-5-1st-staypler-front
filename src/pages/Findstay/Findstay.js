@@ -3,12 +3,17 @@ import css from './Findstay.module.scss';
 import Feed from './Feed.js';
 import { BASEURL } from '../../ApiOrigin';
 import PageHeader from '../../components/PageHeader/PageHeader';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import Filter from './Filter/Filter';
+import Order from './Filter/Order';
 
-// import { useNavigate } from 'react-router-dom';
-// import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
+
 function Findstay() {
   const [data, setData] = useState([]);
+
+  const location = useLocation();
+
   let [pageBtnNum, setPageBtnNum] = useState(1);
   let [pages, setpages] = useState();
 
@@ -40,6 +45,7 @@ function Findstay() {
   for (let i = 1; i <= pages; i++) {
     pageNumber.push(i);
   }
+
   return (
     <div className={css.container}>
       <PageHeader
@@ -47,48 +53,8 @@ function Findstay() {
         pageTitleKO="머무는 것 자체로 여행이 되는 공간"
         url="/findstay"
       />
-      <div className={css.filterWrapper}>
-        <div className={css.firstLine}>
-          <div className={css.keyword}>
-            <span className={css.tit}>여행지/숙소</span>
-            <input className={css.searchBar} type="text" />
-            <div className={css.filterBtn}>
-              <button className={css.filterBtn}>지역</button>
-            </div>
-            <div className={css.checking}>
-              <span className={css.checkingTit}>체크인</span>
-              <input
-                type="text"
-                className={css.checkingBtn}
-                placeholder="체크인 날짜"
-              />
-              <span className={css.checkingTit}>체크아웃</span>
-              <input
-                type="text"
-                className={css.checkingBtn}
-                placeholder="체크아웃 날짜"
-              />
-            </div>
-          </div>
-        </div>
-        <div className={css.firstLine}>
-          <div className={css.keyword}>
-            <div className={css.filterBtn}>
-              <button className={css.filterBtn}>인원</button>
-            </div>
-            <button className={css.filterBtn}>가격범위</button>
-            <div className={css.filterBtn}>
-              <button className={css.filterBtn}>스테이유형</button>
-            </div>
-            <div className={css.filterBtn}>
-              <button className={css.filterBtn}>테마</button>
-            </div>
-          </div>
-        </div>
-        <div className={css.searchBtnWrapper}>
-          <button className={css.searchBtn}>search</button>
-        </div>
-      </div>
+      <Filter data={data} />
+      <Order />
       {data.map(feed => {
         return (
           <Feed

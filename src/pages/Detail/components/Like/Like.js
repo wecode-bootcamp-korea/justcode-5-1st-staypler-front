@@ -5,12 +5,11 @@ import style from './Like.module.scss';
 import { BASEURL } from '../../../../ApiOrigin';
 
 function Like({ id, isLike }) {
-  const [heart, setHeart] = useState();
+  const [heart, setHeart] = useState(isLike);
 
   useEffect(() => {
-    console.log('LIKE', isLike);
     setHeart(isLike);
-  }, []);
+  }, [isLike]);
 
   const HeartBtn = () => {
     fetch(`${BASEURL}/rooms/${id}/like`, {

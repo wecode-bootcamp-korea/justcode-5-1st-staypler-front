@@ -32,7 +32,7 @@ function Login() {
       .then(response => response.json())
       .then(result => {
         if (result.token) {
-          // console.log(result);
+          console.log(result.token);
           localStorage.setItem('login-token', result.token);
           navigate('/');
         } else {
