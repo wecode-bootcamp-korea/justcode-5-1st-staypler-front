@@ -18,6 +18,8 @@ function Header() {
   const openModal2 = () => setModalActive(2);
   const closeModal = () => setModalActive(0);
 
+  const islogin = () => !!localStorage.getItem('login-token');
+
   // 모달 ON/OFF 상태 관리
   useEffect(() => {
     if (modalActive === 1) {
@@ -82,19 +84,30 @@ function Header() {
                 </Link>
               </div>
               <div>
-                <div className={css.loginIcon}>
-                  {true ? (
-                    <MdPerson
-                      size={20}
-                      onClick={() => {
-                        navigate('/mypage');
-                      }}
-                    />
-                  ) : null}
+                <div className={css.loginGroup}>
+                  {islogin() ? (
+                    <>
+                      <MdPerson
+                        size={20}
+                        onClick={() => {
+                          navigate('/mypage');
+                        }}
+                        className={css.mypageIcon}
+                      />
+                      <Link
+                        to="/login"
+                        className={`${css.menuList} ${css.logout}`}
+                        onClick={localStorage.removeItem('login-token')}
+                      >
+                        LOGOUT
+                      </Link>
+                    </>
+                  ) : (
+                    <Link to="/login" className={css.menuList}>
+                      LOGIN
+                    </Link>
+                  )}
                 </div>
-                <Link to="/login" className={css.menuList}>
-                  LOGIN
-                </Link>
                 <Link to="/" className={css.menuList}>
                   <BsToggleOn size="23" />
                 </Link>
