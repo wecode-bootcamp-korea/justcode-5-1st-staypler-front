@@ -3,6 +3,7 @@ import css from './Findstay.module.scss';
 import Feed from './Feed.js';
 import { BASEURL } from '../../ApiOrigin';
 import PageHeader from '../../components/PageHeader/PageHeader';
+import { useLocation } from 'react-router-dom';
 
 // import { useNavigate } from 'react-router-dom';
 // import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
@@ -10,8 +11,12 @@ function Findstay() {
   const [data, setData] = useState([]);
   let [pageBtnNum, setPageBtnNum] = useState(1);
   let [pages, setpages] = useState();
+
+  let location = useLocation();
+  console.log(location.search);
+
   useEffect(() => {
-    fetch(`${BASEURL}/rooms?page=${pageBtnNum}`, {
+    fetch(`${BASEURL}/rooms${location.search}&page=${pageBtnNum}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -25,10 +30,12 @@ function Findstay() {
         }
       })
       .then(fetchdata => {
+        console.log(fetchdata);
         setpages(Math.ceil(fetchdata.rooms_count / 6));
         setData(fetchdata.data);
       });
-  }, [pageBtnNum]);
+  }, [pageBtnNum, location]);
+
   const pageNumber = [];
   for (let i = 1; i <= pages; i++) {
     pageNumber.push(i);
