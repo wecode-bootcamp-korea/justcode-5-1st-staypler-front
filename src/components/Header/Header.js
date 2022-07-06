@@ -18,7 +18,16 @@ function Header() {
   const openModal2 = () => setModalActive(2);
   const closeModal = () => setModalActive(0);
 
-  const islogin = () => !!localStorage.getItem('login-token');
+  // const islogin = () => !!localStorage.getItem('login-token');
+  // console.log(islogin());
+
+  const [loginStauts, setLoginStatus] = useState();
+
+  useEffect(() => {
+    setLoginStatus(localStorage.getItem('login-token'));
+  });
+
+  console.log('loginStauts', loginStauts);
 
   // 모달 ON/OFF 상태 관리
   useEffect(() => {
@@ -85,7 +94,7 @@ function Header() {
               </div>
               <div>
                 <div className={css.loginGroup}>
-                  {islogin() ? (
+                  {loginStauts ? (
                     <>
                       <MdPerson
                         size={20}
@@ -95,9 +104,11 @@ function Header() {
                         className={css.mypageIcon}
                       />
                       <Link
-                        to="/login"
+                        to=""
                         className={`${css.menuList} ${css.logout}`}
-                        onClick={localStorage.removeItem('login-token')}
+                        onClick={() => {
+                          localStorage.removeItem('login-token');
+                        }}
                       >
                         LOGOUT
                       </Link>
