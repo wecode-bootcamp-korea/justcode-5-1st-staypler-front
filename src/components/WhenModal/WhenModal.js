@@ -19,6 +19,20 @@ function WhenModal({ modalRef, closeModal }) {
   const [checkOut, setCheckOut] = useState(null);
   const [tempoCheckOut, setTempoCheckOut] = useState(null);
 
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+
+  let params = {
+    start_date: startDate,
+    end_date: endDate,
+  };
+
+  let query = Object.keys(params)
+    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+    .join('&');
+
+  let link = '/findstay?' + query;
+
   const checked = checkedDay => {
     if (!checkIn) {
       setCheckIn(checkedDay);
@@ -85,11 +99,20 @@ function WhenModal({ modalRef, closeModal }) {
               tempoCheckOut={tempoCheckOut}
               onHover={onHover}
               onHoverReset={onHoverReset}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
             />
             <AiOutlineLeft size="22" className={css.prevBtn} onClick={prev} />
             <AiOutlineRight size="22" className={css.nextBtn} onClick={next} />
           </div>
-          <Link to="/Detail" className={css.btnWrapper}>
+          <Link
+            to={link}
+            className={css.btnWrapper}
+            onClick={() => {
+              closeModal();
+              reset();
+            }}
+          >
             <BlackButton
               className={css.searchBtn}
               content="search &nbsp; &nbsp; →"

@@ -59,6 +59,7 @@
   .modalText {
     font-size: 15px;
     margin: 7px;
+  }
 
 .modalText {
   margin: auto;
@@ -86,11 +87,23 @@
   text-decoration: none;
 }
 
-.menuList:nth-child(5) {
-  padding-left: 30px;
-  border-left: 1px solid black;
-}
+  .loginGroup {
+    padding: 0 12px;
+    cursor: pointer;
+  }
 
-.menuList:last-child {
-  margin-right: 0px;
-}
+  .menuList {
+    display: inline-block;
+    height: 25px;
+    margin-right: 20px;
+    line-height: 25px;
+    font-family: 'Lato', 'Noto Sans KR', 'Abel';
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    color: black;
+  }
+  .logout {
+    margin-left: 5px;
+  }
+
