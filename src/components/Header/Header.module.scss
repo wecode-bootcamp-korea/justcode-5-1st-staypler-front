@@ -81,7 +81,7 @@
     border-right: 1px solid black;
   }
 
-  .loginIcon {
+  .loginGroup {
     padding: 0 12px;
     cursor: pointer;
   }
@@ -96,5 +96,8 @@
     font-weight: 700;
     text-decoration: none;
     color: black;
+  }
+  .logout {
+    margin-left: 5px;
   }
 }
