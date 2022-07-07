@@ -33,7 +33,7 @@ function ReservationHeader({ roomid, roomname }) {
           </div>
           {price ? (
             <Link
-              to={`/payment?start_date=${reservatinStart}&end_date=${reservatinEnd}`}
+              to={`/payment?start_date=${reservatinStart}&end_date=${reservatinEnd}&room_id=${roomid}`}
             >
               <div className={css.bookingBtn}>
                 ￦{price.toLocaleString('ko-KR')} 결제하기
