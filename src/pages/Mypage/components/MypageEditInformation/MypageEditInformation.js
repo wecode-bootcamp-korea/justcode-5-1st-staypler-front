@@ -3,6 +3,7 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import { FiCamera } from 'react-icons/fi';
 import css from './MypageEditInformation.module.scss';
 import ImgUploadModal from './../ImgUploadModal/ImgUploadModal';
@@ -13,11 +14,13 @@ function MypageEditInformation() {
   const [data, setData] = useState([]);
   const [savePassword, setSavePassword] = useState(false);
   const [saveEdit, setSaveEdit] = useState(false);
+
   const [openModal, setOpenModal] = useState(false);
   const [modalText, setModalText] = useState('');
 
   const [imgUploadModal, setImgUploadModal] = useState(false);
   const [scriptOpne, setScriptOpen] = useState(false);
+  const navigate = useNavigate();
 
   const [inputValue, setInputValue] = useState({
     email: '',
@@ -75,7 +78,7 @@ function MypageEditInformation() {
         setModalText('비밀번호가 수정되었습니다.');
       } else {
         setOpenModal(true);
-        setModalText('정보가 올바른 형식으로 입력되지 않았습니다.');
+        setModalText('입력하신 비밀번호가 기존 비밀번호와 다릅니다.');
       }
     });
   }
@@ -95,6 +98,7 @@ function MypageEditInformation() {
         profile_image: inputValue.image,
       }),
     }).then(res => {
+      console.log(res.json());
       if (res.status === 200) {
         setOpenModal(true);
         setModalText('회원정보가 수정되었습니다.');
@@ -306,7 +310,14 @@ function MypageEditInformation() {
         >
           저장하기
         </button>
-        <button type="button" className={css.logoutBtn}>
+        <button
+          type="button"
+          className={css.logoutBtn}
+          onClick={() => {
+            localStorage.removeItem('login-token');
+            navigate(`/`);
+          }}
+        >
           로그아웃
         </button>
       </div>

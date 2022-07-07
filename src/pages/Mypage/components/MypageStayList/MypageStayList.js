@@ -43,10 +43,11 @@ function MypageStayList({ API }) {
         }
       })
       .then(fetchdata => {
+        console.log(fetchdata);
         setPages(fetchdata.maxPage);
         setData(fetchdata.data);
       });
-  }, []);
+  }, [API, CurrentButton]);
 
   // pagenation 버튼 클릭 후, fetch해올 때 사용예정
   useEffect(() => {
@@ -147,13 +148,13 @@ function MypageStayList({ API }) {
               </div>
               <div className={css.carousel} ref={carouselRef}>
                 <div className={css.cardContainer} ref={cardContainerRef}>
-                  {data[i].images &&
-                    data[i].images.map((aa, ii) => {
+                  {data[i].image &&
+                    data[i].image.map((aa, ii) => {
                       return (
                         <div
                           className={css.roomImage}
                           style={{
-                            backgroundImage: `url(${data[i].images[ii]})`,
+                            backgroundImage: `url(${data[i].image[ii]})`,
                           }}
                           key={ii}
                           onClick={() => {
