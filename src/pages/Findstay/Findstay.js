@@ -8,11 +8,8 @@ import { useLocation } from 'react-router-dom';
 import Filter from './Filter/Filter';
 import Order from './Filter/Order';
 
-
 function Findstay() {
   const [data, setData] = useState([]);
-
-  const location = useLocation();
 
   let [pageBtnNum, setPageBtnNum] = useState(1);
   let [pages, setpages] = useState();
@@ -53,7 +50,7 @@ function Findstay() {
         pageTitleKO="머무는 것 자체로 여행이 되는 공간"
         url="/findstay"
       />
-      <Filter data={data} />
+      <Filter />
       <Order />
       {data.map(feed => {
         return (

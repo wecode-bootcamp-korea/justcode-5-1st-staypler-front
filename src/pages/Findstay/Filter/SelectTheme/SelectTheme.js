@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useLocation } from 'react-router-dom';
 import {
   ModalApplyBtn,
   ModalApplyBtnWrapper,
@@ -33,6 +35,7 @@ export default function SelectTheme({ closeHandler, handleFilter }) {
     오션뷰: false,
     풀빌라: false,
   });
+  console.log('selectedTheme', selectedTheme);
 
   const handleChange = e => {
     const { name } = e.target;
@@ -46,7 +49,7 @@ export default function SelectTheme({ closeHandler, handleFilter }) {
         <AiOutlineClose onClick={closeHandler} />
       </ModalTitle>
       <ModalApplyBtnWrapper>
-        <ModalApplyBtn onClick={() => handleFilter(selectedTheme)}>
+        <ModalApplyBtn onClick={() => handleFilter(selectedTheme, 'theme')}>
           적용하기
         </ModalApplyBtn>
       </ModalApplyBtnWrapper>
