@@ -80,6 +80,9 @@
   height: 240px;
   flex-shrink: 0;
   scroll-snap-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   cursor: pointer;
 }
 

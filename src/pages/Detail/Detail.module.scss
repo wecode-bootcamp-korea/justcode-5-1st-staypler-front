@@ -1,11 +1,16 @@
 .container {
+  padding-top: 100px;
   position: relative;
   min-height: 800px;
+  display: flex;
+  justify-content: center;
 }
 .roomName {
   display: flex;
-  padding: 150px 0 30px;
+  width: 1800px;
+  height: 136px;
   font-size: 15px;
+  padding-top: 80px;
   align-items: center;
 }
 .address {

@@ -34,7 +34,7 @@ function Router() {
               <>
                 <MypageroomSlider
                   title="다가올 예약"
-                  API={`${BASEURL}/mypage/like`}
+                  API={`${BASEURL}/mypage/bookings`}
                 />
                 <MypageroomSlider
                   title="관심 스테이"
