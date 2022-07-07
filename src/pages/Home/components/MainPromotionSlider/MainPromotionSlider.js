@@ -28,7 +28,7 @@ function MainPromotionSlider() {
   const carouselRef = useRef();
 
   useEffect(() => {
-    fetch(`${BASEURL}/data/MainPromationSlider.json`)
+    fetch(`${BASEURL}/main/promotion`)
       .then(res => {
         if (res.ok) {
           return res.json();
