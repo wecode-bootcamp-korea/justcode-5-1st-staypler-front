@@ -17,7 +17,7 @@ function Detail() {
     fetch(`${BASEURL}/rooms/${id}`, {
       method: 'GET',
       headers: {
-        // Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
