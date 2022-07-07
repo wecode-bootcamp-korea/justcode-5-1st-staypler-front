@@ -108,11 +108,9 @@ function Main3imagesSlider() {
                     <span className={css.province}>{data[i].province}</span>
                     <span className={css.city}>{data[i].city}</span>
                     <span className={css.price}>
-                      ￦{data[i].max_price?.toLocaleString('ko-KR')}
+                      ￦{data[i].max_price?.toLocaleString('ko-KR')} ~
                     </span>
-                    <span className={css.price}>
-                      ￦{data[i].min_price?.toLocaleString('ko-KR')}
-                    </span>
+                    <span> ￦{data[i].min_price?.toLocaleString('ko-KR')}</span>
                   </div>
                   <span className={css.reserve}>reserve</span>
                 </div>
