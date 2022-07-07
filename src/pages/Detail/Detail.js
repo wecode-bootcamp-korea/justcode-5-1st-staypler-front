@@ -12,8 +12,10 @@ import { BASEURL } from '../../ApiOrigin';
 function Detail() {
   const [data, setData] = useState([]);
   let { id } = useParams();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${BASEURL}/rooms/${id}`, {
       method: 'GET',
       headers: {
@@ -29,23 +31,26 @@ function Detail() {
       })
       .then(fetchdata => {
         setData(fetchdata.data[0]);
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <div className={css.container}>
-      <div className={css.roomName}>
-        {data.room_name}
-        {data && <Like id={id} isLike={data.islike} />}
+      <div>
+        <div className={css.roomName}>
+          {data.title}
+          {!loading && data && <Like id={id} isLike={data.islike} />}
+        </div>
+        {data && <DetailBannerSlider roomData={data} />}
+        {data && <RoomInfoSlider roomData={data} />}
+        {data && <RoomIntro roomData={data} room_name={data.room_name} />}
+        {data && <RoomSpecial roomData={data} />}
+        <div
+          className={css.address}
+        >{`${data.room_name}의 주소는 [ ${data.address} ] 입니다.`}</div>
+        {data && <FAQ roomData={data} />}
       </div>
-      {data && <DetailBannerSlider roomData={data} />}
-      {data && <RoomInfoSlider roomData={data} />}
-      {data && <RoomIntro roomData={data} room_name={data.room_name} />}
-      {data && <RoomSpecial roomData={data} />}
-      <div
-        className={css.address}
-      >{`${data.room_name}의 주소는 [ ${data.address} ] 입니다.`}</div>
-      {data && <FAQ roomData={data} />}
     </div>
   );
 }
