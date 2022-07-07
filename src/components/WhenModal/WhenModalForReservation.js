@@ -5,8 +5,16 @@ import BlackButton from '../BlackButton/BlackButton';
 import moment from 'moment';
 import CheckInOut from '../Calendar/CheckInOut';
 import { Link } from 'react-router-dom';
+import { BASEURL } from '../../ApiOrigin';
 
-function WhenModal({ modalRef, closeModal, setStart, setEnd }) {
+function WhenModal({
+  modalRef,
+  closeModal,
+  roomid,
+  setPrice,
+  setStart,
+  setEnd,
+}) {
   const [stateMoment, setStateMoment] = useState(moment());
   const prev = () => {
     setStateMoment(stateMoment.clone().subtract(1, 'month'));
@@ -46,11 +54,12 @@ function WhenModal({ modalRef, closeModal, setStart, setEnd }) {
   };
 
   const reset = () => {
-    setStart(startDate);
-    setEnd(endDate);
+    Payment();
     setCheckIn(null);
     setCheckOut(null);
     setStateMoment(moment());
+    setStart(startDate);
+    setEnd(endDate);
   };
 
   const onHover = day => {
@@ -62,6 +71,34 @@ function WhenModal({ modalRef, closeModal, setStart, setEnd }) {
   const onHoverReset = () => {
     setTempoCheckOut(null);
   };
+
+  let params = {
+    start_date: startDate,
+    end_date: endDate,
+  };
+
+  let query = Object.keys(params)
+    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+    .join('&');
+
+  function Payment() {
+    fetch(`${BASEURL}/rooms/${roomid}/room?${query}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(fetchdata => {
+        setPrice(fetchdata.data[0].total_price);
+      });
+  }
 
   return (
     <div className={css.modalWrapper} ref={modalRef}>

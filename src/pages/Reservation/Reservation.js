@@ -24,12 +24,10 @@ function Reservation() {
         }
       })
       .then(fetchdata => {
-        console.log(fetchdata);
         setData(fetchdata.data[0]);
       });
   }, []);
 
-  // console.log(data);
   return (
     <div className={css.container}>
       <PageHeader

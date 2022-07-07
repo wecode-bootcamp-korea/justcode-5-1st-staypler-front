@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import WhenModalForReservation from '../../../../components/WhenModal/WhenModalForReservation';
 function ReservationHeader({ roomid, roomname }) {
-  const [reservationStart, setStart] = useState();
-  const [reservationEnd, setEnd] = useState();
-
   const [modalActive, setModalActive] = useState(0);
+  const [reservatinStart, setStart] = useState();
+  const [reservatinEnd, setEnd] = useState();
+
+  const [price, setPrice] = useState('');
   const modalWhenRef = useRef();
   const openModal = () => setModalActive(1);
   const closeModal = () => setModalActive(0);
@@ -21,17 +22,6 @@ function ReservationHeader({ roomid, roomname }) {
     }
   }, [modalActive]);
 
-  let params = {
-    start_date: reservationStart,
-    end_date: reservationEnd,
-  };
-
-  let query = Object.keys(params)
-    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-    .join('&');
-
-  let link = '/payment?' + query;
-
   return (
     <div className={css.container}>
       <div className={css.header}>
@@ -41,9 +31,13 @@ function ReservationHeader({ roomid, roomname }) {
             날짜를 선택해주세요.
             <MdKeyboardArrowDown size={20} />
           </div>
-          {params.start_date !== undefined && params.end_date ? (
-            <Link to={link}>
-              <div className={css.bookingBtn}>결제하기</div>
+          {price ? (
+            <Link
+              to={`/payment?start_date=${reservatinStart}&end_date=${reservatinEnd}`}
+            >
+              <div className={css.bookingBtn}>
+                ￦{price.toLocaleString('ko-KR')} 결제하기
+              </div>
             </Link>
           ) : (
             <div className={css.bookingBtn}>결제하기</div>
@@ -53,6 +47,8 @@ function ReservationHeader({ roomid, roomname }) {
       <WhenModalForReservation
         modalRef={modalWhenRef}
         closeModal={closeModal}
+        roomid={roomid}
+        setPrice={setPrice}
         setStart={setStart}
         setEnd={setEnd}
       />
