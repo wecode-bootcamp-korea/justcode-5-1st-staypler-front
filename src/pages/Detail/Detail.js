@@ -47,7 +47,7 @@ function Detail() {
       {data && <RoomSpecial roomData={data} />}
       <div
         className={css.address}
-      >{`${data.room_name}의 주소는 [ ${data.address} ] 입니다.`}</div>
+      >{`${data.title}의 주소는 [ ${data.address} ] 입니다.`}</div>
       {data && <FAQ roomData={data} />}
     </div>
   );
