@@ -129,7 +129,7 @@ function MypageroomSlider({ title, API }) {
                   <div
                     className={css.roomImage}
                     style={{
-                      backgroundImage: `url(${data[i].images})`,
+                      backgroundImage: `url(${data[i].image})`,
                     }}
                     onClick={() => {
                       goToDetail(i);

@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import css from './CheckInOut.module.scss';
-
 function CheckInOut({
   stateMoment,
   checkIn,
@@ -10,6 +9,8 @@ function CheckInOut({
   tempoCheckOut,
   onHover,
   onHoverReset,
+  setStartDate,
+  setEndDate,
 }) {
   //달력 생성변수
   const thisMonth = stateMoment;
@@ -18,17 +19,17 @@ function CheckInOut({
     thisMonth.clone().endOf('month').week() === 1
       ? 53
       : thisMonth.clone().endOf('month').week();
-
   const nextMonth = stateMoment.clone().add(1, 'month');
   const nextFirstWeek = nextMonth.clone().startOf('month').week();
   const nextLastWeek =
     nextMonth.clone().endOf('month').week() === 1
       ? 53
       : nextMonth.clone().endOf('month').week();
-
   const checkInDay = checkIn;
   const checkOutDay = checkOut;
   const tempoCheckOutDay = tempoCheckOut;
+  setStartDate(checkInDay);
+  setEndDate(checkOutDay);
 
   //특정 날짜마다 어떤 조건에 해당하는지 판단-> 조건에 맞는 className 주기
   const CalendarArr = (today, firstWeek, lastWeek) => {
@@ -54,7 +55,9 @@ function CheckInOut({
                     className={css.checkInDay}
                     onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
                     onMouseLeave={onHoverReset}
-                    onClick={() => onCheck(days.format('YYYY-MM-DD'))}
+                    onClick={() => {
+                      onCheck(days.format('YYYY-MM-DD'));
+                    }}
                     key={index}
                   >
                     <span>{days.format('D')}</span>
@@ -71,7 +74,9 @@ function CheckInOut({
                     className={css.tempoCheckOutDay}
                     onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
                     onMouseLeave={onHoverReset}
-                    onClick={() => onCheck(days.format('YYYY-MM-DD'))}
+                    onClick={() => {
+                      onCheck(days.format('YYYY-MM-DD'));
+                    }}
                     key={index}
                   >
                     <span>{days.format('D')}</span>
@@ -83,7 +88,9 @@ function CheckInOut({
                     className={css.checkOutDay}
                     onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
                     onMouseLeave={onHoverReset}
-                    onClick={() => onCheck(days.format('YYYY-MM-DD'))}
+                    onClick={() => {
+                      onCheck(days.format('YYYY-MM-DD'));
+                    }}
                     key={index}
                   >
                     <span>{days.format('D')}</span>
@@ -100,7 +107,9 @@ function CheckInOut({
                     className={css.onDay}
                     onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
                     onMouseLeave={onHoverReset}
-                    onClick={() => onCheck(days.format('YYYY-MM-DD'))}
+                    onClick={() => {
+                      onCheck(days.format('YYYY-MM-DD'));
+                    }}
                     key={index}
                   >
                     <span>{days.format('D')}</span>
@@ -121,7 +130,9 @@ function CheckInOut({
                     className={css.days}
                     onMouseEnter={() => onHover(days.format('YYYY-MM-DD'))}
                     onMouseLeave={onHoverReset}
-                    onClick={() => onCheck(days.format('YYYY-MM-DD'))}
+                    onClick={() => {
+                      onCheck(days.format('YYYY-MM-DD'));
+                    }}
                     key={index}
                   >
                     <span>{days.format('D')}</span>
@@ -174,5 +185,4 @@ function CheckInOut({
     </div>
   );
 }
-
 export default CheckInOut;
