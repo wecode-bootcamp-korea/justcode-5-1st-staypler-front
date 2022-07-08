@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
 import {
@@ -33,19 +33,39 @@ const useCounter = () => {
   return { count, plusCount, minusCount };
 };
 
-export default function SelectPeople({ closeHandler, handleFilter }) {
+export default function SelectPeople({ closeHandler }) {
   const { count, plusCount, minusCount } = useCounter(0);
 
-  const sumCount = () => {
-    return Object.values(count).reduce((a, b) => a + b, 0);
-  };
+  const location = useLocation();
 
-  console.log(sumCount());
+  const sumCount = Object.values(count).reduce((a, b) => a + b, 0);
+
   const PEOPLE_DATA = [
     { id: 1, type: '성인' },
     { id: 2, type: '아동', age: '24개월~12세' },
     { id: 3, type: '영아', age: '24개월 미만' },
   ];
+
+  let [newQuery, setNewQuery] = useState();
+  useEffect(() => {
+    function makeNewQuery() {
+      let query = location.search;
+      if (query === '') {
+        return '';
+      } else if (query.includes('max_limit')) {
+        let queryToArray = query.substring(1).split('&');
+        let sortIndex = queryToArray.findIndex(element =>
+          element.includes('max_limit')
+        );
+        queryToArray.splice(sortIndex, 1);
+        let ModifiedQuery = queryToArray.join('&') + '&';
+        return ModifiedQuery !== '&' ? ModifiedQuery : '';
+      } else {
+        return query.substring(1) + '&';
+      }
+    }
+    setNewQuery(makeNewQuery());
+  }, [location]);
 
   return (
     <ModalBox>
@@ -75,14 +95,7 @@ export default function SelectPeople({ closeHandler, handleFilter }) {
           })}
       </div>
       <ModalApplyBtnWrapper>
-        {/* <Link
-          to={`/findstay?max_limit=${JSON.stringify(count)}`}
-          onClick={() => handleFilter(count)}
-        > */}
-        <ModalApplyBtn onClick={() => handleFilter(count, 'max_limit')}>
-          적용하기
-        </ModalApplyBtn>
-        {/* </Link> */}
+        <Link to={`/findstay?${newQuery}max_limit=${sumCount}`}>적용하기</Link>
       </ModalApplyBtnWrapper>
     </ModalBox>
   );

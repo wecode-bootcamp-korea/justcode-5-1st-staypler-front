@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {
@@ -8,15 +8,7 @@ import {
   ModalTitle,
   ModalBox,
 } from '../../Filter/Filter';
-const MultiRangeSlider = ({ min, max, onChange, handleFilter }) => {
-  const [value, setValue] = useState();
-
-  const priceValue = () => {
-    return {
-      minprice: value * 1000,
-      maxprice: value * 10000,
-    };
-  };
+const MultiRangeSlider = ({ min, max }) => {
   MultiRangeSlider.propTypes = {
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
@@ -58,9 +50,28 @@ const MultiRangeSlider = ({ min, max, onChange, handleFilter }) => {
     }
   }, [maxVal, getPercent]);
 
+  const location = useLocation();
+  let [newQuery, setNewQuery] = useState();
+
   useEffect(() => {
-    onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
+    function makeNewQuery() {
+      let query = location.search;
+      if (query === '') {
+        return '';
+      } else if (query.includes('max_price')) {
+        let queryToArray = query.substring(1).split('&');
+        let sortIndex = queryToArray.findIndex(element =>
+          element.includes('max_price')
+        );
+        queryToArray.splice(sortIndex, 2);
+        let ModifiedQuery = queryToArray.join('&') + '&';
+        return ModifiedQuery !== '&' ? ModifiedQuery : '';
+      } else {
+        return query.substring(1) + '&';
+      }
+    }
+    setNewQuery(makeNewQuery());
+  }, [location]);
 
   return (
     <>
@@ -97,27 +108,26 @@ const MultiRangeSlider = ({ min, max, onChange, handleFilter }) => {
           <SliderValue>
             <PriceTitle>최저요금</PriceTitle>
             <PriceWrapper>
-              <PriceInput type="text" value={`${minVal}만원`} />
+              <PriceInput type="text" value={`${minVal}만원`} readOnly />
             </PriceWrapper>
           </SliderValue>
           <Divider>-</Divider>
           <SliderValue>
             <PriceTitle>최고요금</PriceTitle>
             <PriceWrapper>
-              <PriceInput type="text" value={`${maxVal}만원`} />
+              <PriceInput type="text" value={`${maxVal}만원`} readOnly />
             </PriceWrapper>
           </SliderValue>
         </Slider>
       </SliderContainer>
       <ModalApplyBtnWrapper>
-        {/* <Link
-          to={`/findstay?min_price=${minVal}max_price=${maxVal}`}
-          onClick={() => handleFilter(priceValue())}
-        > */}
-        <ModalApplyBtn onClick={() => handleFilter(priceValue())}>
+        <Link
+          to={`/findstay?${newQuery}max_price=${maxVal * 10000}&min_price=${
+            minVal * 10000
+          }`}
+        >
           적용하기
-        </ModalApplyBtn>
-        {/* </Link> */}
+        </Link>
       </ModalApplyBtnWrapper>
     </>
   );
