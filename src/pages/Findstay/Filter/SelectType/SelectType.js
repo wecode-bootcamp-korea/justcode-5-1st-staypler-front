@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ModalApplyBtn,
   ModalApplyBtnWrapper,
@@ -37,9 +38,14 @@ export default function SelectType({ closeHandler, handleFilter }) {
         <AiOutlineClose onClick={closeHandler} />
       </ModalTitle>
       <ModalApplyBtnWrapper>
-        <ModalApplyBtn onClick={() => handleFilter(selectedType)}>
+        {/* <Link
+          to={`/findstay?type=${JSON.stringify(selectedType)}`}
+          onClick={() => handleFilter(selectedType)}
+        > */}
+        <ModalApplyBtn onClick={() => handleFilter(selectedType, 'type')}>
           적용하기
         </ModalApplyBtn>
+        {/* </Link> */}
       </ModalApplyBtnWrapper>
       <CheckList>
         {TYPE_DATA.map((item, idx) => {
@@ -51,6 +57,8 @@ export default function SelectType({ closeHandler, handleFilter }) {
                   type="checkbox"
                   value="space"
                   name={item.name}
+                  // name="type" //수정
+                  // value={item.name} //수정
                   checked={selectedType[item.name]}
                 />
               </label>

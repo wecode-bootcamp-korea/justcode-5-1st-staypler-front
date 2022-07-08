@@ -51,14 +51,6 @@ function Detail() {
         >{`${data.room_name}의 주소는 [ ${data.address} ] 입니다.`}</div>
         {data && <FAQ roomData={data} />}
       </div>
-      {data && <DetailBannerSlider roomData={data} />}
-      {data && <RoomInfoSlider roomData={data} />}
-      {data && <RoomIntro roomData={data} room_name={data.room_name} />}
-      {data && <RoomSpecial roomData={data} />}
-      <div
-        className={css.address}
-      >{`${data.title}의 주소는 [ ${data.address} ] 입니다.`}</div>
-      {data && <FAQ roomData={data} />}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
 import {
@@ -35,6 +36,11 @@ const useCounter = () => {
 export default function SelectPeople({ closeHandler, handleFilter }) {
   const { count, plusCount, minusCount } = useCounter(0);
 
+  const sumCount = () => {
+    return Object.values(count).reduce((a, b) => a + b, 0);
+  };
+
+  console.log(sumCount());
   const PEOPLE_DATA = [
     { id: 1, type: '성인' },
     { id: 2, type: '아동', age: '24개월~12세' },
@@ -69,9 +75,14 @@ export default function SelectPeople({ closeHandler, handleFilter }) {
           })}
       </div>
       <ModalApplyBtnWrapper>
-        <ModalApplyBtn onClick={() => handleFilter(count)}>
+        {/* <Link
+          to={`/findstay?max_limit=${JSON.stringify(count)}`}
+          onClick={() => handleFilter(count)}
+        > */}
+        <ModalApplyBtn onClick={() => handleFilter(count, 'max_limit')}>
           적용하기
         </ModalApplyBtn>
+        {/* </Link> */}
       </ModalApplyBtnWrapper>
     </ModalBox>
   );
