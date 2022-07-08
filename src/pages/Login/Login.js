@@ -29,10 +29,13 @@ function Login() {
         password: inputValue.password,
       }),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
       .then(result => {
         if (result.token) {
-          console.log(result.token);
           localStorage.setItem('login-token', result.token);
           navigate('/');
         } else {
