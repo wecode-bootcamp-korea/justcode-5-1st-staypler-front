@@ -147,9 +147,14 @@ function MainPromotionSlider() {
                           최대 {data[i].min_limit}명
                         </p>
                       </div>
-                      <p className={css.price}>
-                        {data[i].price?.toLocaleString('ko-KR')}원
-                      </p>
+                      <div className={css.priceGroup}>
+                        <p className={css.price}>
+                          {data[i].min_price?.toLocaleString('ko-KR')}원
+                        </p>
+                        <p className={css.price}>
+                          ~ {data[i].max_price?.toLocaleString('ko-KR')}원
+                        </p>
+                      </div>
                     </div>
 
                     <div className={css.pagenation}>
