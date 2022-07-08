@@ -10,10 +10,7 @@ import Order from './Filter/Order';
 
 function Findstay() {
   const [data, setData] = useState([]);
-<<<<<<< HEAD
-=======
   const location = useLocation();
->>>>>>> main
 
   let [pageBtnNum, setPageBtnNum] = useState(1);
   let [pages, setpages] = useState();
