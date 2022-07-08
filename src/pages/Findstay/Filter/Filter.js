@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-
+import { BASEURL } from '../../../ApiOrigin';
 import styled from 'styled-components';
 import { GoLocation } from 'react-icons/go';
 
@@ -11,22 +11,46 @@ import SelectTheme from './SelectTheme/SelectTheme';
 import SelectPrice from './SelectPrice/SelectPrice';
 
 export default function Filter() {
+  const [rooms, setRooms] = useState([]);
+
   const location = useLocation();
   const navigate = useNavigate();
   const [currentID, setCurrentID] = useState();
 
-  const handleFilter = stateObj => {
+  const handleFilter = (stateObj, category) => {
     const URLSearch = new URLSearchParams(location.search);
     Object.entries(stateObj).map(([key, value]) => {
       if (typeof value === 'boolean') {
-        value && URLSearch.append('????', key);
+        value && URLSearch.append(category, key);
       } else {
-        value && URLSearch.append(key, value);
+        value && URLSearch.append(category, value);
       }
     });
-    navigate(`/rooms?` + URLSearch.toString());
+
+    navigate(`/findstay?` + URLSearch.toString());
     closeHandler();
   };
+
+  // max_limit
+  // min_price,
+  // max_price,
+  // type,
+  // theme,
+  // province
+  // 숙소명은
+  // keyword.............
+
+  useEffect(() => {
+    fetch(`${BASEURL}/findstay${location.search}`)
+      .then(res => res.json())
+      .then(res => setRooms(res.data));
+  }, [location.search]);
+
+  useEffect(() => {
+    fetch(`${BASEURL}/findstay`)
+      .then(res => res.json())
+      .then(res => setRooms(res.data));
+  }, []);
 
   const clickHandler = id => {
     setCurrentID(id);
@@ -128,9 +152,7 @@ const FilterContainer = styled.div`
   position: relative;
   z-index: 20;
 `;
-const Keyword = styled.div`
-  display: block;
-`;
+const Keyword = styled.div``;
 
 const Title = styled.span`
   font-size: 14px;
@@ -151,6 +173,7 @@ const InputSearchbar = styled.input`
   padding: 0 10px;
   outline: none;
   appearance: none;
+  vertical-align: middle;
 `;
 
 const FilterAreaBtn = styled.button`
@@ -195,6 +218,7 @@ const CheckOutTitle = styled.span`
 
 const DateContainer = styled.div`
   position: relative;
+  width: 100%;
 `;
 const DateRange = styled.div`
   border: none;

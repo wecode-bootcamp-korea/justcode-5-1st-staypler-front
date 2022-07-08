@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
 import MultiRangeSlider from './MultiRangeSlider';
@@ -17,14 +18,13 @@ const SelectPrice = ({ closeHandler, handleFilter }) => {
         가격 범위
         <AiOutlineClose onClick={closeHandler} />
       </ModalTitle>
+
       <MultiRangeSlider
         min={0}
         max={100}
         onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
+        handleFilter={handleFilter}
       />
-      <ModalApplyBtnWrapper>
-        <ModalApplyBtn onClick={() => handleFilter()}>적용하기</ModalApplyBtn>
-      </ModalApplyBtnWrapper>
     </ModalBox>
   );
 };

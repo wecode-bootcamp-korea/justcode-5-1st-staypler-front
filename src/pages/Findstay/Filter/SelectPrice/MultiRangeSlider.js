@@ -1,8 +1,22 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import {
+  ModalApplyBtn,
+  ModalApplyBtnWrapper,
+  ModalTitle,
+  ModalBox,
+} from '../../Filter/Filter';
+const MultiRangeSlider = ({ min, max, onChange, handleFilter }) => {
+  const [value, setValue] = useState();
 
-const MultiRangeSlider = ({ min, max, onChange }) => {
+  const priceValue = () => {
+    return {
+      minprice: value * 1000,
+      maxprice: value * 10000,
+    };
+  };
   MultiRangeSlider.propTypes = {
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
@@ -14,7 +28,6 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
 
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
-
   const range = useRef(null);
 
   const getPercent = useCallback(
@@ -50,51 +63,63 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
   }, [minVal, maxVal, onChange]);
 
   return (
-    <SliderContainer>
-      <Thumb>
-        <LeftSliderInput
-          type="range"
-          min={min}
-          max={max}
-          value={minVal}
-          ref={minValRef}
-          onChange={event => {
-            const value = Math.min(+event.target.value, maxVal - 1);
-            setMinVal(value);
-            event.target.value = value.toString();
-          }}
-        />
-        <RightSliderInput
-          type="range"
-          min={min}
-          max={max}
-          value={maxVal}
-          ref={maxValRef}
-          onChange={event => {
-            const value = Math.max(+event.target.value, minVal + 1);
-            setMaxVal(value);
-            event.target.value = value.toString();
-          }}
-        />
-        <SliderTrack />
-        <SliderRange ref={range} />
-      </Thumb>
-      <Slider>
-        <SliderValue>
-          <PriceTitle>최저요금</PriceTitle>
-          <PriceWrapper>
-            <PriceInput type="text" value={`${minVal}만원`} />
-          </PriceWrapper>
-        </SliderValue>
-        <Divider>-</Divider>
-        <SliderValue>
-          <PriceTitle>최고요금</PriceTitle>
-          <PriceWrapper>
-            <PriceInput type="text" value={`${maxVal}만원`} />
-          </PriceWrapper>
-        </SliderValue>
-      </Slider>
-    </SliderContainer>
+    <>
+      <SliderContainer>
+        <Thumb>
+          <LeftSliderInput
+            type="range"
+            min={min}
+            max={max}
+            value={minVal}
+            ref={minValRef}
+            onChange={event => {
+              const value = Math.min(+event.target.value, maxVal - 1);
+              setMinVal(value);
+              event.target.value = value.toString();
+            }}
+          />
+          <RightSliderInput
+            type="range"
+            min={min}
+            max={max}
+            value={maxVal}
+            ref={maxValRef}
+            onChange={event => {
+              const value = Math.max(+event.target.value, minVal + 1);
+              setMaxVal(value);
+              event.target.value = value.toString();
+            }}
+          />
+          <SliderTrack />
+          <SliderRange ref={range} />
+        </Thumb>
+        <Slider>
+          <SliderValue>
+            <PriceTitle>최저요금</PriceTitle>
+            <PriceWrapper>
+              <PriceInput type="text" value={`${minVal}만원`} />
+            </PriceWrapper>
+          </SliderValue>
+          <Divider>-</Divider>
+          <SliderValue>
+            <PriceTitle>최고요금</PriceTitle>
+            <PriceWrapper>
+              <PriceInput type="text" value={`${maxVal}만원`} />
+            </PriceWrapper>
+          </SliderValue>
+        </Slider>
+      </SliderContainer>
+      <ModalApplyBtnWrapper>
+        {/* <Link
+          to={`/findstay?min_price=${minVal}max_price=${maxVal}`}
+          onClick={() => handleFilter(priceValue())}
+        > */}
+        <ModalApplyBtn onClick={() => handleFilter(priceValue())}>
+          적용하기
+        </ModalApplyBtn>
+        {/* </Link> */}
+      </ModalApplyBtnWrapper>
+    </>
   );
 };
 
@@ -162,10 +187,10 @@ const Thumb = styled.div`
 const Slider = styled.div`
   position: relative;
   justify-content: space-between;
-  display: -webkit-flex;
+  display: flex;
   align-items: center;
   margin-top: 100px;
-  width: 250px;
+  width: 300px;
 `;
 const SliderTrack = styled.div`
   position: absolute;

@@ -52,7 +52,7 @@ function Findstay() {
         pageTitleKO="머무는 것 자체로 여행이 되는 공간"
         url="/findstay"
       />
-      <Filter data={data} />
+      <Filter />
       <Order />
       {data.map(feed => {
         return (
