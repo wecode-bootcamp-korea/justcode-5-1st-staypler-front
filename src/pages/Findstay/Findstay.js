@@ -6,7 +6,7 @@ import PageHeader from '../../components/PageHeader/PageHeader';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Filter from './Filter/Filter';
-import Order from './Filter/Order';
+import Order from './Filter/Order/Order';
 
 function Findstay() {
   const [data, setData] = useState([]);
