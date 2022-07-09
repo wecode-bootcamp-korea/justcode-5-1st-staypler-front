@@ -10,8 +10,8 @@ const Order = () => {
   useEffect(() => {
     function makeNewQuery() {
       let query = location.search;
-      if (query === undefined) {
-        return;
+      if (query === '') {
+        return '';
       } else if (query.includes('sort')) {
         let queryToArray = query.substring(1).split('&');
         let sortIndex = queryToArray.findIndex(element =>
@@ -19,7 +19,7 @@ const Order = () => {
         );
         queryToArray.splice(sortIndex, 1);
         let ModifiedQuery = queryToArray.join('&') + '&';
-        return ModifiedQuery;
+        return ModifiedQuery !== '&' ? ModifiedQuery : '';
       } else {
         return query.substring(1) + '&';
       }

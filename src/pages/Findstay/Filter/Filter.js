@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { BASEURL } from '../../../ApiOrigin';
 import styled from 'styled-components';
-import { GoLocation } from 'react-icons/go';
-
 import SelectPeople from './SelectPeople/SelectPeople';
 import SelectType from './SelectType/SelectType';
 import SelectTheme from './SelectTheme/SelectTheme';
@@ -12,33 +9,8 @@ import SelectPrice from './SelectPrice/SelectPrice';
 
 export default function Filter() {
   const [rooms, setRooms] = useState([]);
-
   const location = useLocation();
-  const navigate = useNavigate();
   const [currentID, setCurrentID] = useState();
-
-  const handleFilter = (stateObj, category) => {
-    const URLSearch = new URLSearchParams(location.search);
-    Object.entries(stateObj).map(([key, value]) => {
-      if (typeof value === 'boolean') {
-        value && URLSearch.append(category, key);
-      } else {
-        value && URLSearch.append(category, value);
-      }
-    });
-
-    navigate(`/findstay?` + URLSearch.toString());
-    closeHandler();
-  };
-
-  // max_limit
-  // min_price,
-  // max_price,
-  // type,
-  // theme,
-  // province
-  // 숙소명은
-  // keyword.............
 
   useEffect(() => {
     fetch(`${BASEURL}/findstay${location.search}`)
@@ -96,46 +68,26 @@ export default function Filter() {
         <div>
           <ModalBtnLayer>
             <ModalBtn onClick={() => clickHandler(0)}>인원</ModalBtn>
-            {currentID === 0 && (
-              <SelectPeople
-                closeHandler={closeHandler}
-                handleFilter={handleFilter}
-              />
-            )}
+            {currentID === 0 && <SelectPeople closeHandler={closeHandler} />}
           </ModalBtnLayer>
         </div>
         <div>
           <ModalBtnLayer>
             <ModalBtn onClick={() => clickHandler(1)}>가격 범위</ModalBtn>
-            {currentID === 1 && (
-              <SelectPrice
-                closeHandler={closeHandler}
-                handleFilter={handleFilter}
-              />
-            )}
+            {currentID === 1 && <SelectPrice closeHandler={closeHandler} />}
           </ModalBtnLayer>
         </div>
 
         <div>
           <ModalBtnLayer>
             <ModalBtn onClick={() => clickHandler(2)}>스테이 유형</ModalBtn>
-            {currentID === 2 && (
-              <SelectType
-                closeHandler={closeHandler}
-                handleFilter={handleFilter}
-              />
-            )}
+            {currentID === 2 && <SelectType closeHandler={closeHandler} />}
           </ModalBtnLayer>
         </div>
         <div>
           <ModalBtnLayer>
             <ModalBtn onClick={() => clickHandler(3)}>테마</ModalBtn>
-            {currentID === 3 && (
-              <SelectTheme
-                closeHandler={closeHandler}
-                handleFilter={handleFilter}
-              />
-            )}
+            {currentID === 3 && <SelectTheme closeHandler={closeHandler} />}
           </ModalBtnLayer>
         </div>
       </RowFilterLine>

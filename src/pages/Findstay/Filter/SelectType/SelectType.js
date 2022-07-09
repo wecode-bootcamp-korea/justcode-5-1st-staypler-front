@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {
   ModalApplyBtn,
   ModalApplyBtnWrapper,
@@ -17,7 +17,7 @@ const TYPE_DATA = [
   { id: 5, type: '모텔', name: '모텔' },
 ];
 
-export default function SelectType({ closeHandler, handleFilter }) {
+export default function SelectType({ closeHandler }) {
   const [selectedType, setSelectedType] = useState({
     게스트하우스: false,
     호텔: false,
@@ -31,6 +31,33 @@ export default function SelectType({ closeHandler, handleFilter }) {
     setSelectedType(current => ({ ...current, [name]: !current[name] }));
   };
 
+  const location = useLocation();
+  let [newQuery, setNewQuery] = useState();
+  const keys = Object.keys(selectedType);
+  const types = [];
+  for (let i = 0; i < keys.length; i++) {
+    selectedType[keys[i]] === true && types.push(keys[i]);
+  }
+  useEffect(() => {
+    function makeNewQuery() {
+      let query = location.search;
+      if (query === '') {
+        return '';
+      } else if (query.includes('type')) {
+        let queryToArray = query.substring(1).split('&');
+        let sortIndex = queryToArray.findIndex(element =>
+          element.includes('type')
+        );
+        queryToArray.splice(sortIndex, 1);
+        let ModifiedQuery = queryToArray.join('&') + '&';
+        return ModifiedQuery !== '&' ? ModifiedQuery : '';
+      } else {
+        return query.substring(1) + '&';
+      }
+    }
+    setNewQuery(makeNewQuery());
+  }, [location]);
+
   return (
     <ModalBox>
       <ModalTitle>
@@ -38,14 +65,7 @@ export default function SelectType({ closeHandler, handleFilter }) {
         <AiOutlineClose onClick={closeHandler} />
       </ModalTitle>
       <ModalApplyBtnWrapper>
-        {/* <Link
-          to={`/findstay?type=${JSON.stringify(selectedType)}`}
-          onClick={() => handleFilter(selectedType)}
-        > */}
-        <ModalApplyBtn onClick={() => handleFilter(selectedType, 'type')}>
-          적용하기
-        </ModalApplyBtn>
-        {/* </Link> */}
+        <Link to={`/findstay?${newQuery}type=${types.join()}`}>적용하기</Link>
       </ModalApplyBtnWrapper>
       <CheckList>
         {TYPE_DATA.map((item, idx) => {

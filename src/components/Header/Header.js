@@ -24,16 +24,11 @@ function Header() {
     setScrollY(0);
   };
 
-  // const islogin = () => !!localStorage.getItem('login-token');
-  // console.log(islogin());
-
   const [loginStauts, setLoginStatus] = useState();
 
   useEffect(() => {
     setLoginStatus(localStorage.getItem('login-token'));
   });
-
-  console.log('loginStauts', loginStauts);
 
   // 모달 ON/OFF 상태 관리
   useEffect(() => {
