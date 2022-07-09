@@ -32,17 +32,19 @@
   height: 145px;
   display: flex;
   justify-content: space-between;
-  padding: 70px 0 20px 0;
+  padding: 70px 0 50px 0;
   border-bottom: 1px solid gray;
 }
 
 .whenText {
   font-weight: bold;
-  font-size: 36px;
+  font-size: 40px;
+  margin-left: 20px;
 }
 
 .closeModal {
   cursor: pointer;
+  font-weight: bold;
 }
 
 .calendarWrapper {
@@ -57,12 +59,14 @@
   position: absolute;
   left: 0%;
   cursor: pointer;
+  margin-top: 30px;
 }
 
 .nextBtn {
   position: absolute;
   right: 0%;
   cursor: pointer;
+  margin-top: 30px;
 }
 
 .btnWrapper {
