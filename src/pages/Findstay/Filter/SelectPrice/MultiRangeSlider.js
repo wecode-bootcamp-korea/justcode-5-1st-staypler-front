@@ -8,7 +8,7 @@ import {
   ModalTitle,
   ModalBox,
 } from '../../Filter/Filter';
-const MultiRangeSlider = ({ min, max }) => {
+const MultiRangeSlider = ({ min, max, closeHandler }) => {
   MultiRangeSlider.propTypes = {
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
@@ -112,15 +112,13 @@ const MultiRangeSlider = ({ min, max }) => {
         </Slider>
       </SliderContainer>
       <ModalApplyBtnWrapper>
-        <ModalApplyBtn>
-          <Link
-            to={`/findstay?${newQuery}max_price=${maxVal * 10000}&min_price=${
-              minVal * 10000
-            }`}
-          >
-            적용하기
-          </Link>
-        </ModalApplyBtn>
+        <Link
+          to={`/findstay?${newQuery}max_price=${maxVal * 10000}&min_price=${
+            minVal * 10000
+          }`}
+        >
+          <ModalApplyBtn onClick={closeHandler}>적용하기</ModalApplyBtn>
+        </Link>
       </ModalApplyBtnWrapper>
     </>
   );

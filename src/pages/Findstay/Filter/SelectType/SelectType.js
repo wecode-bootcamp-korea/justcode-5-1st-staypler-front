@@ -57,9 +57,9 @@ export default function SelectType({ closeHandler }) {
         <AiOutlineClose onClick={closeHandler} />
       </ModalTitle>
       <ModalApplyBtnWrapper>
-        <ModalApplyBtn onClick={closeHandler}>
-          <Link to={`/findstay?${newQuery}type=${types.join()}`}>적용하기</Link>
-        </ModalApplyBtn>
+        <Link to={`/findstay?${newQuery}type=${types.join()}`}>
+          <ModalApplyBtn onClick={closeHandler}>적용하기</ModalApplyBtn>
+        </Link>
       </ModalApplyBtnWrapper>
       <CheckList>
         {TYPE_DATA.map((item, idx) => {

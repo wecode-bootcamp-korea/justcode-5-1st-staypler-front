@@ -287,11 +287,24 @@ export const ModalApplyBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  padding: 10px 48px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 12px;
+  border-radius: 100px;
+  cursor: pointer;
+  border: 0;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
 `;
-export const ModalApplyBtn = styled.button`
+export const ModalApplyBtn = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px 48px;
+  width: 100px;
+  padding: 10px 20px;
   background-color: black;
   color: white;
   border: none;

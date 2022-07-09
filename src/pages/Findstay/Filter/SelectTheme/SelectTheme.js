@@ -62,11 +62,9 @@ export default function SelectTheme({ closeHandler }) {
         <AiOutlineClose onClick={closeHandler} />
       </ModalTitle>
       <ModalApplyBtnWrapper>
-        <ModalApplyBtn onClick={closeHandler}>
-          <Link to={`/findstay?${newQuery}theme=${themes.join()}`}>
-            적용하기
-          </Link>
-        </ModalApplyBtn>
+        <Link to={`/findstay?${newQuery}theme=${themes.join()}`}>
+          <ModalApplyBtn onClick={closeHandler}>적용하기</ModalApplyBtn>
+        </Link>
       </ModalApplyBtnWrapper>
       <CheckList>
         {THEME_DATA.map((item, idx) => {

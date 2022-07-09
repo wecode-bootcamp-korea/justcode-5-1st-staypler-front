@@ -90,11 +90,9 @@ export default function SelectPeople({ closeHandler }) {
           })}
       </div>
       <ModalApplyBtnWrapper>
-        <ModalApplyBtn onClick={closeHandler}>
-          <Link to={`/findstay?${newQuery}max_limit=${sumCount}`}>
-            적용하기
-          </Link>
-        </ModalApplyBtn>
+        <Link to={`/findstay?${newQuery}max_limit=${sumCount}`}>
+          <ModalApplyBtn onClick={closeHandler}>적용하기</ModalApplyBtn>
+        </Link>
       </ModalApplyBtnWrapper>
     </ModalBox>
   );
