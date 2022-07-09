@@ -19,11 +19,7 @@ const SelectPrice = ({ closeHandler }) => {
         <AiOutlineClose onClick={closeHandler} />
       </ModalTitle>
 
-      <MultiRangeSlider
-        min={0}
-        max={100}
-        onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
-      />
+      <MultiRangeSlider min={0} max={100} />
     </ModalBox>
   );
 };

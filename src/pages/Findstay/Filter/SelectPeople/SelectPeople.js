@@ -28,10 +28,14 @@ const useCounter = () => {
   };
   return { count, plusCount, minusCount };
 };
+
 export default function SelectPeople({ closeHandler }) {
   const { count, plusCount, minusCount } = useCounter(0);
+
   const location = useLocation();
+
   const sumCount = Object.values(count).reduce((a, b) => a + b, 0);
+
   const PEOPLE_DATA = [
     { id: 1, type: '성인' },
     { id: 2, type: '아동', age: '24개월~12세' },
