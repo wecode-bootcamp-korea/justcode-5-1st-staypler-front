@@ -1,63 +1,69 @@
 import React, { useState, useEffect, useRef } from 'react';
 import css from './Payment.module.scss';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import BlackButton from '../../components/BlackButton/BlackButton';
-import WhenModal from '../../components/WhenModal/WhenModal';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+// import BlackButton from '../../components/BlackButton/BlackButton';
+// import WhenModal from '../../components/WhenModal/WhenModal';
 import { VscChevronDown } from 'react-icons/vsc';
 import { BASEURL } from '../../ApiOrigin';
 import PageHeader from '../../components/PageHeader/PageHeader';
+import Modal from '../../components/Modal/Modal';
 
 function Payment() {
-  const params = useParams();
-  const { roomid } = params;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const roomId = location.search.substr(location.search.indexOf('room_id') + 8);
 
   //데이터
   const [roomdata, setRoomData] = useState();
-  const [reserData, setReserData] = useState(); //예약 페이지에서 받아오는
-  const [modalActive, setModalActive] = useState(0);
+  // const [reservationData, setReservationData] = useState(); //예약 페이지에서 받아오는
+  // const [modalActive, setModalActive] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
+  const [modalText, setModalText] = useState('');
   const modalWhenRef = useRef();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const openModal = () => setModalActive(1);
-  const closeModal = () => setModalActive(0);
-  // 모달 ON/OFF 상태 관리
-  useEffect(() => {
-    if (modalActive === 1) {
-      modalWhenRef.current.style.display = 'block';
-    } else {
-      modalWhenRef.current.style.display = 'none';
-    }
-  }, [modalActive]);
+  // const openModal = () => setModalActive(1);
+  // const closeModal = () => setModalActive(0);
+  // // 모달 ON/OFF 상태 관리
+  // useEffect(() => {
+  //   if (modalActive === 1) {
+  //     modalWhenRef.current.style.display = 'block';
+  //   } else {
+  //     modalWhenRef.current.style.display = 'none';
+  //   }
+  // }, [modalActive]);
 
   const [inputs, setInputs] = useState({
     user_id: '',
     start_date: '',
     end_date: '',
+    nights: '',
     price: '',
+    total_price: '',
     type: '',
-    room_name: '',
+    roomid: roomId,
     room_type_name: '',
     number: '',
-    name: '',
-    phoneNumber: '',
+    user_name: '',
+    phone_number: '',
     email: '',
   });
 
   const {
-    room_name,
+    room_id,
     user_id,
     start_date,
     end_date,
+    nights,
     price,
     number,
-    name,
-    phoneNumber,
+    user_name,
+    phone_number,
     email,
   } = inputs;
 
   useEffect(() => {
-    console.log('roomid', room_name);
-    fetch(`${BASEURL}/bookings=${roomid}`, {
+    fetch(`${BASEURL}/rooms/room/bookings${location.search}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -69,22 +75,11 @@ function Payment() {
       .then(res => {
         setRoomData(res.data[0]);
         console.log(res.data[0]);
-        fetch(`${BASEURL}/rooms/${roomid}/room`, {
-          method: 'GET',
-        })
-          .then(res => res.json())
-          .then(res => {
-            setReserData(res.data[0]);
-            console.log(res.data[0]);
-          })
-          .catch(err => {
-            console.log(err);
-          });
       })
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [roomId]);
 
   const onChange = e => {
     const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출, input에 들어간 내용
@@ -95,19 +90,77 @@ function Payment() {
     console.log(inputs);
   };
 
+  function submitPayment() {
+    const paymentAPI = `${BASEURL}/rooms/payment?room_id`;
+    console.log(inputs);
+    fetch(paymentAPI, {
+      method: 'POST',
+      body: JSON.stringify({
+        user_name,
+        phone_number,
+        email,
+        number,
+        start_date,
+        end_date,
+      }),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      query: {
+        room_id,
+      },
+    })
+      .then(res => {
+        console.log(res);
+        // navigate('/');
+      })
+      .catch(err => {
+        console.log(err);
+        alert(err);
+      });
+  }
+
+  async function savePaymentBtn() {
+    await fetch(`${BASEURL}/rooms/room/bookings${location.search}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        user_name: inputs.user_name,
+        phone_number: inputs.phone_number,
+        email: inputs.email,
+      }),
+    }).then(res => {
+      console.log(res.json());
+      if (res.status === 200) {
+        setOpenModal(true);
+        setModalText('정보가 올바른 형식으로 입력되지 않았습니다.');
+      } else {
+        setOpenModal(true);
+        setModalText('예약이 완료되었습니다.');
+      }
+    });
+  }
+
   return (
     <div className={css.container}>
       <PageHeader pageTitleEN="BOOKING" pageTitleKO="" url="/payment" />
       <div className={css.subTitle}>
         <div className={css.subLeft}>
-          <h1>{reserData?.name}</h1>
+          <h1>{roomdata?.rooms_name}</h1>
         </div>
-        <div className={css.subCenter} onClick={openModal}>
-          날짜를 선택해주세요.
+        <div className={css.subCenter}>
+          {roomdata?.start_date} ~ {roomdata?.end_date} {roomdata?.nights}박 /
+          날짜를선택해주세요.
         </div>
         <VscChevronDown className={css.modalIcon} size="20" />
         <div className={css.subRight}>
-          <h1>₩{roomdata?.price}</h1>
+          <h1>₩{roomdata?.total_price}</h1>
         </div>
       </div>
       <div className={css.bookingWrapper}>
@@ -120,7 +173,9 @@ function Payment() {
             <p className={css.listText}>예약 스테이</p>
           </div>
           <div className={css.bookingRight}>
-            <p>{roomdata?.name} / 기본형</p>
+            <p>
+              {roomdata?.room_name} / {roomdata?.type}
+            </p>
           </div>
         </div>
 
@@ -129,7 +184,9 @@ function Payment() {
             <p className={css.listText}>예약일</p>
           </div>
           <div className={css.bookingRight}>
-            <p>2022-07-03 ~ 2022-07-04 1박</p>
+            <p>
+              {roomdata?.start_date} ~ {roomdata?.end_date} {roomdata?.nights}박
+            </p>
           </div>
         </div>
 
@@ -138,7 +195,11 @@ function Payment() {
             <p className={css.listText}>이름</p>
           </div>
           <div className={css.bookingRight}>
-            <input name="name" onChange={onChange} value={name} />
+            <input
+              name="name"
+              onChange={onChange}
+              value={roomdata?.user_name}
+            />
           </div>
         </div>
 
@@ -147,7 +208,11 @@ function Payment() {
             <p className={css.listText}>휴대전화</p>
           </div>
           <div className={css.bookingRight}>
-            <input name="phoneNumber" onChange={onChange} value={phoneNumber} />
+            <input
+              name="phoneNumber"
+              onChange={onChange}
+              value={roomdata?.phone_number}
+            />
           </div>
         </div>
 
@@ -156,7 +221,7 @@ function Payment() {
             <p className={css.listText}>이메일</p>
           </div>
           <div className={css.bookingRight}>
-            <input name="email" onChange={onChange} value={email} />
+            <input name="email" onChange={onChange} value={roomdata?.email} />
           </div>
         </div>
 
@@ -165,7 +230,7 @@ function Payment() {
             <p className={css.listText}>인원 (최대 {roomdata?.max_limit}명)</p>
           </div>
           <div className={css.bookingRight}>
-            <select name="number" onChange={onChange} value={number}>
+            <select name="number" onChange={onChange} value={roomdata?.number}>
               {roomdata &&
                 [...Array(roomdata?.max_limit)].map((n, index) => {
                   return (
@@ -235,22 +300,31 @@ function Payment() {
               <span className={css.fontgray}>객실 요금</span>
               <span style={{ marginLeft: '10px' }}>
                 {' '}
-                {roomdata?.name} / 기본형 ₩{roomdata?.price} * 1 박
+                {roomdata?.room_name} / {roomdata?.type} ₩{roomdata?.price}*
+                {roomdata?.nights} 박
               </span>
               <span style={{ marginLeft: 'auto' }} className={css.fontgray}>
-                ₩350,000
+                ₩{roomdata?.total_price}
               </span>
             </p>
             <div className={css.bookingPrice}>
-              <h1>₩350,000</h1>
+              <h1>₩{roomdata?.total_price}</h1>
             </div>
           </div>
         </div>
-        <Link to="/" className={css.btnWrapper}>
-          <BlackButton className={css.searchBtn} content="결제하기" />
-        </Link>
+        <button
+          type="button"
+          className={css.paymentBtn}
+          onClick={() => {
+            savePaymentBtn();
+            submitPayment();
+          }}
+        >
+          결제하기
+        </button>
+        {openModal && <Modal setOpenModal={setOpenModal} text={modalText} />}
       </div>
-      <WhenModal modalRef={modalWhenRef} closeModal={closeModal} />
+      {/* <WhenModal modalRef={modalWhenRef} closeModal={closeModal} /> */}
     </div>
   );
 }
