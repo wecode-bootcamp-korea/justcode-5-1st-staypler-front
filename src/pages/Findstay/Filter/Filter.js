@@ -1,51 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { BASEURL } from '../../../ApiOrigin';
 import styled from 'styled-components';
-import { GoLocation } from 'react-icons/go';
-
 import SelectPeople from './SelectPeople/SelectPeople';
 import SelectType from './SelectType/SelectType';
 import SelectTheme from './SelectTheme/SelectTheme';
 import SelectPrice from './SelectPrice/SelectPrice';
-
 export default function Filter() {
   const [rooms, setRooms] = useState([]);
 
+  const [countPeopleTitle, setCountPeopleTitle] = useState('인원');
+  const [priceTitle, setPriceTitle] = useState('가격 범위');
+  const [typeTitle, setTypeTitle] = useState('스테이 유형');
+  const [themeTitle, setThemeTitle] = useState('테마');
+
   const location = useLocation();
-  const navigate = useNavigate();
   const [currentID, setCurrentID] = useState();
-
-  const handleFilter = (stateObj, category) => {
-    const URLSearch = new URLSearchParams(location.search);
-    Object.entries(stateObj).map(([key, value]) => {
-      if (typeof value === 'boolean') {
-        value && URLSearch.append(category, key);
-      } else {
-        value && URLSearch.append(category, value);
-      }
-    });
-
-    navigate(`/findstay?` + URLSearch.toString());
-    closeHandler();
-  };
-
-  // max_limit
-  // min_price,
-  // max_price,
-  // type,
-  // theme,
-  // province
-  // 숙소명은
-  // keyword.............
-
   useEffect(() => {
     fetch(`${BASEURL}/findstay${location.search}`)
       .then(res => res.json())
       .then(res => setRooms(res.data));
   }, [location.search]);
-
   useEffect(() => {
     fetch(`${BASEURL}/findstay`)
       .then(res => res.json())
@@ -55,11 +30,9 @@ export default function Filter() {
   const clickHandler = id => {
     setCurrentID(id);
   };
-
   const closeHandler = () => {
     setCurrentID(false);
   };
-
   return (
     <FilterContainer>
       <RowFilterLine>
@@ -68,7 +41,6 @@ export default function Filter() {
           <InputSearchbar type="text" />
         </Keyword>
         <FilterAreaBtn>국내전체</FilterAreaBtn>
-
         <CheckInOut>
           <ul>
             <li>
@@ -78,7 +50,6 @@ export default function Filter() {
               <CheckOutTitle>체크아웃</CheckOutTitle>
             </li>
           </ul>
-
           <DateContainer>
             <DateRange>
               <DateInputBox>
@@ -91,49 +62,53 @@ export default function Filter() {
           </DateContainer>
         </CheckInOut>
       </RowFilterLine>
-
       <RowFilterLine>
         <div>
           <ModalBtnLayer>
-            <ModalBtn onClick={() => clickHandler(0)}>인원</ModalBtn>
+            <ModalBtn onClick={() => clickHandler(0)}>
+              {countPeopleTitle}
+            </ModalBtn>
             {currentID === 0 && (
               <SelectPeople
                 closeHandler={closeHandler}
-                handleFilter={handleFilter}
+                setCountPeopleTitle={setCountPeopleTitle}
+                countPeopleTitle={countPeopleTitle}
               />
             )}
           </ModalBtnLayer>
         </div>
         <div>
           <ModalBtnLayer>
-            <ModalBtn onClick={() => clickHandler(1)}>가격 범위</ModalBtn>
+            <ModalBtn onClick={() => clickHandler(1)}>{priceTitle}</ModalBtn>
             {currentID === 1 && (
               <SelectPrice
                 closeHandler={closeHandler}
-                handleFilter={handleFilter}
+                setPriceTitle={setPriceTitle}
+                priceTitle={priceTitle}
               />
             )}
           </ModalBtnLayer>
         </div>
-
         <div>
           <ModalBtnLayer>
-            <ModalBtn onClick={() => clickHandler(2)}>스테이 유형</ModalBtn>
+            <ModalBtn onClick={() => clickHandler(2)}>{typeTitle}</ModalBtn>
             {currentID === 2 && (
               <SelectType
                 closeHandler={closeHandler}
-                handleFilter={handleFilter}
+                setThemeTitle={setTypeTitle}
+                typeTitle={typeTitle}
               />
             )}
           </ModalBtnLayer>
         </div>
         <div>
           <ModalBtnLayer>
-            <ModalBtn onClick={() => clickHandler(3)}>테마</ModalBtn>
+            <ModalBtn onClick={() => clickHandler(3)}>{themeTitle}</ModalBtn>
             {currentID === 3 && (
               <SelectTheme
                 closeHandler={closeHandler}
-                handleFilter={handleFilter}
+                setThemeTitle={setThemeTitle}
+                themeTitle={themeTitle}
               />
             )}
           </ModalBtnLayer>
@@ -145,7 +120,6 @@ export default function Filter() {
     </FilterContainer>
   );
 }
-
 const FilterContainer = styled.div`
   margin: 0 auto;
   border-top: 3px solid #000;
@@ -153,7 +127,6 @@ const FilterContainer = styled.div`
   z-index: 20;
 `;
 const Keyword = styled.div``;
-
 const Title = styled.span`
   font-size: 14px;
   color: #000;
@@ -161,7 +134,6 @@ const Title = styled.span`
   margin-right: 10px;
   line-height: 36px;
 `;
-
 const InputSearchbar = styled.input`
   border: 1px solid #e4e4e4;
   width: 200px;
@@ -175,7 +147,6 @@ const InputSearchbar = styled.input`
   appearance: none;
   vertical-align: middle;
 `;
-
 const FilterAreaBtn = styled.button`
   padding: 0 15px;
   margin-left: 10px;
@@ -193,12 +164,10 @@ const FilterAreaBtn = styled.button`
   display: block;
   cursor: pointer;
 `;
-
 const CheckInOut = styled.div`
   position: relative;
   display: block;
 `;
-
 const CheckInTitle = styled.span`
   position: absolute;
   z-index: 10;
@@ -215,7 +184,6 @@ const CheckOutTitle = styled.span`
   font-weight: 700;
   font-size: 14px;
 `;
-
 const DateContainer = styled.div`
   position: relative;
   width: 100%;
@@ -252,7 +220,6 @@ const DateInputBox = styled.div`
     outline: none;
   }
 `;
-
 const RowFilterLine = styled.div`
   position: relative;
   display: flex;
@@ -260,13 +227,11 @@ const RowFilterLine = styled.div`
   height: 60px;
   border-bottom: 1px solid #e6e6e6;
 `;
-
 const ModalBtnLayer = styled.div`
   position: relative;
   margin: 0;
   padding: 0;
 `;
-
 const ModalBtn = styled.button`
   display: block;
   background: #fff url(https://www.stayfolio.com/web/images/arw_select.png)
@@ -306,7 +271,6 @@ const SearchBtn = styled.button`
   padding: 0 45px 0 25px;
   cursor: pointer;
 `;
-
 export const ModalBox = styled.div`
   position: absolute;
   display: block;
@@ -319,13 +283,11 @@ export const ModalBox = styled.div`
   line-height: 1;
   z-index: 10;
 `;
-
 export const ModalApplyBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
 `;
-
 export const ModalApplyBtn = styled.button`
   display: flex;
   align-items: center;
@@ -337,20 +299,21 @@ export const ModalApplyBtn = styled.button`
   border-radius: 100px;
   cursor: pointer;
   border: 0;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
 `;
-
 export const ModalTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 20px;
-
   & > svg {
     font-size: 20px;
     cursor: pointer;
   }
 `;
-
 export const CheckList = styled.ul`
   width: 160px;
   padding-top: 14px;

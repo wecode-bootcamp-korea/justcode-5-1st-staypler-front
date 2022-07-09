@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {
   ModalApplyBtn,
   ModalApplyBtnWrapper,
@@ -8,7 +8,6 @@ import {
   CheckList,
 } from '../../Filter/Filter';
 import { AiOutlineClose } from 'react-icons/ai';
-
 const TYPE_DATA = [
   { id: 1, type: '게스트하우스', name: '게스트하우스' },
   { id: 2, type: '호텔', name: '호텔' },
@@ -16,36 +15,51 @@ const TYPE_DATA = [
   { id: 4, type: '펜션', name: '펜션' },
   { id: 5, type: '모텔', name: '모텔' },
 ];
-
-export default function SelectType({ closeHandler, handleFilter }) {
-  const [selectedType, setSelectedType] = useState({
-    게스트하우스: false,
-    호텔: false,
-    민박: false,
-    펜션: false,
-    모텔: false,
-  });
-
+export default function SelectType({ closeHandler }) {
+  const [selectedType, setSelectedType] = useState(
+    Array(TYPE_DATA.length).fill(false)
+  );
   const handleChange = e => {
     const { name } = e.target;
     setSelectedType(current => ({ ...current, [name]: !current[name] }));
   };
+  const location = useLocation();
+  let [newQuery, setNewQuery] = useState();
+  const keys = Object.keys(selectedType);
+  const types = [];
+  for (let i = 0; i < keys.length; i++) {
+    selectedType[keys[i]] === true && types.push(keys[i]);
+  }
+  useEffect(() => {
+    function makeNewQuery() {
+      let query = location.search;
+      if (query === '') {
+        return '';
+      } else if (query.includes('type')) {
+        let queryToArray = query.substring(1).split('&');
+        let sortIndex = queryToArray.findIndex(element =>
+          element.includes('type')
+        );
+        queryToArray.splice(sortIndex, 1);
+        let ModifiedQuery = queryToArray.join('&') + '&';
+        return ModifiedQuery !== '&' ? ModifiedQuery : '';
+      } else {
+        return query.substring(1) + '&';
+      }
+    }
+    setNewQuery(makeNewQuery());
+  }, [location]);
 
   return (
     <ModalBox>
       <ModalTitle>
-        스테이유형
+        스테이 유형
         <AiOutlineClose onClick={closeHandler} />
       </ModalTitle>
       <ModalApplyBtnWrapper>
-        {/* <Link
-          to={`/findstay?type=${JSON.stringify(selectedType)}`}
-          onClick={() => handleFilter(selectedType)}
-        > */}
-        <ModalApplyBtn onClick={() => handleFilter(selectedType, 'type')}>
-          적용하기
+        <ModalApplyBtn onClick={closeHandler}>
+          <Link to={`/findstay?${newQuery}type=${types.join()}`}>적용하기</Link>
         </ModalApplyBtn>
-        {/* </Link> */}
       </ModalApplyBtnWrapper>
       <CheckList>
         {TYPE_DATA.map((item, idx) => {
@@ -57,8 +71,6 @@ export default function SelectType({ closeHandler, handleFilter }) {
                   type="checkbox"
                   value="space"
                   name={item.name}
-                  // name="type" //수정
-                  // value={item.name} //수정
                   checked={selectedType[item.name]}
                 />
               </label>

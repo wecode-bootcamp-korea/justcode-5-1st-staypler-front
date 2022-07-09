@@ -11,7 +11,7 @@ import {
   ModalBox,
 } from '../../Filter/Filter';
 
-const SelectPrice = ({ closeHandler, handleFilter }) => {
+const SelectPrice = ({ closeHandler }) => {
   return (
     <ModalBox>
       <ModalTitle>
@@ -23,7 +23,6 @@ const SelectPrice = ({ closeHandler, handleFilter }) => {
         min={0}
         max={100}
         onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
-        handleFilter={handleFilter}
       />
     </ModalBox>
   );
