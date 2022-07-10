@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import css from './Payment.module.scss';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
-// import BlackButton from '../../components/BlackButton/BlackButton';
-// import WhenModal from '../../components/WhenModal/WhenModal';
 import { VscChevronDown } from 'react-icons/vsc';
 import { BASEURL } from '../../ApiOrigin';
 import PageHeader from '../../components/PageHeader/PageHeader';
@@ -15,23 +13,9 @@ function Payment() {
 
   //데이터
   const [roomdata, setRoomData] = useState();
-  // const [reservationData, setReservationData] = useState(); //예약 페이지에서 받아오는
-  // const [modalActive, setModalActive] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const modalWhenRef = useRef();
-  // const navigate = useNavigate();
-
-  // const openModal = () => setModalActive(1);
-  // const closeModal = () => setModalActive(0);
-  // // 모달 ON/OFF 상태 관리
-  // useEffect(() => {
-  //   if (modalActive === 1) {
-  //     modalWhenRef.current.style.display = 'block';
-  //   } else {
-  //     modalWhenRef.current.style.display = 'none';
-  //   }
-  // }, [modalActive]);
 
   const [inputs, setInputs] = useState({
     user_id: '',
@@ -81,6 +65,19 @@ function Payment() {
       });
   }, [roomId]);
 
+  //비로그인시 URL접근 제한
+  useEffect(() => {
+    const routeLimitFn = function () {
+      const host = window.location.host;
+      const loginUrl = `${BASEURL}/rooms/room/bookings${location.search}`;
+      if (localStorage.length === 0 && window.location.href !== loginUrl) {
+        alert('로그인시 이용 가능합니다.');
+        return false;
+      }
+    };
+    routeLimitFn();
+  }, []);
+
   const onChange = e => {
     const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출, input에 들어간 내용
     setInputs({
@@ -114,7 +111,6 @@ function Payment() {
     })
       .then(res => {
         console.log(res);
-        // navigate('/');
       })
       .catch(err => {
         console.log(err);
@@ -324,7 +320,6 @@ function Payment() {
         </button>
         {openModal && <Modal setOpenModal={setOpenModal} text={modalText} />}
       </div>
-      {/* <WhenModal modalRef={modalWhenRef} closeModal={closeModal} /> */}
     </div>
   );
 }
