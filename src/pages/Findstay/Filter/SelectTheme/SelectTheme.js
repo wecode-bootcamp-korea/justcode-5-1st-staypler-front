@@ -21,25 +21,14 @@ const THEME_DATA = [
   { id: 9, type: '오션뷰', name: '오션뷰' },
   { id: 10, type: '풀빌라', name: '풀빌라' },
 ];
-
 export default function SelectTheme({ closeHandler }) {
-  const [selectedTheme, setSelectedTheme] = useState({
-    사색: false,
-    갤러리: false,
-    노천탕: false,
-    가족여행: false,
-    파티하우스: false,
-    디자인투어: false,
-    도심속휴식: false,
-    정적인휴식: false,
-    오션뷰: false,
-    풀빌라: false,
-  });
+  const [selectedTheme, setSelectedTheme] = useState(
+    Array(THEME_DATA.length).fill(false)
+  );
   const handleChange = e => {
     const { name } = e.target;
     setSelectedTheme(current => ({ ...current, [name]: !current[name] }));
   };
-
   const location = useLocation();
   let [newQuery, setNewQuery] = useState();
   const keys = Object.keys(selectedTheme);
@@ -66,7 +55,6 @@ export default function SelectTheme({ closeHandler }) {
     }
     setNewQuery(makeNewQuery());
   }, [location]);
-
   return (
     <ModalBox>
       <ModalTitle>
@@ -74,7 +62,9 @@ export default function SelectTheme({ closeHandler }) {
         <AiOutlineClose onClick={closeHandler} />
       </ModalTitle>
       <ModalApplyBtnWrapper>
-        <Link to={`/findstay?${newQuery}theme=${themes.join()}`}>적용하기</Link>
+        <Link to={`/findstay?${newQuery}theme=${themes.join()}`}>
+          <ModalApplyBtn onClick={closeHandler}>적용하기</ModalApplyBtn>
+        </Link>
       </ModalApplyBtnWrapper>
       <CheckList>
         {THEME_DATA.map((item, idx) => {

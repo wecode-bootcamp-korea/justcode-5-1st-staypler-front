@@ -8,42 +8,35 @@ import {
   ModalTitle,
   ModalBox,
 } from '../../Filter/Filter';
-const MultiRangeSlider = ({ min, max }) => {
+const MultiRangeSlider = ({ min, max, closeHandler }) => {
   MultiRangeSlider.propTypes = {
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
   };
-
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
-
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
   const range = useRef(null);
-
   const getPercent = useCallback(
     value => Math.round(((value - min) / (max - min)) * 100),
     [min, max]
   );
-
   useEffect(() => {
     if (maxValRef.current) {
       const minPercent = getPercent(minVal);
       const maxPercent = getPercent(+maxValRef.current.value);
-
       if (range.current) {
         range.current.style.left = `${minPercent}%`;
         range.current.style.width = `${maxPercent - minPercent}%`;
       }
     }
   }, [minVal, getPercent]);
-
   useEffect(() => {
     if (minValRef.current) {
       const minPercent = getPercent(+minValRef.current.value);
       const maxPercent = getPercent(maxVal);
-
       if (range.current) {
         range.current.style.width = `${maxPercent - minPercent}%`;
       }
@@ -52,7 +45,6 @@ const MultiRangeSlider = ({ min, max }) => {
 
   const location = useLocation();
   let [newQuery, setNewQuery] = useState();
-
   useEffect(() => {
     function makeNewQuery() {
       let query = location.search;
@@ -72,7 +64,6 @@ const MultiRangeSlider = ({ min, max }) => {
     }
     setNewQuery(makeNewQuery());
   }, [location]);
-
   return (
     <>
       <SliderContainer>
@@ -126,15 +117,13 @@ const MultiRangeSlider = ({ min, max }) => {
             minVal * 10000
           }`}
         >
-          적용하기
+          <ModalApplyBtn onClick={closeHandler}>적용하기</ModalApplyBtn>
         </Link>
       </ModalApplyBtnWrapper>
     </>
   );
 };
-
 export default MultiRangeSlider;
-
 const SliderContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -160,7 +149,6 @@ const LeftSliderInput = styled.input`
     cursor: pointer;
   }
 `;
-
 const RightSliderInput = styled.input`
   position: absolute;
   -webkit-appearance: none;
@@ -172,7 +160,6 @@ const RightSliderInput = styled.input`
   opacity: 0.7;
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
-
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -182,7 +169,6 @@ const RightSliderInput = styled.input`
     cursor: pointer;
   }
 `;
-
 const Thumb = styled.div`
   position: relative;
   z-index: 1;
@@ -193,7 +179,6 @@ const Thumb = styled.div`
     pointer-events: all;
   }
 `;
-
 const Slider = styled.div`
   position: relative;
   justify-content: space-between;
@@ -219,25 +204,21 @@ const SliderRange = styled.div`
 `;
 const SliderValue = styled.div`
   position: relative;
-
   color: #000;
   font-size: 12px;
 `;
-
 const PriceTitle = styled.span`
   display: block;
   margin-bottom: 8px;
   font-size: 12px;
   color: #999;
 `;
-
 const PriceWrapper = styled.span`
   display: inline-block;
   padding: 0 8px 0 0;
   border: 1px solid #e4e4e4;
   line-height: 32px;
 `;
-
 const PriceInput = styled.input`
   width: 85px;
   height: 32px;
@@ -249,7 +230,6 @@ const PriceInput = styled.input`
   appearance: none;
   outline: none;
 `;
-
 const Divider = styled.span`
   border: none;
   padding: 25px 5px 5px;

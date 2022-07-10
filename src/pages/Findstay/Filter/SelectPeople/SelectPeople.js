@@ -8,28 +8,24 @@ import {
   ModalTitle,
   ModalBox,
 } from '../../Filter/Filter';
-
 const useCounter = () => {
   const [count, setCount] = useState({
     성인: 0,
     아동: 0,
     영아: 0,
   });
-
   const minusCount = type => {
     setCount({
       ...count,
       [type]: count[type] < 1 ? 0 : count[type] - 1,
     });
   };
-
   const plusCount = type => {
     setCount({
       ...count,
       [type]: count[type] + 1,
     });
   };
-
   return { count, plusCount, minusCount };
 };
 
@@ -66,7 +62,6 @@ export default function SelectPeople({ closeHandler }) {
     }
     setNewQuery(makeNewQuery());
   }, [location]);
-
   return (
     <ModalBox>
       <ModalTitle>
@@ -95,12 +90,13 @@ export default function SelectPeople({ closeHandler }) {
           })}
       </div>
       <ModalApplyBtnWrapper>
-        <Link to={`/findstay?${newQuery}max_limit=${sumCount}`}>적용하기</Link>
+        <Link to={`/findstay?${newQuery}max_limit=${sumCount}`}>
+          <ModalApplyBtn onClick={closeHandler}>적용하기</ModalApplyBtn>
+        </Link>
       </ModalApplyBtnWrapper>
     </ModalBox>
   );
 }
-
 const PeopleCounter = styled.div`
   display: flex;
   align-items: center;
@@ -121,14 +117,12 @@ const PeopleCounter = styled.div`
     }
   }
 `;
-
 const NumberCount = styled.div`
   display: flex;
   position: relative;
   padding: 0 31px;
   text-align: center;
 `;
-
 const ButtonMinus = styled.button`
   position: absolute;
   display: inline-block;
@@ -143,7 +137,6 @@ const ButtonMinus = styled.button`
   outline: none;
   appearance: none;
 `;
-
 const ButtonPlus = styled.button`
   position: absolute;
   display: inline-block;
@@ -158,7 +151,6 @@ const ButtonPlus = styled.button`
   outline: none;
   appearance: none;
 `;
-
 const InputNum = styled.span`
   display: flex;
   width: 55px;
